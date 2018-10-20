@@ -1,0 +1,8 @@
+FROM golang
+RUN go get -d github.com/sourcegraph/checkup/... && \ 
+  git --work-tree=/go/src/github.com/sourcegraph/checkup --git-dir=/go/src/github.com/sourcegraph/checkup/.git checkout 27c75f866d268273069657ab0b2fcfb86f9c7d61 && \ 
+  CGO_ENABLED=0 GOOS=linux go install -v github.com/sourcegraph/checkup/...
+
+FROM scratch
+COPY --from=0 /go/bin/checkup /bin/checkup
+ENTRYPOINT [ "/bin/checkup" ]
