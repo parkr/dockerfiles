@@ -1,4 +1,4 @@
-REV:=27c75f866d268273069657ab0b2fcfb86f9c7d61
+REV:=a85befa6eb2bd1694b6a6960a3ad29aa708d3dbb
 
 CHECKUP_DOCKERFILE:=Dockerfile-checkup-$(REV)
 CHECKUP_BINARY:=checkup
@@ -24,3 +24,6 @@ checkup: $(CHECKUP_DOCKERFILE)
 
 test: checkup
 	docker run -it --rm parkr/checkup:$(REV) --help
+
+publish: test
+	docker push parkr/checkup:$(REV)
