@@ -1,8 +1,10 @@
 # https://hub.docker.com/r/monicahq/monicahq/tags/
-VERSION:=v2.10.0
+VERSION:=v2.10.2
 REV:=1
 
+TAG:=$(VERSION)-$(REV)
 DOCKERFILE:=Dockerfile-$(VERSION)-$(REV)
+IMAGE:=parkr/monicahq:$(TAG)
 
 all: monicahq
 
@@ -18,7 +20,10 @@ $(DOCKERFILE):
 	@echo 'ENTRYPOINT ["make", "-f", "/var/www/monica/scripts/docker/Makefile"]' >> $(DOCKERFILE)
 
 monicahq: $(DOCKERFILE)
-	docker build -t parkr/monicahq:$(VERSION)-$(REV) -f $(DOCKERFILE) .
+	docker build -t $(IMAGE) -f $(DOCKERFILE) .
 
 monicahq-test: monicahq
-	docker run -it --rm parkr/monicahq:$(VERSION)-$(REV)
+	docker run -it --rm $(IMAGE)
+
+publish: monicahq
+	docker push $(IMAGE)
