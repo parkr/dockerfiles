@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/monicahq/monicahq/tags/
-VERSION:=v2.10.2
+VERSION:=v2.11.2
 REV:=1
 
 TAG:=$(VERSION)-$(REV)
