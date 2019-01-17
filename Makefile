@@ -17,7 +17,7 @@ build-%:
 	$(eval PROJECT_NAME := $(patsubst build-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval TAG := parkr/$(PROJECT_NAME):$(VERSION) )
-	docker build -t $(TAG) $(PROJECT_NAME)
+	docker build -t $(TAG) --build-arg VERSION=$(VERSION) $(PROJECT_NAME)
 
 test-%: build-%
 	$(eval PROJECT_NAME := $(patsubst test-%,%,$@))
