@@ -24,16 +24,20 @@ action "On master branch" {
   args = "branch master"
 }
 
-action "actions/docker/login@master" {
+action "Docker Login" {
   uses = "actions/docker/login@master"
   needs = ["On master branch"]
 }
 
 action "Publish curl" {
   uses = "./.github/actions/docker-make"
-  needs = ["actions/docker/login@master", "Test curl"]
+  needs = [
+    "Test curl",
+    "Docker Login",
+  ]
   args = "publish-curl"
-}###
+} ###
+
 # GitHub Actions for parkr/dockerfiles
 ###
 ########################################################
