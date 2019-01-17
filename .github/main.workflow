@@ -47,7 +47,6 @@ action "Test airconnect" {
 action "Publish airconnect" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test airconnect",
     "Docker Login",
   ]
   args = "publish-airconnect"
@@ -65,7 +64,6 @@ action "Test checkup" {
 action "Publish checkup" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test checkup",
     "Docker Login",
   ]
   args = "publish-checkup"
@@ -83,7 +81,6 @@ action "Test curl" {
 action "Publish curl" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test curl",
     "Docker Login",
   ]
   args = "publish-curl"
@@ -101,7 +98,6 @@ action "Test monicahq" {
 action "Publish monicahq" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test monicahq",
     "Docker Login",
   ]
   args = "publish-monicahq"
@@ -119,7 +115,6 @@ action "Test octodns" {
 action "Publish octodns" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test octodns",
     "Docker Login",
   ]
   args = "publish-octodns"
@@ -137,7 +132,6 @@ action "Test puppet-lint" {
 action "Publish puppet-lint" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test puppet-lint",
     "Docker Login",
   ]
   args = "publish-puppet-lint"
@@ -155,7 +149,6 @@ action "Test rclone" {
 action "Publish rclone" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test rclone",
     "Docker Login",
   ]
   args = "publish-rclone"
@@ -173,7 +166,6 @@ action "Test southwestcheckin" {
 action "Publish southwestcheckin" {
   uses = "./.github/actions/docker-make"
   needs = [
-    "Test southwestcheckin",
     "Docker Login",
   ]
   args = "publish-southwestcheckin"
