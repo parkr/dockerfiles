@@ -8,6 +8,11 @@ action "Docker Login" {
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
 
+action "On master branch" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+}
+
 ########################################################
 #### Image: curl
 ########################################################
@@ -23,11 +28,6 @@ workflow "Build & test curl on push" {
 action "Test curl" {
   uses = "./.github/actions/docker-make"
   args = "test-curl"
-}
-
-action "On master branch" {
-  uses = "actions/bin/filter@master"
-  args = "branch master"
 }
 
 action "Publish curl" {
@@ -54,11 +54,6 @@ workflow "Build & test octodns on push" {
 action "Test octodns" {
   uses = "./.github/actions/docker-make"
   args = "test-octodns"
-}
-
-action "On master branch" {
-  uses = "actions/bin/filter@master"
-  args = "branch master"
 }
 
 action "Publish octodns" {
