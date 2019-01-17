@@ -14,6 +14,58 @@ action "On master branch" {
 }
 
 ########################################################
+#### Image: airconnect
+########################################################
+
+workflow "Build & test airconnect on push" {
+  on = "push"
+  resolves = [
+    "Test airconnect",
+    "Publish airconnect",
+  ]
+}
+
+action "Test airconnect" {
+  uses = "./.github/actions/docker-make"
+  args = "test-airconnect"
+}
+
+action "Publish airconnect" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test airconnect",
+    "Docker Login",
+  ]
+  args = "publish-airconnect"
+}
+
+########################################################
+#### Image: checkup
+########################################################
+
+workflow "Build & test checkup on push" {
+  on = "push"
+  resolves = [
+    "Test checkup",
+    "Publish checkup",
+  ]
+}
+
+action "Test checkup" {
+  uses = "./.github/actions/docker-make"
+  args = "test-checkup"
+}
+
+action "Publish checkup" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test checkup",
+    "Docker Login",
+  ]
+  args = "publish-checkup"
+}
+
+########################################################
 #### Image: curl
 ########################################################
 
@@ -37,6 +89,32 @@ action "Publish curl" {
     "Docker Login",
   ]
   args = "publish-curl"
+}
+
+########################################################
+#### Image: monicahq
+########################################################
+
+workflow "Build & test monicahq on push" {
+  on = "push"
+  resolves = [
+    "Test monicahq",
+    "Publish monicahq",
+  ]
+}
+
+action "Test monicahq" {
+  uses = "./.github/actions/docker-make"
+  args = "test-monicahq"
+}
+
+action "Publish monicahq" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test monicahq",
+    "Docker Login",
+  ]
+  args = "publish-monicahq"
 }
 
 ########################################################
@@ -66,6 +144,32 @@ action "Publish octodns" {
 }
 
 ########################################################
+#### Image: puppet-lint
+########################################################
+
+workflow "Build & test puppet-lint on push" {
+  on = "push"
+  resolves = [
+    "Test puppet-lint",
+    "Publish puppet-lint",
+  ]
+}
+
+action "Test puppet-lint" {
+  uses = "./.github/actions/docker-make"
+  args = "test-puppet-lint"
+}
+
+action "Publish puppet-lint" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test puppet-lint",
+    "Docker Login",
+  ]
+  args = "publish-puppet-lint"
+}
+
+########################################################
 #### Image: rclone
 ########################################################
 
@@ -89,4 +193,30 @@ action "Publish rclone" {
     "Docker Login",
   ]
   args = "publish-rclone"
+}
+
+########################################################
+#### Image: southwestcheckin
+########################################################
+
+workflow "Build & test southwestcheckin on push" {
+  on = "push"
+  resolves = [
+    "Test southwestcheckin",
+    "Publish southwestcheckin",
+  ]
+}
+
+action "Test southwestcheckin" {
+  uses = "./.github/actions/docker-make"
+  args = "test-southwestcheckin"
+}
+
+action "Publish southwestcheckin" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test southwestcheckin",
+    "Docker Login",
+  ]
+  args = "publish-southwestcheckin"
 }
