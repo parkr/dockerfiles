@@ -15,4 +15,4 @@ test -z "$1" && {
 CONFIG_FILE="$root/config.xml"
 
 set -x
-docker run "$TAG" -h
+docker run --rm --entrypoint=/bin/sh "$TAG" -c "which airupnp-x86-64"
