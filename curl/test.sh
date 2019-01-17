@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -ex
-
 if [ -L "$0" ]; then
     root=$(cd "$(dirname "$(readlink "$0")")" && pwd)
 else
@@ -15,6 +13,8 @@ test -z "$1" && {
 }
 
 TEST_URL="https://api.github.com/users/defunkt"
+
+set -ex
 
 # Test 1: does it build?
 echo -e "FROM $TAG\nRUN curl $TEST_URL" | docker build -t parkr-curl-test -f - .
