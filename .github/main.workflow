@@ -64,3 +64,29 @@ action "Publish octodns" {
   ]
   args = "publish-octodns"
 }
+
+########################################################
+#### Image: rclone
+########################################################
+
+workflow "Build & test rclone on push" {
+  on = "push"
+  resolves = [
+    "Test rclone",
+    "Publish rclone",
+  ]
+}
+
+action "Test rclone" {
+  uses = "./.github/actions/docker-make"
+  args = "test-rclone"
+}
+
+action "Publish rclone" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test rclone",
+    "Docker Login",
+  ]
+  args = "publish-rclone"
+}
