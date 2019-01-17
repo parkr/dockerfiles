@@ -1,9 +1,17 @@
 workflow "Build airconnect on push" {
   on = "push"
-  resolves = ["Build"]
+  resolves = ["Test airconnect"]
 }
 
 action "Build" {
   uses = "actions/docker/cli@master"
-  args = "build -t parkr/airconnect:$$GITHUB_REVISION airconnect"
+  args = "build-airconnect"
+  runs = "make"
+}
+
+action "Test airconnect" {
+  uses = "actions/docker/cli@master"
+  needs = ["Build"]
+  runs = "make"
+  args = "test-airconnect"
 }
