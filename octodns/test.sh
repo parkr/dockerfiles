@@ -15,7 +15,7 @@ test -z "$1" && {
 set -x
 
 # Does it have my executables handy in $PATH?
-docker run -it --rm "$TAG" which \
+docker run --rm "$TAG" which \
 	  octodns-compare \
 	  octodns-dump \
 	  octodns-report \
@@ -23,5 +23,5 @@ docker run -it --rm "$TAG" which \
 	  octodns-validate
 
 # Execute one.
-docker run -it --rm "$TAG" \
+docker run --rm "$TAG" \
 	  octodns-sync --help

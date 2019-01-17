@@ -14,4 +14,4 @@ test -z "$1" && {
 
 set -x
 
-docker run -it --rm "$TAG" -h
+docker run --rm "$TAG" -h
