@@ -5,5 +5,5 @@ workflow "Build airconnect on push" {
 
 action "Build" {
   uses = "actions/docker/cli@master"
-  args = "build -t parkr/airconnect:$$GITHUB_REVISION ."
+  args = "build -t parkr/airconnect:$$GITHUB_REVISION airconnect"
 }
