@@ -1,17 +1,17 @@
-workflow "Build airconnect on push" {
+workflow "Build curl on push" {
   on = "push"
-  resolves = ["Test airconnect"]
+  resolves = ["Test curl"]
 }
 
-action "Build" {
+action "Build curl" {
   uses = "actions/docker/cli@master"
-  args = "build-airconnect"
+  args = "build-curl"
   runs = "make"
 }
 
-action "Test airconnect" {
+action "Test curl" {
   uses = "actions/docker/cli@master"
-  needs = ["Build"]
+  needs = ["Build curl"]
   runs = "make"
-  args = "test-airconnect"
+  args = "test-curl"
 }
