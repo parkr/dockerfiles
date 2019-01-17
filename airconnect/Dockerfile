@@ -8,8 +8,9 @@ RUN curl -o $AIRCONNECT_BINARY \
 	&& chmod 755 $AIRCONNECT_BINARY
 
 FROM debian:jessie-slim
-RUN apt-get update -y && \
- apt-get install -y libssl-dev libssl1.0.0 strace && \
- rm -rf /var/lib/apt/lists/*
+RUN set -ex \
+  && apt-get update -y \
+  && apt-get install -y --no-install-recommends libssl-dev libssl1.0.0 strace \
+  && rm -rf /var/lib/apt/lists/*
 COPY --from=downloader $AIRCONNECT_BINARY $AIRCONNECT_BINARY
-ENTRYPOINT [ $AIRCONNECT_BINARY ]
+ENTRYPOINT [ "/usr/local/bin/airupnp-x86-64" ]

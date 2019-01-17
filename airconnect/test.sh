@@ -15,9 +15,4 @@ test -z "$1" && {
 CONFIG_FILE="$root/config.xml"
 
 set -x
-docker run \
-    -v "$CONFIG_FILE:$CONFIG_FILE" \
-    --rm \
-    --net=host \
-    $TAG \
-    -m squeezebox -l 1000:2000 -Z -f /dev/stdout -x "$CONFIG_FILE"
+docker run "$TAG" -h
