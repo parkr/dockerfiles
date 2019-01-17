@@ -8,7 +8,10 @@
 
 workflow "Build & test curl on push" {
   on = "push"
-  resolves = ["Test curl"]
+  resolves = [
+    "Test curl",
+    "Publish curl",
+  ]
 }
 
 action "Test curl" {
@@ -16,13 +19,23 @@ action "Test curl" {
   args = "test-curl"
 }
 
-workflow "Publish curl on push to master" {
-  on = "push"
-  resolves = ["Publish curl"]
+action "On master branch" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+}
+
+action "actions/docker/login@master" {
+  uses = "actions/docker/login@master"
+  needs = ["On master branch"]
 }
 
 action "Publish curl" {
   uses = "./.github/actions/docker-make"
-  needs = ["Test curl", "Docker Login"]
+  needs = ["actions/docker/login@master", "Test curl"]
   args = "publish-curl"
-}
+}###
+# GitHub Actions for parkr/dockerfiles
+###
+########################################################
+#### Image: curl
+########################################################
