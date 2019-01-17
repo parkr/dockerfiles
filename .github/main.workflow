@@ -27,6 +27,15 @@ action "On master branch" {
 action "Docker Login" {
   uses = "actions/docker/login@master"
   needs = ["On master branch"]
+  secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+
+  ###
+  # GitHub Actions for parkr/dockerfiles
+  ###
+
+  ########################################################
+  #### Image: curl
+  ########################################################
 }
 
 action "Publish curl" {
