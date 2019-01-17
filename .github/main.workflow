@@ -13,24 +13,30 @@ action "On master branch" {
   args = "branch master"
 }
 
-workflow "Build, test, and publish on push" {
+workflow "Build & test on push" {
   on = "push"
   resolves = [
     "Test airconnect",
-    "Publish airconnect",
     "Test checkup",
-    "Publish checkup",
     "Test curl",
-    "Publish curl",
     "Test monicahq",
-    "Publish monicahq",
     "Test octodns",
-    "Publish octodns",
     "Test puppet-lint",
-    "Publish puppet-lint",
     "Test rclone",
-    "Publish rclone",
     "Test southwestcheckin",
+  ]
+}
+
+workflow "Publish on push to master" {
+  on = "push"
+  resolves = [
+    "Publish airconnect",
+    "Publish checkup",
+    "Publish curl",
+    "Publish monicahq",
+    "Publish octodns",
+    "Publish puppet-lint",
+    "Publish rclone",
     "Publish southwestcheckin",
   ]
 }
