@@ -2,6 +2,12 @@
 # GitHub Actions for parkr/dockerfiles
 ###
 
+action "Docker Login" {
+  uses = "actions/docker/login@master"
+  needs = ["On master branch"]
+  secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+}
+
 ########################################################
 #### Image: curl
 ########################################################
@@ -24,20 +30,6 @@ action "On master branch" {
   args = "branch master"
 }
 
-action "Docker Login" {
-  uses = "actions/docker/login@master"
-  needs = ["On master branch"]
-  secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
-
-  ###
-  # GitHub Actions for parkr/dockerfiles
-  ###
-
-  ########################################################
-  #### Image: curl
-  ########################################################
-}
-
 action "Publish curl" {
   uses = "./.github/actions/docker-make"
   needs = [
@@ -45,10 +37,35 @@ action "Publish curl" {
     "Docker Login",
   ]
   args = "publish-curl"
-} ###
+}
 
-# GitHub Actions for parkr/dockerfiles
-###
 ########################################################
-#### Image: curl
+#### Image: octodns
 ########################################################
+
+workflow "Build & test octodns on push" {
+  on = "push"
+  resolves = [
+    "Test octodns",
+    "Publish octodns",
+  ]
+}
+
+action "Test octodns" {
+  uses = "./.github/actions/docker-make"
+  args = "test-octodns"
+}
+
+action "On master branch" {
+  uses = "actions/bin/filter@master"
+  args = "branch master"
+}
+
+action "Publish octodns" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Test octodns",
+    "Docker Login",
+  ]
+  args = "publish-octodns"
+}
