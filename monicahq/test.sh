@@ -8,11 +8,10 @@ fi
 
 TAG="$1"
 test -z "$1" && {
-    echo "usage: $0 <TAG>"
+    echo "usage: $0 <FULL_TAG>"
     exit 1
 }
 
-CONFIG_FILE="$root/config.xml"
-
 set -x
-docker run --rm --entrypoint=/bin/sh "$TAG" -c "which airupnp-x86-64"
+
+docker run --rm --entrypoint=/bin/sh "$TAG" -c "which httpd"

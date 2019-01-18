@@ -1,0 +1,9 @@
+{
+  "checkers": [
+		{
+      "type": "http",
+      "endpoint_name": "Example HTTP",
+      "endpoint_url": "http://www.example.com"
+    }
+	]
+}
