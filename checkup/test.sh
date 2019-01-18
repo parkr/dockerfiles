@@ -15,7 +15,6 @@ test -z "$1" && {
 set -x
 
 docker run --rm \
-    -w /app \
-    -v "$root/test-config.json:/app/config.json" \
+    -v "$root/test-config.json:/config.json" \
     "$TAG" \
-    --v -c /app/config.json
+    --v -c /config.json
