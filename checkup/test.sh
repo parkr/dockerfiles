@@ -12,9 +12,14 @@ test -z "$1" && {
     exit 1
 }
 
+TEMP_IMAGE_TAG="parkr-checkup-test"
+cleanup() {
+    docker rmi $TEMP_IMAGE_TAG
+}
+trap cleanup exit
+
 set -x
 
-docker run --rm \
-    -v "$root/test-config.json:/config.json" \
-    "$TAG" \
-    --v -c /config.json
+# Can't use -v in Actions, so let's build a temporary image.
+echo -e "FROM $TAG\nCOPY test-config.json /config.json\n" | docker build -t $TEMP_IMAGE_TAG -f - "$root"
+docker run --rm $TEMP_IMAGE_TAG --v -c /config.json
