@@ -3,9 +3,9 @@ RUN apk update && apk add git
 ARG VERSION
 ENV CHECKOUT_DIR /tmp/octodns
 RUN set -ex \
+    && [ -n $VERSION ] \
     && git clone https://github.com/github/octodns $CHECKOUT_DIR \
-    && git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git checkout -q $VERSION \
-    && [  "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = $VERSION ]
+    && git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git checkout -q $VERSION
 
 FROM python:2-alpine as build
 COPY --from=cloner /tmp/octodns /usr/share/octodns
