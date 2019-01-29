@@ -35,5 +35,8 @@ publish-%: test-%
 	$(eval PROJECT_NAME := $(patsubst publish-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval TAG := parkr/$(PROJECT_NAME):$(VERSION) )
-	echo "PROJECT_NAME is $(shell $PROJECT_NAME)"
 	docker push $(TAG)
+
+published-%:
+	$(eval PROJECT_NAME := $(patsubst published-%,%,$@))
+	sh ./.github/actions/docker-tag-exists/docker_tag_exists.sh $(PROJECT_NAME)
