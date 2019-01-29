@@ -55,7 +55,8 @@ action "Publish airconnect" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-airconnect"
+  runs = "docker_tag_exists.sh"
+  args = ["airconnect", "--", "make", "publish-airconnect"]
 }
 
 ########################################################
@@ -72,7 +73,8 @@ action "Publish checkup" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-checkup"
+  runs = "docker_tag_exists.sh"
+  args = ["checkup", "--", "make", "publish-checkup"]
 }
 
 ########################################################
@@ -89,7 +91,8 @@ action "Publish curl" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-curl"
+  runs = "docker_tag_exists.sh"
+  args = ["curl", "--", "make", "publish-curl"]
 }
 
 ########################################################
@@ -106,7 +109,8 @@ action "Publish monicahq" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-monicahq"
+  runs = "docker_tag_exists.sh"
+  args = ["monicahq", "--", "make", "publish-monicahq"]
 }
 
 ########################################################
@@ -123,7 +127,8 @@ action "Publish octodns" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-octodns"
+  runs = "docker_tag_exists.sh"
+  args = ["octodns", "--", "make", "publish-octodns"]
 }
 
 ########################################################
@@ -140,7 +145,8 @@ action "Publish puppet-lint" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-puppet-lint"
+  runs = "docker_tag_exists.sh"
+  args = ["puppet-lint", "--", "make", "publish-puppet-lint"]
 }
 
 ########################################################
@@ -157,7 +163,8 @@ action "Publish rclone" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-rclone"
+  runs = "docker_tag_exists.sh"
+  args = ["rclone", "--", "make", "publish-rclone"]
 }
 
 ########################################################
@@ -174,5 +181,6 @@ action "Publish southwestcheckin" {
   needs = [
     "Docker Login",
   ]
-  args = "publish-southwestcheckin"
+  runs = "docker_tag_exists.sh"
+  args = ["southwestcheckin", "--", "make", "publish-southwestcheckin"]
 }
