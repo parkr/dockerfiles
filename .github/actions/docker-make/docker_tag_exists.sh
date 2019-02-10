@@ -6,6 +6,9 @@ PROJECT_NAME="$1"
 VERSION=$(cat "$PROJECT_NAME"/VERSION)
 shift
 
+which curl
+which jq
+
 function docker_tag_exists() {
     EXISTS=$(curl -s https://hub.docker.com/v2/repositories/$1/tags/?page_size=10000 | jq -r "[.results | .[] | .name == \"$2\"] | any")
     test $EXISTS = true
