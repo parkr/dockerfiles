@@ -55,7 +55,7 @@ action "Publish airconnect" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["airconnect", "--", "make", "publish-airconnect"]
 }
 
@@ -73,7 +73,7 @@ action "Publish checkup" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["checkup", "--", "make", "publish-checkup"]
 }
 
@@ -91,7 +91,7 @@ action "Publish curl" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["curl", "--", "make", "publish-curl"]
 }
 
@@ -109,7 +109,7 @@ action "Publish monicahq" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["monicahq", "--", "make", "publish-monicahq"]
 }
 
@@ -127,7 +127,7 @@ action "Publish octodns" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["octodns", "--", "make", "publish-octodns"]
 }
 
@@ -145,7 +145,7 @@ action "Publish puppet-lint" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["puppet-lint", "--", "make", "publish-puppet-lint"]
 }
 
@@ -163,7 +163,7 @@ action "Publish rclone" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["rclone", "--", "make", "publish-rclone"]
 }
 
@@ -181,6 +181,6 @@ action "Publish southwestcheckin" {
   needs = [
     "Docker Login",
   ]
-  runs = "docker_tag_exists.sh"
+  runs = "/docker_tag_exists.sh"
   args = ["southwestcheckin", "--", "make", "publish-southwestcheckin"]
 }
