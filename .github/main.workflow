@@ -184,7 +184,7 @@ action "Publish silence-but-for-error" {
     "Docker Login",
   ]
   runs = "/docker_tag_exists.sh"
-  args = ["southwestcheckin", "--", "make", "publish-silence-but-for-error"]
+  args = ["silence-but-for-error", "--", "make", "publish-silence-but-for-error"]
 }
 
 ########################################################
