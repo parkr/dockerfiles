@@ -23,6 +23,7 @@ workflow "Build & test on push" {
     "Test octodns",
     "Test puppet-lint",
     "Test rclone",
+    "Test silence-but-for-error",
     "Test southwestcheckin",
   ]
 }
@@ -37,6 +38,7 @@ workflow "Publish on push to master" {
     "Publish octodns",
     "Publish puppet-lint",
     "Publish rclone",
+    "Publish silence-but-for-error",
     "Publish southwestcheckin",
   ]
 }
@@ -165,6 +167,24 @@ action "Publish rclone" {
   ]
   runs = "/docker_tag_exists.sh"
   args = ["rclone", "--", "make", "publish-rclone"]
+}
+
+########################################################
+#### Image: silence-but-for-error
+########################################################
+
+action "Test silence-but-for-error" {
+  uses = "./.github/actions/docker-make"
+  args = "test-silence-but-for-error"
+}
+
+action "Publish silence-but-for-error" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Docker Login",
+  ]
+  runs = "/docker_tag_exists.sh"
+  args = ["southwestcheckin", "--", "make", "publish-silence-but-for-error"]
 }
 
 ########################################################
