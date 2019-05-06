@@ -6,6 +6,6 @@ RUN set -ex \
 FROM alpine
 COPY --from=builder /go/bin/silence-but-for-error /bin/silence-but-for-error
 RUN set -ex \
-    && apk add --update --no-cache curl ca-certificates wget \
+    && apk add --update --no-cache bash curl ca-certificates wget \
     && rm -rf /var/cache/apk/*
 ENTRYPOINT [ "/bin/silence-but-for-error" ]

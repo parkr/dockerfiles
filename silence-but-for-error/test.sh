@@ -20,3 +20,4 @@ docker run --rm "$TAG" -h
 # Does it have our network tools?
 docker run --rm "$TAG" -ignore-exit-code 1 curl -h
 docker run --rm "$TAG" wget -h
+docker run --rm "$TAG" which bash
