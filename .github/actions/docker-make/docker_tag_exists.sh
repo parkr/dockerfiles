@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -eu
+set -xeu
 
 if [ $# -eq 0 ]; then
   echo "usage: $0 <project> -- <command>"
@@ -11,16 +11,16 @@ PROJECT_NAME="$1"
 VERSION=$(cat "$PROJECT_NAME"/VERSION)
 shift
 
-which curl
-which jq
+command -v curl
+command -v jq
 
-function docker_tag_exists() {
-    EXISTS=$(curl -s https://hub.docker.com/v2/repositories/$1/tags/?page_size=10000 | jq -r "[.results | .[] | .name == \"$2\"] | any")
-    test $EXISTS = true
+docker_tag_exists() {
+    EXISTS=$(curl -s "https://hub.docker.com/v2/repositories/$1/tags/?page_size=10000" | jq -r "[.results | .[] | .name == \"$2\"] | any")
+    test "$EXISTS" = true
 }
 
-function run_command() {
-  if [ "$1" == "--" ]; then
+run_command() {
+  if [ "$1" = "--" ]; then
     shift
   fi
   exec sh -c "$*"
