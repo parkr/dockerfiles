@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -xeu
+set -xu
 
 if [ $# -eq 0 ]; then
   echo "usage: $0 <project> -- <command>"
