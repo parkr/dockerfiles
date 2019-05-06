@@ -12,7 +12,7 @@ test -z "$1" && {
     exit 1
 }
 
-TEST_URL="https://github.com/parkr/test-site.git"
+TEST_URL="https://github.com/parkr/dns.git"
 
 set -ex
 

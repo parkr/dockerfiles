@@ -19,6 +19,7 @@ workflow "Build & test on push" {
     "Test airconnect",
     "Test checkup",
     "Test curl",
+    "Test git",
     "Test monicahq",
     "Test octodns",
     "Test puppet-lint",
@@ -34,6 +35,7 @@ workflow "Publish on push to master" {
     "Publish airconnect",
     "Publish checkup",
     "Publish curl",
+    "Publish git",
     "Publish monicahq",
     "Publish octodns",
     "Publish puppet-lint",
@@ -95,6 +97,24 @@ action "Publish curl" {
   ]
   runs = "/docker_tag_exists.sh"
   args = ["curl", "--", "make", "publish-curl"]
+}
+
+########################################################
+#### Image: curl
+########################################################
+
+action "Test git" {
+  uses = "./.github/actions/docker-make"
+  args = "test-git"
+}
+
+action "Publish git" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Docker Login",
+  ]
+  runs = "/docker_tag_exists.sh"
+  args = ["curl", "--", "make", "publish-git"]
 }
 
 ########################################################
