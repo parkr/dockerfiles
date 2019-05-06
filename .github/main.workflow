@@ -5,7 +5,10 @@
 action "Docker Login" {
   uses = "actions/docker/login@master"
   needs = ["On master branch"]
-  secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
+  secrets = [
+    "DOCKER_USERNAME",
+    "DOCKER_PASSWORD",
+  ]
 }
 
 action "On master branch" {
