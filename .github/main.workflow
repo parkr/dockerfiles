@@ -60,6 +60,7 @@ workflow "Publish to GitHub Package Registry on push to master" {
   on = "push"
   resolves = [
     "Publish airconnect to GitHub Package Registry",
+    "Publish checkup to GitHub Package Registry",
   ]
 }
 
@@ -106,6 +107,15 @@ action "Publish checkup" {
   ]
   runs = "/docker_tag_exists.sh"
   args = ["checkup", "--", "make", "publish-checkup"]
+}
+
+action "Publish checkup to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  runs = "/docker_tag_exists.sh"
+  args = ["checkup", "--", "make", "publish-checkup", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
