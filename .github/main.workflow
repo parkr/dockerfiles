@@ -13,6 +13,11 @@ action "Docker Login" {
 
 action "GitHub Package Registry Login" {
   uses = "./.github/actions/docker-pkg-login"
+  secrets = ["GITHUB_TOKEN"]
+
+  ###
+  # GitHub Actions for parkr/dockerfiles
+  ###
 }
 
 action "On master branch" {
