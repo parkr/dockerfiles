@@ -16,29 +16,29 @@ default:
 dive-%: build-%
 	$(eval PROJECT_NAME := $(patsubst dive-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
-	$(eval REPO := parkr/$(PROJECT_NAME) )
-	$(eval TAG := $(REPO):$(VERSION) )
+	$(eval REPO := parkr/$(PROJECT_NAME))
+	$(eval TAG := $(REPO):$(VERSION))
 	dive $(TAG)
 
 build-%:
 	$(eval PROJECT_NAME := $(patsubst build-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
-	$(eval REPO := parkr/$(PROJECT_NAME) )
-	$(eval TAG := $(REPO):$(VERSION) )
+	$(eval REPO := parkr/$(PROJECT_NAME))
+	$(eval TAG := $(REPO):$(VERSION))
 	docker build -t $(TAG) --build-arg VERSION=$(VERSION) $(PROJECT_NAME)
 
 test-%: build-%
 	$(eval PROJECT_NAME := $(patsubst test-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
-	$(eval REPO := parkr/$(PROJECT_NAME) )
-	$(eval TAG := $(REPO):$(VERSION) )
+	$(eval REPO := parkr/$(PROJECT_NAME))
+	$(eval TAG := $(REPO):$(VERSION))
 	bash $(PROJECT_NAME)/test.sh $(TAG)
 
 publish-%: test-%
 	$(eval PROJECT_NAME := $(patsubst publish-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
-	$(eval REPO := parkr/$(PROJECT_NAME) )
-	$(eval TAG := $(REPO):$(VERSION) )
+	$(eval REPO := parkr/$(PROJECT_NAME))
+	$(eval TAG := $(REPO):$(VERSION))
 	docker push $(TAG)
 
 published-%:
