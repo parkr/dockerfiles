@@ -14,8 +14,8 @@ action "Docker Login" {
 action "GitHub Package Registry Login" {
   uses = "./.github/actions/github-pkg-login"
   secrets = [
-    "GITHUB_TOKEN",
     "GPR_USERNAME",
+    "GPR_PASSWORD",
   ]
 }
 
