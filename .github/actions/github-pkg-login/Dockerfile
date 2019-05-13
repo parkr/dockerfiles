@@ -1,3 +1,3 @@
 FROM docker:stable
-
-ENTRYPOINT docker login -u $GPR_USERNAME -p $GITHUB_TOKEN docker.pkg.github.com
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
