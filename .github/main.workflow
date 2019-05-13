@@ -14,10 +14,6 @@ action "Docker Login" {
 action "GitHub Package Registry Login" {
   uses = "./.github/actions/docker-pkg-login"
   secrets = ["GITHUB_TOKEN"]
-
-  ###
-  # GitHub Actions for parkr/dockerfiles
-  ###
 }
 
 action "On master branch" {
@@ -87,11 +83,8 @@ action "Publish airconnect to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  env = {
-    "DOCKER_REGISTRY_URL" = "https://docker.pkg.github.com"
-  }
   runs = "/docker_tag_exists.sh"
-  args = ["airconnect", "--", "make", "publish-airconnect", "-e", "REPO=https://docker.pkg.github.com/parkr/dockerfiles/airconnect"]
+  args = ["airconnect", "--", "make", "publish-airconnect", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
