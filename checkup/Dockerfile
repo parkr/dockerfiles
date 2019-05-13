@@ -5,7 +5,7 @@ RUN set -ex \
     && go get -d github.com/sourcegraph/checkup/... \
     && git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git checkout -q $VERSION \
     && [  "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = $VERSION ] \
-    && CGO_ENABLED=0 GOOS=linux go install -v github.com/sourcegraph/checkup/...
+    && CGO_ENABLED=0 GOOS=linux go install -v -ldflags "-w -s" github.com/sourcegraph/checkup/...
 
 FROM scratch
 COPY --from=0 /go/bin/checkup /bin/checkup
