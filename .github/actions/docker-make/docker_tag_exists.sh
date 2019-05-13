@@ -7,7 +7,9 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
+: ${DOCKER_REGISTRY_URL:="https://hub.docker.com"}
 PROJECT_NAME="$1"
+REPO="parkr/$PROJECT_NAME"
 VERSION=$(cat "$PROJECT_NAME"/VERSION)
 shift
 
@@ -15,7 +17,7 @@ command -v curl
 command -v jq
 
 docker_tag_exists() {
-    EXISTS=$(curl -s "https://hub.docker.com/v2/repositories/$1/tags/?page_size=10000" | jq -r "[.results | .[] | .name == \"$2\"] | any")
+    EXISTS=$(curl -s "$DOCKER_REGISTRY_URL/v2/repositories/$1/tags/?page_size=10000" | jq -r "[.results | .[] | .name == \"$2\"] | any")
     test "$EXISTS" = true
 }
 
@@ -31,8 +33,8 @@ if [ "${VERSION}" = "latest" ]; then
   exit $?
 fi
 
-if docker_tag_exists "parkr/${PROJECT_NAME}" "${VERSION}"; then
-    echo "parkr/${PROJECT_NAME}:${VERSION}" exists on Docker Hub.
+if docker_tag_exists "${REPO}" "${VERSION}"; then
+    echo "${REPO}:${VERSION}" exists on Docker Hub.
     # Normally, we would exit 78 and the GitHub Actions UI would show that
     # this is "declined" and the other targets would build. Unfortunately,
     # due to a limitation in GitHub Actions, parallel builds are still
@@ -41,7 +43,7 @@ if docker_tag_exists "parkr/${PROJECT_NAME}" "${VERSION}"; then
     # exit 78
     exit 0
 else
-  echo "parkr/${PROJECT_NAME}:${VERSION}" does not exist on Docker Hub.
+  echo "${REPO}:${VERSION}" does not exist on Docker Hub.
 fi
 
 run_command "$@"
