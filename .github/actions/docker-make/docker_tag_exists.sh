@@ -7,25 +7,41 @@ if [ $# -eq 0 ]; then
   exit 1
 fi
 
-: ${DOCKER_REGISTRY_URL:="https://hub.docker.com"}
+: ${DOCKER_REGISTRY_URL:=""}
 PROJECT_NAME="$1"
-REPO="parkr/$PROJECT_NAME"
-VERSION=$(cat "$PROJECT_NAME"/VERSION)
+REPO="${PROJECT_NAME}"
+VERSION=$(cat "${PROJECT_NAME##*/}"/VERSION)
 shift
 
 command -v curl
 command -v jq
 
+docker_registry_url() {
+  local repo="$1"
+  case $repo in
+    docker.pkg.github.com*)
+      echo "https://docker.pkg.github.com/v2/repositories/${repo/docker.pkg.github.com\//}"
+      ;;
+    *)
+      echo "https://hub.docker.com/v2/repositories/${repo}"
+      ;;
+  esac
+}
+
 docker_tag_exists() {
-    EXISTS=$(curl -s "$DOCKER_REGISTRY_URL/v2/repositories/$1/tags/?page_size=10000" | jq -r "[.results | .[] | .name == \"$2\"] | any")
+    local repo="$1"
+    local version="$2"
+    EXISTS=$(curl -s "$(docker_registry_url "$repo")/tags/?page_size=10000" | jq -r "[.results | .[] | .name == \"$version\"] | any")
     test "$EXISTS" = true
 }
 
 run_command() {
-  if [ "$1" = "--" ]; then
-    shift
+  if [ $# -gt 0 ]; then
+    if [ "$1" = "--" ]; then
+      shift
+    fi
+    exec sh -c "$*"
   fi
-  exec sh -c "$*"
 }
 
 if [ "${VERSION}" = "latest" ]; then
