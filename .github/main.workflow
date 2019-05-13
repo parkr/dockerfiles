@@ -11,6 +11,10 @@ action "Docker Login" {
   ]
 }
 
+action "GitHub Package Registry Login" {
+  uses = "./.github/actions/docker-pkg-login"
+}
+
 action "On master branch" {
   uses = "actions/bin/filter@master"
   args = "branch master"
@@ -32,7 +36,7 @@ workflow "Build & test on push" {
   ]
 }
 
-workflow "Publish on push to master" {
+workflow "Publish to Docker Hub on push to master" {
   on = "push"
   resolves = [
     "Publish airconnect",
@@ -45,6 +49,13 @@ workflow "Publish on push to master" {
     "Publish rclone",
     "Publish silence-but-for-error",
     "Publish southwestcheckin",
+  ]
+}
+
+workflow "Publish to GitHub Package Registry on push to master" {
+  on = "push"
+  resolves = [
+    "Publish airconnect to GitHub Package Registry",
   ]
 }
 
@@ -64,6 +75,18 @@ action "Publish airconnect" {
   ]
   runs = "/docker_tag_exists.sh"
   args = ["airconnect", "--", "make", "publish-airconnect"]
+}
+
+action "Publish airconnect to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  env = {
+    "DOCKER_REGISTRY_URL" = "https://docker.pkg.github.com"
+  }
+  runs = "/docker_tag_exists.sh"
+  args = ["airconnect", "--", "make", "publish-airconnect", "-e", "REPO=https://docker.pkg.github.com/parkr/dockerfiles/airconnect"]
 }
 
 ########################################################
