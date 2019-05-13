@@ -12,7 +12,7 @@ action "Docker Login" {
 }
 
 action "GitHub Package Registry Login" {
-  uses = "./.github/actions/docker-pkg-login"
+  uses = "./.github/actions/github-pkg-login"
   secrets = ["GITHUB_TOKEN"]
 }
 
