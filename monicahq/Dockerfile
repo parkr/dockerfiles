@@ -7,4 +7,5 @@ RUN set -ex \
   && grep Listen /etc/apache2/httpd.conf \
   && sed -e 's/URL::forceScheme/\/\/ No longer forcing the scheme/' -i app/Providers/RouteServiceProvider.php \
   && grep -C 3 'production' app/Providers/RouteServiceProvider.php
-ENTRYPOINT ["make", "-f", "/var/www/monica/scripts/docker/Makefile"]
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+CMD [ "apache2-foreground" ]

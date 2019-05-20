@@ -12,6 +12,8 @@ test -z "$1" && {
     exit 1
 }
 
-set -x
+set -ex
 
 docker run --rm --entrypoint=/bin/sh "$TAG" -c "which httpd"
+docker run --rm --entrypoint=/bin/sh "$TAG" -c "which entrypoint.sh"
+docker run --rm --entrypoint=/bin/sh "$TAG" -c "which apache2-foreground"
