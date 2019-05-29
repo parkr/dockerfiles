@@ -11,6 +11,15 @@ action "Docker Login" {
   ]
 }
 
+action "GitHub Package Registry Login" {
+  uses = "./.github/actions/github-pkg-login"
+  needs = ["On master branch"]
+  secrets = [
+    "GPR_USERNAME",
+    "GPR_PASSWORD",
+  ]
+}
+
 action "On master branch" {
   uses = "actions/bin/filter@master"
   args = "branch master"
@@ -32,7 +41,7 @@ workflow "Build & test on push" {
   ]
 }
 
-workflow "Publish on push to master" {
+workflow "Publish to Docker Hub on push to master" {
   on = "push"
   resolves = [
     "Publish airconnect",
@@ -45,6 +54,22 @@ workflow "Publish on push to master" {
     "Publish rclone",
     "Publish silence-but-for-error",
     "Publish southwestcheckin",
+  ]
+}
+
+workflow "Publish to GitHub Package Registry on push to master" {
+  on = "push"
+  resolves = [
+    "Publish airconnect to GitHub Package Registry",
+    "Publish checkup to GitHub Package Registry",
+    "Publish curl to GitHub Package Registry",
+    "Publish git to GitHub Package Registry",
+    "Publish monicahq to GitHub Package Registry",
+    "Publish octodns to GitHub Package Registry",
+    "Publish puppet-lint to GitHub Package Registry",
+    "Publish rclone to GitHub Package Registry",
+    "Publish silence-but-for-error to GitHub Package Registry",
+    "Publish southwestcheckin to GitHub Package Registry",
   ]
 }
 
@@ -62,8 +87,15 @@ action "Publish airconnect" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["airconnect", "--", "make", "publish-airconnect"]
+  args = ["publish-airconnect"]
+}
+
+action "Publish airconnect to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-airconnect", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
 
 ########################################################
@@ -80,8 +112,15 @@ action "Publish checkup" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["checkup", "--", "make", "publish-checkup"]
+  args = ["publish-checkup"]
+}
+
+action "Publish checkup to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-checkup", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
 
 ########################################################
@@ -98,12 +137,19 @@ action "Publish curl" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["curl", "--", "make", "publish-curl"]
+  args = ["publish-curl"]
+}
+
+action "Publish curl to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-curl", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
-#### Image: curl
+#### Image: git
 ########################################################
 
 action "Test git" {
@@ -116,8 +162,15 @@ action "Publish git" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["curl", "--", "make", "publish-git"]
+  args = ["publish-git"]
+}
+
+action "Publish git to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-git", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -134,8 +187,15 @@ action "Publish monicahq" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["monicahq", "--", "make", "publish-monicahq"]
+  args = ["publish-monicahq"]
+}
+
+action "Publish monicahq to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-monicahq", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -152,8 +212,15 @@ action "Publish octodns" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["octodns", "--", "make", "publish-octodns"]
+  args = ["publish-octodns"]
+}
+
+action "Publish octodns to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-octodns", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -170,8 +237,15 @@ action "Publish puppet-lint" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["puppet-lint", "--", "make", "publish-puppet-lint"]
+  args = ["publish-puppet-lint"]
+}
+
+action "Publish puppet-lint to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-puppet-lint", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -188,8 +262,15 @@ action "Publish rclone" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["rclone", "--", "make", "publish-rclone"]
+  args = ["publish-rclone"]
+}
+
+action "Publish rclone to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-rclone", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -206,8 +287,15 @@ action "Publish silence-but-for-error" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["silence-but-for-error", "--", "make", "publish-silence-but-for-error"]
+  args = ["publish-silence-but-for-error"]
+}
+
+action "Publish silence-but-for-error to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-silence-but-for-error", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -224,6 +312,13 @@ action "Publish southwestcheckin" {
   needs = [
     "Docker Login",
   ]
-  runs = "/docker_tag_exists.sh"
-  args = ["southwestcheckin", "--", "make", "publish-southwestcheckin"]
+  args = ["publish-southwestcheckin"]
+}
+
+action "Publish southwestcheckin to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-southwestcheckin", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
