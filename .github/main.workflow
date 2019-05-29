@@ -86,7 +86,7 @@ action "Publish airconnect" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-airconnect"]
+  args = ["publish-airconnect"]
 }
 
 action "Publish airconnect to GitHub Package Registry" {
@@ -94,7 +94,7 @@ action "Publish airconnect to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-airconnect", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
+  args = ["publish-airconnect", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
 
 ########################################################
@@ -111,7 +111,7 @@ action "Publish checkup" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-checkup"]
+  args = ["publish-checkup"]
 }
 
 action "Publish checkup to GitHub Package Registry" {
@@ -119,7 +119,7 @@ action "Publish checkup to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-checkup", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
+  args = ["publish-checkup", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
 
 ########################################################
@@ -136,7 +136,7 @@ action "Publish curl" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-curl"]
+  args = ["publish-curl"]
 }
 
 action "Publish curl to GitHub Package Registry" {
@@ -144,7 +144,7 @@ action "Publish curl to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-curl", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-curl", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -161,7 +161,7 @@ action "Publish git" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-git"]
+  args = ["publish-git"]
 }
 
 action "Publish git to GitHub Package Registry" {
@@ -169,7 +169,7 @@ action "Publish git to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-git", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-git", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -186,7 +186,7 @@ action "Publish monicahq" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-monicahq"]
+  args = ["publish-monicahq"]
 }
 
 action "Publish monicahq to GitHub Package Registry" {
@@ -194,7 +194,7 @@ action "Publish monicahq to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-monicahq", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-monicahq", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -211,7 +211,7 @@ action "Publish octodns" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-octodns"]
+  args = ["publish-octodns"]
 }
 
 action "Publish octodns to GitHub Package Registry" {
@@ -219,7 +219,7 @@ action "Publish octodns to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-octodns", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-octodns", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -236,7 +236,7 @@ action "Publish puppet-lint" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-puppet-lint"]
+  args = ["publish-puppet-lint"]
 }
 
 action "Publish puppet-lint to GitHub Package Registry" {
@@ -244,7 +244,7 @@ action "Publish puppet-lint to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-puppet-lint", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-puppet-lint", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -261,7 +261,7 @@ action "Publish rclone" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-rclone"]
+  args = ["publish-rclone"]
 }
 
 action "Publish rclone to GitHub Package Registry" {
@@ -269,7 +269,7 @@ action "Publish rclone to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-rclone", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-rclone", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -286,7 +286,7 @@ action "Publish silence-but-for-error" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-silence-but-for-error"]
+  args = ["publish-silence-but-for-error"]
 }
 
 action "Publish silence-but-for-error to GitHub Package Registry" {
@@ -294,7 +294,7 @@ action "Publish silence-but-for-error to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-silence-but-for-error", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
+  args = ["publish-silence-but-for-error", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles"]
 }
 
 ########################################################
@@ -311,7 +311,7 @@ action "Publish southwestcheckin" {
   needs = [
     "Docker Login",
   ]
-  args = ["make", "publish-southwestcheckin"]
+  args = ["publish-southwestcheckin"]
 }
 
 action "Publish southwestcheckin to GitHub Package Registry" {
@@ -319,5 +319,5 @@ action "Publish southwestcheckin to GitHub Package Registry" {
   needs = [
     "GitHub Package Registry Login",
   ]
-  args = ["make", "publish-southwestcheckin", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
+  args = ["publish-southwestcheckin", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
