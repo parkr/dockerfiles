@@ -29,6 +29,7 @@ workflow "Build & test on push" {
   on = "push"
   resolves = [
     "Test airconnect",
+    "Test aws-cli",
     "Test checkup",
     "Test curl",
     "Test git",
@@ -45,6 +46,7 @@ workflow "Publish to Docker Hub on push to master" {
   on = "push"
   resolves = [
     "Publish airconnect",
+    "Publish aws-cli",
     "Publish checkup",
     "Publish curl",
     "Publish git",
@@ -61,6 +63,7 @@ workflow "Publish to GitHub Package Registry on push to master" {
   on = "push"
   resolves = [
     "Publish airconnect to GitHub Package Registry",
+    "Publish aws-cli to GitHub Package Registry",
     "Publish checkup to GitHub Package Registry",
     "Publish curl to GitHub Package Registry",
     "Publish git to GitHub Package Registry",
@@ -96,6 +99,31 @@ action "Publish airconnect to GitHub Package Registry" {
     "GitHub Package Registry Login",
   ]
   args = ["publish-airconnect", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
+}
+
+########################################################
+#### Image: aws-cli
+########################################################
+
+action "Test aws-cli" {
+  uses = "./.github/actions/docker-make"
+  args = "test-aws-cli"
+}
+
+action "Publish aws-cli" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "Docker Login",
+  ]
+  args = ["publish-aws-cli"]
+}
+
+action "Publish aws-cli to GitHub Package Registry" {
+  uses = "./.github/actions/docker-make"
+  needs = [
+    "GitHub Package Registry Login",
+  ]
+  args = ["publish-aws-cli", "-e", "NAMESPACE=docker.pkg.github.com/parkr/dockerfiles", "-e", "TAG_PREFIX=sha-"]
 }
 
 ########################################################
