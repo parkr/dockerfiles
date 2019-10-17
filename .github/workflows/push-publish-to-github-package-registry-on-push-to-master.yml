@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
       run: |
-        echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u parkr --password-stdin docker.pkg.github.com
+        echo "${{ secrets.GPR_PASSWORD }}" | docker login -u "${{ secrets.GPR_USERNAME }}" --password-stdin docker.pkg.github.com
     - name: Publish southwestcheckin to GitHub Package Registry
       uses: ./.github/actions/docker-make
       with:
@@ -62,3 +62,6 @@ jobs:
       with:
         args: publish-airconnect -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
+    - name: GitHub Package Registry Logout
+      run: |
+        docker logout docker.pkg.github.com
