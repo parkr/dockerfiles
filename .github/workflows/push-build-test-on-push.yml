@@ -1,0 +1,52 @@
+on: push
+name: Build & test on push
+jobs:
+  testSouthwestcheckin:
+    name: Test southwestcheckin
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Test southwestcheckin
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-southwestcheckin
+    - name: Test silence-but-for-error
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-silence-but-for-error
+    - name: Test rclone
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-rclone
+    - name: Test puppet-lint
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-puppet-lint
+    - name: Test octodns
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-octodns
+    - name: Test monicahq
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-monicahq
+    - name: Test git
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-git
+    - name: Test curl
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-curl
+    - name: Test checkup
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-checkup
+    - name: Test aws-cli
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-aws-cli
+    - name: Test airconnect
+      uses: ./.github/actions/docker-make
+      with:
+        args: test-airconnect
