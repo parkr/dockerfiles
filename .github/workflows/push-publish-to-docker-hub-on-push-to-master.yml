@@ -1,4 +1,8 @@
-on: push
+on:
+  push:
+    branches:
+      - master
+
 name: Publish to Docker Hub on push to master
 jobs:
   deployAllToDockerHub:
@@ -6,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: On master branch
-      uses: actions/bin/filter@master
-      with:
-        args: branch master
     - name: Docker Login
       uses: actions/docker/login@master
       env:
