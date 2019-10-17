@@ -1,0 +1,61 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Publish to Docker Hub on push to master
+jobs:
+  deployAllToDockerHub:
+    name: Deploy all to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Docker Login
+      uses: actions/docker/login@master
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: Publish southwestcheckin
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-southwestcheckin
+    - name: Publish silence-but-for-error
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-silence-but-for-error
+    - name: Publish rclone
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-rclone
+    - name: Publish puppet-lint
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-puppet-lint
+    - name: Publish octodns
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-octodns
+    - name: Publish monicahq
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-monicahq
+    - name: Publish git
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-git
+    - name: Publish curl
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-curl
+    - name: Publish checkup
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-checkup
+    - name: Publish aws-cli
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-aws-cli
+    - name: Publish airconnect
+      uses: ./.github/actions/docker-make
+      with:
+        args: publish-airconnect
