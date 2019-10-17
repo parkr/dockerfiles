@@ -13,7 +13,7 @@ jobs:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
       run: |
-        echo "${{ secrets.GPR_PASSWORD }}" | docker login -u "${{ secrets.GPR_USERNAME }}" --password-stdin docker.pkg.github.com
+        docker login -u "${{ secrets.GPR_USERNAME }}" -p "${{ secrets.GPR_PASSWORD }}" docker.pkg.github.com
     - name: Publish southwestcheckin to GitHub Package Registry
       uses: ./.github/actions/docker-make
       with:
