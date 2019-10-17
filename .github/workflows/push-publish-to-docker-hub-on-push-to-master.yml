@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - fix-actions-for-publishing
 
 name: Publish to Docker Hub on push to master
 jobs:
