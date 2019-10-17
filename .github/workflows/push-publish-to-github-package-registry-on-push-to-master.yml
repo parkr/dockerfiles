@@ -1,8 +1,8 @@
 on: push
 name: Publish to GitHub Package Registry on push to master
 jobs:
-  onMasterBranch:
-    name: On master branch
+  deployAllToGPR:
+    name: Deploy all to GitHub Package Registry
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
