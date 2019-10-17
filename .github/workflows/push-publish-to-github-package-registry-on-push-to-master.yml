@@ -12,10 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
-      uses: ./.github/actions/github-pkg-login
-      env:
-        GPR_PASSWORD: ${{ secrets.GPR_PASSWORD }}
-        GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login -u parkr --password-stdin docker.pkg.github.com
     - name: Publish southwestcheckin to GitHub Package Registry
       uses: ./.github/actions/docker-make
       with:
