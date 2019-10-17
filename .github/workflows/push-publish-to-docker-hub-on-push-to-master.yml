@@ -12,7 +12,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Docker Login
-      uses: actions/docker/login@master
+      run: |
+        echo "$DOCKER_PASSWORD" | docker login "$DOCKER_USERNAME" --password-stdin
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
