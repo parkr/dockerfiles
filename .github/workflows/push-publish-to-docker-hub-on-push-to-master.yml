@@ -13,7 +13,9 @@ jobs:
     - uses: actions/checkout@master
     - name: Docker Login
       run: |
-        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+        mkdir /home/runner/work/_temp/_github_home/.docker &&
+        mv /home/runner/.docker/config.json /home/runner/work/_temp/_github_home/.docker/config.json
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
