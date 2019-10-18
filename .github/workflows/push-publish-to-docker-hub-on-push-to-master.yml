@@ -11,13 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Docker Login
-      run: |
-        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
-        mkdir -p /home/runner/work/_temp/_github_home/.docker &&
-        mv /home/runner/.docker/config.json /home/runner/work/_temp/_github_home/.docker/config.json
+      uses: ./.github/actions/docker-login
       env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_REGISTRY_URL: docker.io
     - name: Publish southwestcheckin
       uses: ./.github/actions/docker-make
       with:
