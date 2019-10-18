@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #/ Usage: entrypoint.sh [login|logout]
 #/ Default usage is to login.
 #/ Logs in or out of a given Docker registry.
