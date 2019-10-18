@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - master
-      - fix-actions-for-publishing
 
 name: Publish to GitHub Package Registry on push to master
 jobs:
@@ -66,4 +65,4 @@ jobs:
           -e TAG_PREFIX=sha-
     - name: GitHub Package Registry Logout
       run: |
-        docker logout docker.pkg.github.com
+        rm /home/runner/work/_temp/_github_home/.docker/config.json

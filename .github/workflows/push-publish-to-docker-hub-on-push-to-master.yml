@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - master
-      - fix-actions-for-publishing
 
 name: Publish to Docker Hub on push to master
 jobs:
@@ -63,3 +62,6 @@ jobs:
       uses: ./.github/actions/docker-make
       with:
         args: publish-airconnect
+    - name: Docker Hub Logout
+      run: |
+        rm /home/runner/work/_temp/_github_home/.docker/config.json
