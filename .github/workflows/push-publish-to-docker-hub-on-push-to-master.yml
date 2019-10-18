@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - docker-login-action
 
 name: Publish to Docker Hub on push to master
 jobs:
