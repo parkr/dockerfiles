@@ -46,3 +46,7 @@ publish-%: test-%
 published-%:
 	$(eval PROJECT_NAME := $(patsubst published-%,%,$@))
 	sh ./.github/actions/docker-make/docker_tag_exists.sh $(NAMESPACE)/$(PROJECT_NAME)
+
+buildaction-%:
+	$(eval PROJECT_NAME := $(patsubst buildaction-%,%,$@))
+	docker build -t $(PROJECT_NAME):latest ./.github/actions/$(PROJECT_NAME)
