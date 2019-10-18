@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: GitHub Package Registry Docker Login
-      uses: ./.github/actions/docker-login
+    - name: GitHub Package Registry Login
+      uses: ./.github/actions/docker-auth
+      args: login
       env:
         DOCKER_USERNAME: ${{ secrets.GPR_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.GPR_PASSWORD }}
@@ -66,5 +67,7 @@ jobs:
         args: publish-airconnect -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
     - name: GitHub Package Registry Logout
-      run: |
-        rm /home/runner/work/_temp/_github_home/.docker/config.json
+      uses: ./.github/actions/docker-auth
+      args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.pkg.github.com
