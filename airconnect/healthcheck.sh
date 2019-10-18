@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if ps auxw | grep [a]irupnp-x86-64; then
+if ps auxw | grep -q [a]irupnp-x86-64; then
     echo "Working."
     exit 0
 else
