@@ -11,7 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Docker Login
-      uses: actions/docker/login@master
+      run: |
+        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+        mkdir -p /home/runner/work/_temp/_github_home/.docker &&
+        mv /home/runner/.docker/config.json /home/runner/work/_temp/_github_home/.docker/config.json
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -59,3 +62,6 @@ jobs:
       uses: ./.github/actions/docker-make
       with:
         args: publish-airconnect
+    - name: Docker Hub Logout
+      run: |
+        rm /home/runner/work/_temp/_github_home/.docker/config.json

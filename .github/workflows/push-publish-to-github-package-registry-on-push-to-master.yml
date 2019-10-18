@@ -11,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
-      uses: ./.github/actions/github-pkg-login
-      env:
-        GPR_PASSWORD: ${{ secrets.GPR_PASSWORD }}
-        GPR_USERNAME: ${{ secrets.GPR_USERNAME }}
+      run: |
+        docker login -u "${{ secrets.GPR_USERNAME }}" -p "${{ secrets.GPR_PASSWORD }}" docker.pkg.github.com &&
+        mkdir -p /home/runner/work/_temp/_github_home/.docker &&
+        mv /home/runner/.docker/config.json /home/runner/work/_temp/_github_home/.docker/config.json
     - name: Publish southwestcheckin to GitHub Package Registry
       uses: ./.github/actions/docker-make
       with:
@@ -63,3 +63,6 @@ jobs:
       with:
         args: publish-airconnect -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
+    - name: GitHub Package Registry Logout
+      run: |
+        rm /home/runner/work/_temp/_github_home/.docker/config.json
