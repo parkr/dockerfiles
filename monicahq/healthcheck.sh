@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if netstat -l -t -n -p | grep ':::8080'; then
     echo "Running"
