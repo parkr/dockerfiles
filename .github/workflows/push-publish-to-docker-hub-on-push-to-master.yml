@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - docker-login-action
 
 name: Publish to Docker Hub on push to master
 jobs:
@@ -11,57 +12,60 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Docker Login
-      run: |
-        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
-        mkdir -p /home/runner/work/_temp/_github_home/.docker &&
-        mv /home/runner/.docker/config.json /home/runner/work/_temp/_github_home/.docker/config.json
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: login
       env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_REGISTRY_URL: docker.io
     - name: Publish southwestcheckin
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-southwestcheckin
     - name: Publish silence-but-for-error
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-silence-but-for-error
     - name: Publish rclone
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-rclone
     - name: Publish puppet-lint
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-puppet-lint
     - name: Publish octodns
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-octodns
     - name: Publish monicahq
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-monicahq
     - name: Publish git
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-git
     - name: Publish curl
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-curl
     - name: Publish checkup
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-checkup
     - name: Publish aws-cli
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-aws-cli
     - name: Publish airconnect
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-airconnect
-    - name: Docker Hub Logout
-      run: |
-        rm /home/runner/work/_temp/_github_home/.docker/config.json
+    - name: Docker Logout
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io

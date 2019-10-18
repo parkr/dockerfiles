@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - docker-login-action
 
 name: Publish to GitHub Package Registry on push to master
 jobs:
@@ -11,58 +12,64 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
-      run: |
-        docker login -u "${{ secrets.GPR_USERNAME }}" -p "${{ secrets.GPR_PASSWORD }}" docker.pkg.github.com &&
-        mkdir -p /home/runner/work/_temp/_github_home/.docker &&
-        mv /home/runner/.docker/config.json /home/runner/work/_temp/_github_home/.docker/config.json
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: ${{ secrets.GPR_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.GPR_PASSWORD }}
+        DOCKER_REGISTRY_URL: docker.pkg.github.com
     - name: Publish southwestcheckin to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-southwestcheckin -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
     - name: Publish silence-but-for-error to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-silence-but-for-error -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish rclone to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-rclone -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish puppet-lint to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-puppet-lint -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish octodns to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-octodns -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish monicahq to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-monicahq -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish git to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-git -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish curl to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-curl -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish checkup to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-checkup -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
     - name: Publish aws-cli to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-aws-cli -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
     - name: Publish airconnect to GitHub Package Registry
-      uses: ./.github/actions/docker-make
+      uses: parkr/actions/docker-make@master
       with:
         args: publish-airconnect -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
     - name: GitHub Package Registry Logout
-      run: |
-        rm /home/runner/work/_temp/_github_home/.docker/config.json
+      uses: parkr/actions/docker-auth@master
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.pkg.github.com
