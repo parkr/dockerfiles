@@ -13,7 +13,8 @@ jobs:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
       uses: ./.github/actions/docker-auth
-      args: login
+      with:
+        args: login
       env:
         DOCKER_USERNAME: ${{ secrets.GPR_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.GPR_PASSWORD }}
@@ -68,6 +69,7 @@ jobs:
           -e TAG_PREFIX=sha-
     - name: GitHub Package Registry Logout
       uses: ./.github/actions/docker-auth
-      args: logout
+      with:
+        args: logout
       env:
         DOCKER_REGISTRY_URL: docker.pkg.github.com

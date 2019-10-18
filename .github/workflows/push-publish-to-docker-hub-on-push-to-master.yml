@@ -13,7 +13,8 @@ jobs:
     - uses: actions/checkout@master
     - name: Docker Login
       uses: ./.github/actions/docker-auth
-      args: login
+      with:
+        args: login
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -64,6 +65,7 @@ jobs:
         args: publish-airconnect
     - name: Docker Logout
       uses: ./.github/actions/docker-auth
-      args: logout
+      with:
+        args: logout
       env:
         DOCKER_REGISTRY_URL: docker.io
