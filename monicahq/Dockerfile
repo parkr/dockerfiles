@@ -7,5 +7,8 @@ RUN set -ex \
   && grep Listen /etc/apache2/httpd.conf \
   && sed -e 's/URL::forceScheme/\/\/ No longer forcing the scheme/' -i app/Providers/RouteServiceProvider.php \
   && grep -C 3 'production' app/Providers/RouteServiceProvider.php
+COPY healthcheck.sh /usr/local/bin/healthcheck.sh
+HEALTHCHECK --interval=10s --timeout=30s --start-period=1s --retries=3 \
+  CMD /usr/local/bin/healthcheck.sh
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 CMD [ "apache2-foreground" ]
