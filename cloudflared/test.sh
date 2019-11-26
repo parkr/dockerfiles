@@ -25,21 +25,26 @@ docker_opts="$docker_opts --env TUNNEL_DNS_ADDRESS=0.0.0.0"
 docker_opts="$docker_opts --env TUNNEL_DNS_PORT=$cloudflared_port"
 docker_opts="$docker_opts --env TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
 docker_opts="$docker_opts --health-cmd /bin/healthcheck_dns_proxy.sh"
+docker_opts="$docker_opts --health-interval 1s --health-start-period 1s --health-timeout 3s"
 docker_opts="$docker_opts --detach"
 set -x
 container_id=$(docker run ${docker_opts[@]} "$TAG" proxy-dns)
 set +x
 trap cleanup_docker_container exit
 
-if docker ps -a -q | grep "${container_id:0:12}"; then
-    echo "cloudflared is running..."
-else
-    echo "cloudflared is not running..."
+counter=0
+container_health_status=$(docker inspect $container_id | jq -r .[].State.Health.Status)
+while [ "$container_health_status" != "healthy" ] && [ $counter -lt 10 ]; do
+    counter=$((counter+1))
+    container_health_status=$(docker inspect $container_id | jq -r .[].State.Health.Status)
+    echo "Container Health Status: $container_health_status"
+    sleep 1
+done
+if [ "$container_health_status" != "healthy" ]; then
+    docker inspect $container_id | jq .[].State.Health
     docker logs $container_id
     exit 1
 fi
-
-sleep 3
 
 set -x
 

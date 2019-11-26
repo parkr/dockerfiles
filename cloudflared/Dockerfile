@@ -17,6 +17,7 @@ RUN set -ex \
     && go install github.com/cloudflare/cloudflared/cmd/cloudflared
 
 FROM golang:alpine
+COPY healthcheck_dns_proxy.sh /bin/healthcheck_dns_proxy.sh
 COPY --from=0 /usr/bin/dig /bin/dig
 COPY --from=0 /go/bin/cloudflared /bin/cloudflared
 ENTRYPOINT [ "/bin/cloudflared" ]
