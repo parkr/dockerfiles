@@ -12,6 +12,7 @@ FROM python:3.7-alpine
 COPY --from=cloner /app/SouthwestCheckin /app/SouthwestCheckin
 WORKDIR /app/SouthwestCheckin
 RUN set -ex \
+  && apk add --no-cache build-base \
   && pip install -r requirements.txt \
   && rm -rf /root/.cache
 ENTRYPOINT [ "/app/SouthwestCheckin/entrypoint.sh" ]
