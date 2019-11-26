@@ -21,11 +21,13 @@ cleanup_docker_container() {
 
 cloudflared_port=5053
 docker_opts="--publish $cloudflared_port:$cloudflared_port/udp"
-docker_opts="$docker_opts --env CLOUDFLARED_PORT=$cloudflared_port"
+docker_opts="$docker_opts --env TUNNEL_DNS_ADDRESS=0.0.0.0"
+docker_opts="$docker_opts --env TUNNEL_DNS_PORT=$cloudflared_port"
+docker_opts="$docker_opts --env TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
 docker_opts="$docker_opts --health-cmd /bin/healthcheck_dns_proxy.sh"
 docker_opts="$docker_opts --detach"
 set -x
-container_id=$(docker run ${docker_opts[@]} "$TAG" proxy-dns --address 0.0.0.0 --port "$cloudflared_port" --upstream https://1.1.1.1/dns-query --upstream https://1.0.0.1/dns-query)
+container_id=$(docker run ${docker_opts[@]} "$TAG" proxy-dns)
 set +x
 trap cleanup_docker_container exit
 
