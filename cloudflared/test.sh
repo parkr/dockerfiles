@@ -40,14 +40,10 @@ while [ "$container_health_status" != "healthy" ] && [ $counter -lt 10 ]; do
     echo "Container Health Status: $container_health_status"
     sleep 1
 done
-if [ "$container_health_status" != "healthy" ]; then
-    docker inspect $container_id | jq .[].State.Health
-    docker logs $container_id
-    exit 1
-fi
 
-set -x
-
+docker inspect $container_id | jq .[].State.Health
 docker logs $container_id
 
-dig @127.0.0.1 -p "$cloudflared_port" +short github.com
+if [ "$container_health_status" != "healthy" ]; then
+    exit 1
+fi
