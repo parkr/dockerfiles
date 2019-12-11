@@ -2,7 +2,7 @@ FROM golang:alpine
 ARG VERSION
 RUN set -ex \
     && apk add -U alpine-sdk linux-headers \
-    && curl ftp://ftp.isc.org/isc/bind9/9.10.2/bind-9.10.2.tar.gz|tar -xzv \
+    && curl ftp://ftp.isc.org/isc/bind9/9.10.2/bind-9.10.2.tar.gz|tar -xz \
     && cd bind-9.10.2 \
     && CFLAGS="-static" ./configure --without-openssl --disable-symtable \
     && make \
