@@ -1,14 +1,8 @@
 FROM golang:alpine
 ARG VERSION
+COPY healthcheck.go /go/src/cloudflared-healthcheck/main.go
 RUN set -ex \
-    && apk add -U alpine-sdk linux-headers \
-    && curl ftp://ftp.isc.org/isc/bind9/9.10.2/bind-9.10.2.tar.gz|tar -xz \
-    && cd bind-9.10.2 \
-    && CFLAGS="-static" ./configure --without-openssl --disable-symtable \
-    && make \
-    && cp ./bin/dig/dig /usr/bin/ \
-    && apk del alpine-sdk linux-headers \
-    && rm -rf bind-9.10.2/
+    && go build -o /go/bin/cloudflared-healthcheck /go/src/cloudflared-healthcheck/main.go
 RUN set -ex \
     && apk add --no-cache git build-base \
     && git clone https://github.com/cloudflare/cloudflared /go/src/github.com/cloudflare/cloudflared \
@@ -18,6 +12,7 @@ RUN set -ex \
 
 FROM golang:alpine
 COPY healthcheck_dns_proxy.sh /bin/healthcheck_dns_proxy.sh
-COPY --from=0 /usr/bin/dig /bin/dig
+COPY --from=0 /go/bin/cloudflared-healthcheck /bin/cloudflared-healthcheck
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "/bin/healthcheck_dns_proxy.sh" ]
 COPY --from=0 /go/bin/cloudflared /bin/cloudflared
 ENTRYPOINT [ "/bin/cloudflared" ]
