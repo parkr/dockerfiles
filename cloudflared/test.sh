@@ -24,7 +24,6 @@ docker_opts="--publish $cloudflared_port:$cloudflared_port/udp"
 docker_opts="$docker_opts --env TUNNEL_DNS_ADDRESS=0.0.0.0"
 docker_opts="$docker_opts --env TUNNEL_DNS_PORT=$cloudflared_port"
 docker_opts="$docker_opts --env TUNNEL_DNS_UPSTREAM=https://1.1.1.1/dns-query,https://1.0.0.1/dns-query"
-docker_opts="$docker_opts --health-cmd /bin/healthcheck_dns_proxy.sh"
 docker_opts="$docker_opts --health-interval 1s --health-start-period 1s --health-timeout 3s"
 docker_opts="$docker_opts --detach"
 set -x

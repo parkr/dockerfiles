@@ -11,8 +11,7 @@ RUN set -ex \
     && go install github.com/cloudflare/cloudflared/cmd/cloudflared
 
 FROM golang:alpine
-COPY healthcheck_dns_proxy.sh /bin/healthcheck_dns_proxy.sh
 COPY --from=0 /go/bin/cloudflared-healthcheck /bin/cloudflared-healthcheck
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "/bin/healthcheck_dns_proxy.sh" ]
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD [ "/bin/cloudflared-healthcheck" ]
 COPY --from=0 /go/bin/cloudflared /bin/cloudflared
 ENTRYPOINT [ "/bin/cloudflared" ]
