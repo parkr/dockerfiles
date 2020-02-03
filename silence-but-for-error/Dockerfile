@@ -1,11 +1,11 @@
-FROM golang:alpine as builder
+FROM golang as builder
 RUN set -ex \
-  && apk add --no-cache --update git \
-  && go get github.com/parkr/silence-but-for-error/cmd/silence-but-for-error
+  && CGO_ENABLED=0 go get github.com/parkr/silence-but-for-error/cmd/silence-but-for-error
 
-FROM alpine
+FROM debian:stable-slim
 COPY --from=builder /go/bin/silence-but-for-error /bin/silence-but-for-error
 RUN set -ex \
-    && apk add --update --no-cache bash curl ca-certificates wget \
-    && rm -rf /var/cache/apk/*
+    && apt-get update -y \
+    && apt-get upgrade -y bash curl ca-certificates wget \
+    && rm -rf /var/cache/* /var/log/* /var/lib/dpkg/* /var/lib/apt/*
 ENTRYPOINT [ "/bin/silence-but-for-error" ]
