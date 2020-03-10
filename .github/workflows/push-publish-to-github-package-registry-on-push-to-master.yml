@@ -44,6 +44,10 @@ jobs:
       uses: parkr/actions/docker-make@master
       with:
         args: publish-monicahq -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
+    - name: Publish homeassistant to GitHub Package Registry
+      uses: parkr/actions/docker-make@master
+      with:
+        args: publish-homeassistant -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish git to GitHub Package Registry
       uses: parkr/actions/docker-make@master
       with:
