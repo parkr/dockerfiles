@@ -30,6 +30,10 @@ jobs:
       uses: parkr/actions/docker-make@master
       with:
         args: test-monicahq
+    - name: Test homeassistant
+      uses: parkr/actions/docker-make@master
+      with:
+        args: test-homeassistant
     - name: Test git
       uses: parkr/actions/docker-make@master
       with:
