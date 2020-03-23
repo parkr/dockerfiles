@@ -1,5 +1,6 @@
 ARG VERSION
 FROM monicahq/monicahq:${VERSION}
+WORKDIR /usr/src/monica
 COPY 000-default.conf /etc/apache2/conf.d/000-default.conf
 COPY 000-default.conf /var/www/monica/scripts/docker/000-default.conf
 RUN set -ex \
