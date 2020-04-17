@@ -25,8 +25,8 @@ dive-%: build-%
 
 lint-%:
 	$(eval PROJECT_NAME := $(patsubst lint-%,%,$@))
-	docker run --rm -i -v $(HADOLINT_CFG):/.hadolint.yaml hadolint/hadolint:latest-alpine \
-	  hadolint --config /.hadolint.yaml - < $(PROJECT_NAME)/Dockerfile
+	docker build -t hadolint -f support/hadolint-dockerfile .
+	docker run --rm -i hadolint < $(PROJECT_NAME)/Dockerfile
 
 build-%: lint-%
 	$(eval PROJECT_NAME := $(patsubst build-%,%,$@))
