@@ -1,0 +1,7 @@
+# hadolint configuration, for linting Dockerfiles
+# https://github.com/hadolint/hadolint#configure
+ignored:
+  - DL3007 # Using latest is prone to errors if the image will ever update. Pin the version explicitly to a release tag.
+  - DL3008 # Pin versions in apt-get install.
+  - DL3013 # Pin versions in pip.
+  - DL3018 # Pin versions in apk add.
