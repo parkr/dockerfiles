@@ -1,12 +1,11 @@
-FROM alpine as cloner
-RUN apk update && apk add git
+FROM alpine:latest as cloner
+RUN apk add --no-cache git && rm -rf /var/cache/apk/*
 ARG VERSION
 ENV CHECKOUT_DIR /tmp/octodns
 RUN set -ex \
-    && [ -n $VERSION ] \
+    && [ -n "$VERSION" ] \
     && git clone https://github.com/mamercad/octodns $CHECKOUT_DIR \
-    && cd $CHECKOUT_DIR \
-    && git checkout -q $VERSION
+    && git --work-tree "$CHECKOUT_DIR" --git-dir="$CHECKOUT_DIR/.git" checkout -q "$VERSION"
 
 FROM python:2-slim as build
 COPY --from=cloner /tmp/octodns /usr/share/octodns

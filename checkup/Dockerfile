@@ -10,6 +10,6 @@ RUN set -ex \
     && go version \
     && GOOS=linux go install -v -ldflags "-w -s" github.com/sourcegraph/checkup/...
 
-FROM alpine
+FROM alpine:latest
 COPY --from=builder /go/bin/checkup /bin/checkup
 ENTRYPOINT [ "/bin/checkup" ]

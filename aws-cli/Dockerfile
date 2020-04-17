@@ -1,6 +1,6 @@
 FROM alpine:3.6
 ARG VERSION
-RUN apk -v --update add \
+RUN apk -v --no-cache add \
         python \
         py-pip \
         groff \

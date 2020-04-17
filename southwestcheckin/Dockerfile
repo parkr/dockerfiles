@@ -1,4 +1,4 @@
-FROM alpine as cloner
+FROM alpine:latest as cloner
 RUN apk update && apk add --no-cache git
 ARG VERSION
 ENV CHECKOUT_DIR /app/SouthwestCheckin
