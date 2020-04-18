@@ -1,5 +1,5 @@
-FROM alpine as downloader
-RUN apk update && apk add --no-cache curl
+FROM alpine:latest as downloader
+RUN apk add --no-cache curl
 WORKDIR /tmp
 ARG VERSION
 RUN set -ex \

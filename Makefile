@@ -1,6 +1,7 @@
 PROJECTS := $(sort $(dir $(wildcard **/Dockerfile)))
 NAMESPACE := parkr
 TAG_PREFIX :=
+HADOLINT_CFG := $(shell pwd)/.hadolint.yaml
 
 default:
 	@echo "Hello there, weary traveler."
@@ -22,7 +23,12 @@ dive-%: build-%
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
 	dive $(TAG)
 
-build-%:
+lint-%:
+	$(eval PROJECT_NAME := $(patsubst lint-%,%,$@))
+	docker build -t hadolint -f support/hadolint-dockerfile .
+	docker run --rm -i hadolint < $(PROJECT_NAME)/Dockerfile
+
+build-%: lint-%
 	$(eval PROJECT_NAME := $(patsubst build-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
