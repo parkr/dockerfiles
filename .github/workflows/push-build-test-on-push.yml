@@ -42,10 +42,6 @@ jobs:
       uses: parkr/actions/docker-make@master
       with:
         args: test-curl
-    - name: Test cloudflared
-      uses: parkr/actions/docker-make@master
-      with:
-        args: test-cloudflared
     - name: Test checkup
       uses: parkr/actions/docker-make@master
       with:
