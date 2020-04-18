@@ -55,10 +55,6 @@ jobs:
       uses: parkr/actions/docker-make@master
       with:
         args: publish-curl
-    - name: Publish cloudflared
-      uses: parkr/actions/docker-make@master
-      with:
-        args: publish-cloudflared
     - name: Publish checkup
       uses: parkr/actions/docker-make@master
       with:

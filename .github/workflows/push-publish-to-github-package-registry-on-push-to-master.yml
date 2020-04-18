@@ -56,10 +56,6 @@ jobs:
       uses: parkr/actions/docker-make@master
       with:
         args: publish-curl -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
-    - name: Publish cloudflared to GitHub Package Registry
-      uses: parkr/actions/docker-make@master
-      with:
-        args: publish-cloudflared -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish checkup to GitHub Package Registry
       uses: parkr/actions/docker-make@master
       with:
