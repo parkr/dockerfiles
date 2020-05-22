@@ -13,5 +13,6 @@ COPY hourly-cron /etc/periodic/hourly/monica
 COPY healthcheck.sh /usr/local/bin/healthcheck.sh
 HEALTHCHECK --interval=10s --timeout=30s --start-period=1s --retries=3 \
   CMD /usr/local/bin/healthcheck.sh
+WORKDIR /var/www/monica
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 CMD [ "apache2-foreground" ]
