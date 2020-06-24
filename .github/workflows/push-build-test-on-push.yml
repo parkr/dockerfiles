@@ -7,50 +7,50 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Test southwestcheckin
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-southwestcheckin
     - name: Test silence-but-for-error
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-silence-but-for-error
     - name: Test rclone
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-rclone
     - name: Test puppet-lint
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-puppet-lint
     - name: Test octodns
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-octodns
     - name: Test monicahq
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-monicahq
     - name: Test homeassistant
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-homeassistant
     - name: Test git
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-git
     - name: Test curl
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-curl
     - name: Test checkup
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-checkup
     - name: Test aws-cli
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-aws-cli
     - name: Test airconnect
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: test-airconnect

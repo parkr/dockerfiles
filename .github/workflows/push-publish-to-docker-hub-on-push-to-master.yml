@@ -20,51 +20,51 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_REGISTRY_URL: docker.io
     - name: Publish southwestcheckin
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-southwestcheckin
     - name: Publish silence-but-for-error
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-silence-but-for-error
     - name: Publish rclone
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-rclone
     - name: Publish puppet-lint
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-puppet-lint
     - name: Publish octodns
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-octodns
     - name: Publish monicahq
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-monicahq
     - name: Publish homeassistant
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-homeassistant
     - name: Publish git
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-git
     - name: Publish curl
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-curl
     - name: Publish checkup
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-checkup
     - name: Publish aws-cli
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-aws-cli
     - name: Publish airconnect
-      uses: parkr/actions/docker-make@master
+      uses: parkr/actions/docker-make@main
       with:
         args: publish-airconnect
     - name: Docker Logout
