@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - main
       - docker-login-action
 
 name: Publish to Docker Hub on push to master
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Docker Login
-      uses: parkr/actions/docker-auth@master
+      uses: parkr/actions/docker-auth@main
       with:
         args: login
       env:
@@ -68,7 +68,7 @@ jobs:
       with:
         args: publish-airconnect
     - name: Docker Logout
-      uses: parkr/actions/docker-auth@master
+      uses: parkr/actions/docker-auth@main
       with:
         args: logout
       env:

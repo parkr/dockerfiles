@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - main
       - docker-login-action
 
 name: Publish to GitHub Package Registry on push to master
@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: GitHub Package Registry Login
-      uses: parkr/actions/docker-auth@master
+      uses: parkr/actions/docker-auth@main
       with:
         args: login
       env:
@@ -72,7 +72,7 @@ jobs:
         args: publish-airconnect -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
           -e TAG_PREFIX=sha-
     - name: GitHub Package Registry Logout
-      uses: parkr/actions/docker-auth@master
+      uses: parkr/actions/docker-auth@main
       with:
         args: logout
       env:
