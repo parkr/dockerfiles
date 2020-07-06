@@ -34,6 +34,10 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-homeassistant
+    - name: Test graphql-schema-linter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-graphql-schema-linter
     - name: Test git
       uses: parkr/actions/docker-make@main
       with:
