@@ -4,7 +4,7 @@ on:
       - main
       - docker-login-action
 
-name: Publish to GitHub Package Registry on push to master
+name: Publish to GitHub Package Registry on push to main
 jobs:
   deployAllToGPR:
     name: Deploy all to GitHub Package Registry
