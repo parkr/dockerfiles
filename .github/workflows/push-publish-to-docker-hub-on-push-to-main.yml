@@ -47,6 +47,10 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: publish-homeassistant
+    - name: Publish graphql-schema-linter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-graphql-schema-linter
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:

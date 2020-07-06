@@ -48,6 +48,10 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: publish-homeassistant -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
+    - name: Publish graphql-schema-linter to GitHub Package Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-graphql-schema-linter -e NAMESPACE=docker.pkg.github.com/parkr/dockerfiles
     - name: Publish git to GitHub Package Registry
       uses: parkr/actions/docker-make@main
       with:
