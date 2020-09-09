@@ -19,7 +19,7 @@ end
 
 def generate_jobs(projects, name:, make_prefix:)
   projects.each_with_object({}) do |project_name, memo|
-    memo["#{name} #{project_name}"] = {
+    memo["#{name}_#{project_name}"] = {
       "name" => "#{name} #{project_name}",
       "runs-on" => "ubuntu-latest",
       "steps" => [
