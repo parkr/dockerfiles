@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+#/ Usage: script/build-github-actions
+#/ Build the GitHub Actions YAML workflows for this directory.
+#/ Run this any time you add new docker images.
+
+require "yaml"
+
+root_dir = File.expand_path("..", __dir__)
+
+projects = []
+
+Dir.foreach(root_dir) do |path|
+  next unless File.directory?(path)
+  next if path.start_with?(".")
+  next unless File.file?(File.join(path, "Dockerfile"))
+
+  projects << path
+end
+
+projects.sort!
+
+def generate_jobs(projects, name:, make_prefix:)
+  projects.each_with_object({}) do |project_name, memo|
+    memo["#{name}_#{project_name}"] = {
+      "name" => "#{name} #{project_name}",
+      "runs-on" => "ubuntu-latest",
+      "steps" => [
+        {"uses" => "actions/checkout@v2"},
+        {
+          "name" => "#{name} #{project_name}",
+          "uses" => "parkr/actions/docker-make@main",
+          "with" => {"args" => "#{make_prefix}-#{project_name}"},
+        }
+      ]
+    }
+  end
+end
+
+File.open(File.expand_path(".github/workflows/push-build-test-on-push.yml", root_dir), "wb") do |f|
+  f.puts YAML.dump({
+    "on" => "push",
+    "name" => "Build & test on push",
+    "jobs" => generate_jobs(projects, name: "Test", make_prefix: "test")
+  })
+end
