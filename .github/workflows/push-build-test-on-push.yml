@@ -2,78 +2,6 @@
 'on': push
 name: Build & test on push
 jobs:
-  Test_checkup:
-    name: Test checkup
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test checkup
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-checkup
-  Test_homeassistant:
-    name: Test homeassistant
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test homeassistant
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-homeassistant
-  Test_monicahq:
-    name: Test monicahq
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test monicahq
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-monicahq
-  Test_rclone:
-    name: Test rclone
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test rclone
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-rclone
-  Test_southwestcheckin:
-    name: Test southwestcheckin
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test southwestcheckin
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-southwestcheckin
-  Test_octodns:
-    name: Test octodns
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test octodns
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-octodns
-  Test_silence-but-for-error:
-    name: Test silence-but-for-error
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test silence-but-for-error
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-silence-but-for-error
-  Test_curl:
-    name: Test curl
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test curl
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-curl
   Test_airconnect:
     name: Test airconnect
     runs-on: ubuntu-latest
@@ -92,15 +20,24 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-aws-cli
-  Test_graphql-schema-linter:
-    name: Test graphql-schema-linter
+  Test_checkup:
+    name: Test checkup
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Test graphql-schema-linter
+    - name: Test checkup
       uses: parkr/actions/docker-make@main
       with:
-        args: test-graphql-schema-linter
+        args: test-checkup
+  Test_curl:
+    name: Test curl
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test curl
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-curl
   Test_git:
     name: Test git
     runs-on: ubuntu-latest
@@ -110,6 +47,42 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-git
+  Test_graphql-schema-linter:
+    name: Test graphql-schema-linter
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test graphql-schema-linter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-graphql-schema-linter
+  Test_homeassistant:
+    name: Test homeassistant
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test homeassistant
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-homeassistant
+  Test_monicahq:
+    name: Test monicahq
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test monicahq
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-monicahq
+  Test_octodns:
+    name: Test octodns
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test octodns
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-octodns
   Test_puppet-lint:
     name: Test puppet-lint
     runs-on: ubuntu-latest
@@ -119,3 +92,30 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-puppet-lint
+  Test_rclone:
+    name: Test rclone
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test rclone
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-rclone
+  Test_silence-but-for-error:
+    name: Test silence-but-for-error
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test silence-but-for-error
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-silence-but-for-error
+  Test_southwestcheckin:
+    name: Test southwestcheckin
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test southwestcheckin
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-southwestcheckin

@@ -17,6 +17,8 @@ Dir.foreach(root_dir) do |path|
   projects << path
 end
 
+projects.sort!
+
 def generate_jobs(projects, name:, make_prefix:)
   projects.each_with_object({}) do |project_name, memo|
     memo["#{name}_#{project_name}"] = {
