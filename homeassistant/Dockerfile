@@ -1,7 +1,7 @@
 FROM python:3-alpine
 RUN set -ex \
   && apk add --no-cache build-base libffi-dev openssl-dev \
-  && pip3 install --upgrade \
+  && pip3 install --upgrade --no-cache-dir \
     homeassistant \
     colorlog==4.1.0 \
     home-assistant-frontend==20200220.5 \
