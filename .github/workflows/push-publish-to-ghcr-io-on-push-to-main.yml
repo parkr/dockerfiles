@@ -1,80 +1,80 @@
-on:
+---
+'on':
   push:
     branches:
-      - main
-      - docker-login-action
-
+    - main
+    - github-actions
 name: Publish to GitHub Container Registry on push to main
 jobs:
-  deployAllToGHCR:
+  Deploy_all_to_GitHub_Container_Registry:
     name: Deploy all to GitHub Container Registry
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: GitHub Container Registry Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
       env:
-        DOCKER_USERNAME: ${{ secrets.GPR_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.GPR_PASSWORD }}
+        DOCKER_USERNAME: "${{ secrets.GPR_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.GPR_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - name: Publish southwestcheckin to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-southwestcheckin -e NAMESPACE=ghcr.io/parkr
-          -e TAG_PREFIX=sha-
-    - name: Publish silence-but-for-error to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-silence-but-for-error -e NAMESPACE=ghcr.io/parkr
-    - name: Publish rclone to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-rclone -e NAMESPACE=ghcr.io/parkr
-    - name: Publish puppet-lint to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-puppet-lint -e NAMESPACE=ghcr.io/parkr
-    - name: Publish octodns to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-octodns -e NAMESPACE=ghcr.io/parkr
-    - name: Publish monicahq to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-monicahq -e NAMESPACE=ghcr.io/parkr
-    - name: Publish homeassistant to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-homeassistant -e NAMESPACE=ghcr.io/parkr
-    - name: Publish graphql-schema-linter to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-graphql-schema-linter -e NAMESPACE=ghcr.io/parkr
-    - name: Publish git to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-git -e NAMESPACE=ghcr.io/parkr
-    - name: Publish curl to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-curl -e NAMESPACE=ghcr.io/parkr
-    - name: Publish checkup to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-checkup -e NAMESPACE=ghcr.io/parkr
-          -e TAG_PREFIX=sha-
-    - name: Publish aws-cli to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-aws-cli -e NAMESPACE=ghcr.io/parkr
-          -e TAG_PREFIX=sha-
     - name: Publish airconnect to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
         args: publish-airconnect -e NAMESPACE=ghcr.io/parkr
-          -e TAG_PREFIX=sha-
+    - name: Publish aws-cli to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-aws-cli -e NAMESPACE=ghcr.io/parkr
+    - name: Publish checkup to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-checkup -e NAMESPACE=ghcr.io/parkr
+    - name: Publish curl to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-curl -e NAMESPACE=ghcr.io/parkr
+    - name: Publish git to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-git -e NAMESPACE=ghcr.io/parkr
+    - name: Publish graphql-schema-linter to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-graphql-schema-linter -e NAMESPACE=ghcr.io/parkr
+    - name: Publish homeassistant to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-homeassistant -e NAMESPACE=ghcr.io/parkr
+    - name: Publish html-proofer to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-html-proofer -e NAMESPACE=ghcr.io/parkr
+    - name: Publish monicahq to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-monicahq -e NAMESPACE=ghcr.io/parkr
+    - name: Publish octodns to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-octodns -e NAMESPACE=ghcr.io/parkr
+    - name: Publish puppet-lint to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-puppet-lint -e NAMESPACE=ghcr.io/parkr
+    - name: Publish rclone to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-rclone -e NAMESPACE=ghcr.io/parkr
+    - name: Publish silence-but-for-error to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-silence-but-for-error -e NAMESPACE=ghcr.io/parkr
+    - name: Publish southwestcheckin to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-southwestcheckin -e NAMESPACE=ghcr.io/parkr
     - name: GitHub Container Registry Logout
       uses: parkr/actions/docker-auth@main
       with:

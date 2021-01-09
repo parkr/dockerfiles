@@ -1,77 +1,81 @@
-on:
+---
+'on':
   push:
     branches:
-      - main
-      - docker-login-action
-
+    - main
+    - github-actions
 name: Publish to Docker Hub on push to main
 jobs:
-  deployAllToDockerHub:
+  Deploy_all_to_Docker_Hub:
     name: Deploy all to Docker Hub
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Docker Login
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
       env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: docker.io
-    - name: Publish southwestcheckin
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-southwestcheckin
-    - name: Publish silence-but-for-error
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-silence-but-for-error
-    - name: Publish rclone
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-rclone
-    - name: Publish puppet-lint
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-puppet-lint
-    - name: Publish octodns
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-octodns
-    - name: Publish monicahq
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-monicahq
-    - name: Publish homeassistant
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-homeassistant
-    - name: Publish graphql-schema-linter
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-graphql-schema-linter
-    - name: Publish git
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-git
-    - name: Publish curl
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-curl
-    - name: Publish checkup
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-checkup
-    - name: Publish aws-cli
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-aws-cli
     - name: Publish airconnect
       uses: parkr/actions/docker-make@main
       with:
         args: publish-airconnect
-    - name: Docker Logout
+    - name: Publish aws-cli
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-aws-cli
+    - name: Publish checkup
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-checkup
+    - name: Publish curl
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-curl
+    - name: Publish git
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-git
+    - name: Publish graphql-schema-linter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-graphql-schema-linter
+    - name: Publish homeassistant
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-homeassistant
+    - name: Publish html-proofer
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-html-proofer
+    - name: Publish monicahq
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-monicahq
+    - name: Publish octodns
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-octodns
+    - name: Publish puppet-lint
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-puppet-lint
+    - name: Publish rclone
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-rclone
+    - name: Publish silence-but-for-error
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-silence-but-for-error
+    - name: Publish southwestcheckin
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-southwestcheckin
+    - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
