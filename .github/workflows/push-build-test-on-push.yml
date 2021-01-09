@@ -65,6 +65,15 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-homeassistant
+  Test_html-proofer:
+    name: Test html-proofer
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test html-proofer
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-html-proofer
   Test_monicahq:
     name: Test monicahq
     runs-on: ubuntu-latest

@@ -1,0 +1,120 @@
+#!/usr/bin/ruby
+
+require "yaml"
+
+projects = `git ls-files --directory -z */Dockerfile`.split("\0").each_with_object([]) do |file, projects|
+  projects << File.dirname(file)
+end
+p projects
+
+test_jobs = projects.each_with_object({}) do |project, jobs|
+  jobs["Test_#{project}"] = {
+    "name" => "Test #{project}",
+    "runs-on" => "ubuntu-latest",
+    "steps" => [
+      { "uses" => "actions/checkout@v2" },
+      {
+        "name" => "Test #{project}",
+        "uses" => "parkr/actions/docker-make@main",
+        "with" => {"args" => "test-#{project}"}
+      },
+    ],
+  }
+end
+
+# On Push, test.
+File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
+  f.puts YAML.dump({
+    "on" => "push",
+    "name" => "Build & test on push",
+    "jobs" => test_jobs,
+  })
+end
+
+publish_docker_hub_jobs = projects.each_with_object([]) do |project, jobs|
+  jobs << {
+    "name" => "Publish #{project}",
+    "uses" => "parkr/actions/docker-make@main",
+    "with" => {"args" => "publish-#{project}"}
+  }
+end
+
+# On push to main branch, deploy to Docker Hub.
+File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "wb") do |f|
+  f.puts YAML.dump({
+    "on" => {"push" => {"branches" => ["main", "github-actions"]}},
+    "name" => "Publish to Docker Hub on push to main",
+    "jobs" => {
+      "Deploy_all_to_Docker_Hub" => {
+        "name" => "Deploy all to Docker Hub",
+        "runs-on" => "ubuntu-latest",
+        "steps" => [
+          { "uses" => "actions/checkout@v2" },
+          {
+            "name" => "Docker Hub Login",
+            "uses" => "parkr/actions/docker-auth@main",
+            "with" => { "args" => "login" },
+            "env" => {
+              "DOCKER_USERNAME" => "${{ secrets.DOCKER_USERNAME }}",
+              "DOCKER_PASSWORD" => "${{ secrets.DOCKER_PASSWORD }}",
+              "DOCKER_REGISTRY_URL" => "docker.io",
+            },
+          },
+          *publish_docker_hub_jobs,
+          {
+            "name" => "Docker Hub Logout",
+            "uses" => "parkr/actions/docker-auth@main",
+            "with" => { "args" => "logout" },
+            "env" => {
+              "DOCKER_REGISTRY_URL" => "docker.io",
+            },
+          },
+        ],
+      }
+    }
+  })
+end
+
+publish_ghcr_jobs = projects.each_with_object([]) do |project, jobs|
+  jobs << {
+    "name" => "Publish #{project} to GitHub Container Registry",
+    "uses" => "parkr/actions/docker-make@main",
+    "with" => {"args" => "publish-#{project} -e NAMESPACE=ghcr.io/parkr"}
+  }
+end
+
+# On push to main branch, deploy to Docker Hub.
+File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb") do |f|
+  f.puts YAML.dump({
+    "on" => {"push" => {"branches" => ["main", "github-actions"]}},
+    "name" => "Publish to GitHub Container Registry on push to main",
+    "jobs" => {
+      "Deploy_all_to_GitHub_Container_Registry" => {
+        "name" => "Deploy all to GitHub Container Registry",
+        "runs-on" => "ubuntu-latest",
+        "steps" => [
+          { "uses" => "actions/checkout@v2" },
+          {
+            "name" => "GitHub Container Registry Login",
+            "uses" => "parkr/actions/docker-auth@main",
+            "with" => { "args" => "login" },
+            "env" => {
+              "DOCKER_USERNAME" => "${{ secrets.GPR_USERNAME }}",
+              "DOCKER_PASSWORD" => "${{ secrets.GPR_PASSWORD }}",
+              "DOCKER_REGISTRY_URL" => "ghcr.io",
+            },
+          },
+          *publish_ghcr_jobs,
+          {
+            "name" => "GitHub Container Registry Logout",
+            "uses" => "parkr/actions/docker-auth@main",
+            "with" => { "args" => "logout" },
+            "env" => {
+              "DOCKER_REGISTRY_URL" => "ghcr.io",
+            },
+          },
+        ],
+      }
+    }
+  })
+end
