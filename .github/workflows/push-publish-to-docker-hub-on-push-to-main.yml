@@ -43,10 +43,6 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: publish-graphql-schema-linter
-    - name: Publish homeassistant
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-homeassistant
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:

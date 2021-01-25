@@ -43,10 +43,6 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: publish-graphql-schema-linter -e NAMESPACE=ghcr.io/parkr
-    - name: Publish homeassistant to GitHub Container Registry
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-homeassistant -e NAMESPACE=ghcr.io/parkr
     - name: Publish html-proofer to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
