@@ -14,4 +14,15 @@ test -z "$1" && {
 
 set -x
 
-docker run --rm "$TAG" -h
+docker run --rm \
+  --name test_kill_the_newsletter_1 \
+  --env WEB_PORT=8080 \
+  --env BASE_URL=http://localhost:8080 \
+  --publish 8080:8080 \
+  "$TAG" &
+cleanup() {
+  docker stop test_kill_the_newsletter_1
+}
+trap cleanup exit
+sleep 5
+curl --fail http://localhost:8080
