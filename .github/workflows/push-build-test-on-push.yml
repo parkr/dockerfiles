@@ -65,6 +65,15 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-html-proofer
+  Test_kill-the-newsletter:
+    name: Test kill-the-newsletter
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test kill-the-newsletter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-kill-the-newsletter
   Test_monicahq:
     name: Test monicahq
     runs-on: ubuntu-latest

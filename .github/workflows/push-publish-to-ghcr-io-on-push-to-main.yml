@@ -47,6 +47,10 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: publish-html-proofer -e NAMESPACE=ghcr.io/parkr
+    - name: Publish kill-the-newsletter to GitHub Container Registry
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-kill-the-newsletter -e NAMESPACE=ghcr.io/parkr
     - name: Publish monicahq to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:

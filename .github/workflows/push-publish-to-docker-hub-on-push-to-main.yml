@@ -47,6 +47,10 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: publish-html-proofer
+    - name: Publish kill-the-newsletter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: publish-kill-the-newsletter
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
