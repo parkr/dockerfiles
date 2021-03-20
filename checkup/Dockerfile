@@ -5,7 +5,7 @@ RUN set -ex \
 ENV CHECKOUT_DIR /go/src/github.com/sourcegraph/checkup
 RUN set -ex \
     && git clone https://github.com/sourcegraph/checkup ${CHECKOUT_DIR} \
-    && pushd ${CHECKOUT_DIR} \
+    && cd ${CHECKOUT_DIR} \
     && git checkout -q $VERSION \
     && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = $VERSION ] \
     && go mod download \
