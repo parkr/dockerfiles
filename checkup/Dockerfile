@@ -4,9 +4,11 @@ RUN set -ex \
     && apk add --no-cache git
 ENV CHECKOUT_DIR /go/src/github.com/sourcegraph/checkup
 RUN set -ex \
-    && go get -d github.com/sourcegraph/checkup/... \
-    && git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git checkout -q $VERSION \
-    && [  "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = $VERSION ] \
+    && git clone https://github.com/sourcegraph/checkup ${CHECKOUT_DIR} \
+    && pushd ${CHECKOUT_DIR} \
+    && git checkout -q $VERSION \
+    && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = $VERSION ] \
+    && go mod download \
     && go version \
     && GOOS=linux go install -v -ldflags "-w -s" github.com/sourcegraph/checkup/...
 
