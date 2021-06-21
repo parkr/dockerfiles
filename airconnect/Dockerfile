@@ -6,8 +6,8 @@ ENV AIRCONNECT_BINARY_STATIC $AIRCONNECT_BINARY-static
 ARG VERSION
 RUN curl -o $AIRCONNECT_BINARY \
 	  https://raw.githubusercontent.com/philippe44/AirConnect/$VERSION/bin/airupnp-x86-64 \
-	&& chmod 755 $AIRCONNECT_BINARY
-RUN curl -o $AIRCONNECT_BINARY_STATIC \
+	&& chmod 755 $AIRCONNECT_BINARY \
+&& curl -o $AIRCONNECT_BINARY_STATIC \
 	  https://raw.githubusercontent.com/philippe44/AirConnect/$VERSION/bin/airupnp-x86-64-static \
 	&& chmod 755 $AIRCONNECT_BINARY_STATIC
 
