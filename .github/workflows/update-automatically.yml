@@ -5,10 +5,10 @@ on:
    branches:
      - update-automatically
 
-name: Update rclone
+name: Automatic Version Updates
 jobs:
  release:
-   name: latest_version
+   name: rclone
    runs-on: ubuntu-latest
    steps:
      - name: Update rclone version
