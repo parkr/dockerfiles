@@ -1,0 +1,20 @@
+on:
+ schedule:
+   - cron: 0 0 * * *
+
+name: Update rclone
+jobs:
+ release:
+   name: latest_version
+   runs-on: ubuntu-latest
+   steps:
+     - name: Update rclone version
+       uses: technote-space/create-pr-action@v2
+       with:
+         EXECUTE_COMMANDS: |
+           cd rclone && bash latest_version.sh
+         COMMIT_MESSAGE: 'update rclone version'
+         COMMIT_NAME: 'GitHub Actions'
+         COMMIT_EMAIL: 'actions@github.com'
+         PR_BRANCH_NAME: 'actions-rclone-version-update-${PR_ID}'
+         COMMIT_MESSAGE: 'update rclone version'
