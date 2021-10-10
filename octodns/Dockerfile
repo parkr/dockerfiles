@@ -7,11 +7,11 @@ RUN set -ex \
     && git clone https://github.com/github/octodns $CHECKOUT_DIR \
     && git --work-tree "$CHECKOUT_DIR" --git-dir="$CHECKOUT_DIR/.git" checkout -q "$VERSION"
 
-FROM python:3-slim as build
+FROM python:3.10-slim as build
 COPY --from=cloner /tmp/octodns /usr/share/octodns
 RUN pip install --no-cache-dir /usr/share/octodns boto3
 
-FROM python:3-slim
-COPY --from=build /usr/local/lib/python*/site-packages /usr/local/lib/python3.9/site-packages
+FROM python:3.10-slim
+COPY --from=build /usr/local/lib/python*/site-packages /usr/local/lib/python3.10/site-packages
 COPY --from=build /usr/local/bin/octodns-* /usr/local/bin/
 CMD [ "/bin/sh" ]
