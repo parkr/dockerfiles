@@ -8,6 +8,15 @@ projects = `git ls-files --directory -z */Dockerfile`.split("\0").each_with_obje
 end
 p projects
 
+cosign_install_steps = [
+  {
+    "name" => "Install Cosign",
+    "uses" => "sigstore/cosign-installer@main",
+    "with" => { "cosign-release" => "v1.2.1" },
+  },
+  { "run" => "cosign version" },
+]
+
 test_jobs = projects.each_with_object({}) do |project, jobs|
   jobs["Test_#{project}"] = {
     "name" => "Test #{project}",
@@ -51,6 +60,7 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
         "runs-on" => "ubuntu-latest",
         "steps" => [
           { "uses" => "actions/checkout@v2" },
+          *cosign_install_steps,
           {
             "name" => "Docker Hub Login",
             "uses" => "parkr/actions/docker-auth@main",
@@ -95,6 +105,7 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
         "runs-on" => "ubuntu-latest",
         "steps" => [
           { "uses" => "actions/checkout@v2" },
+          *cosign_install_steps,
           {
             "name" => "GitHub Container Registry Login",
             "uses" => "parkr/actions/docker-auth@main",
