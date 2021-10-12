@@ -21,6 +21,18 @@ test_jobs = projects.each_with_object({}) do |project, jobs|
   jobs["Test_#{project}"] = {
     "name" => "Test #{project}",
     "runs-on" => "ubuntu-latest",
+    "permissions" => {
+      "actions" => "none",
+      "checks" => "none",
+      "contents" => "none",
+      "deployments" => "none",
+      "issues" => "none",
+      "packages" => "write",
+      "pull-requests" => "none",
+      "repository-projects" => "none",
+      "security-events" => "none",
+      "statuses" => "none",
+    },
     "steps" => [
       { "uses" => "actions/checkout@v2" },
       {
@@ -58,6 +70,18 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
       "Deploy_all_to_Docker_Hub" => {
         "name" => "Deploy all to Docker Hub",
         "runs-on" => "ubuntu-latest",
+        "permissions" => {
+          "actions" => "none",
+          "checks" => "none",
+          "contents" => "none",
+          "deployments" => "none",
+          "issues" => "none",
+          "packages" => "none",
+          "pull-requests" => "none",
+          "repository-projects" => "none",
+          "security-events" => "none",
+          "statuses" => "none",
+        },
         "steps" => [
           { "uses" => "actions/checkout@v2" },
           *cosign_install_steps,
@@ -103,6 +127,18 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
       "Deploy_all_to_GitHub_Container_Registry" => {
         "name" => "Deploy all to GitHub Container Registry",
         "runs-on" => "ubuntu-latest",
+        "permissions" => {
+          "actions" => "none",
+          "checks" => "none",
+          "contents" => "none",
+          "deployments" => "none",
+          "issues" => "none",
+          "packages" => "write",
+          "pull-requests" => "none",
+          "repository-projects" => "none",
+          "security-events" => "none",
+          "statuses" => "none",
+        },
         "steps" => [
           { "uses" => "actions/checkout@v2" },
           *cosign_install_steps,

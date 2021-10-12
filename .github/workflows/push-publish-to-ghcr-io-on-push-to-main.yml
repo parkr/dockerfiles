@@ -9,6 +9,17 @@ jobs:
   Deploy_all_to_GitHub_Container_Registry:
     name: Deploy all to GitHub Container Registry
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Install Cosign

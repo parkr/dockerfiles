@@ -5,6 +5,17 @@ jobs:
   Test_airconnect:
     name: Test airconnect
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test airconnect
@@ -14,6 +25,17 @@ jobs:
   Test_aws-cli:
     name: Test aws-cli
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test aws-cli
@@ -23,6 +45,17 @@ jobs:
   Test_checkup:
     name: Test checkup
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test checkup
@@ -32,6 +65,17 @@ jobs:
   Test_curl:
     name: Test curl
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test curl
@@ -41,6 +85,17 @@ jobs:
   Test_git:
     name: Test git
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test git
@@ -50,6 +105,17 @@ jobs:
   Test_graphql-schema-linter:
     name: Test graphql-schema-linter
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test graphql-schema-linter
@@ -59,6 +125,17 @@ jobs:
   Test_html-proofer:
     name: Test html-proofer
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test html-proofer
@@ -68,6 +145,17 @@ jobs:
   Test_monicahq:
     name: Test monicahq
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test monicahq
@@ -77,6 +165,17 @@ jobs:
   Test_octodns:
     name: Test octodns
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test octodns
@@ -86,6 +185,17 @@ jobs:
   Test_puppet-lint:
     name: Test puppet-lint
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test puppet-lint
@@ -95,6 +205,17 @@ jobs:
   Test_rclone:
     name: Test rclone
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test rclone
@@ -104,6 +225,17 @@ jobs:
   Test_silence-but-for-error:
     name: Test silence-but-for-error
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test silence-but-for-error
@@ -113,6 +245,17 @@ jobs:
   Test_southwestcheckin:
     name: Test southwestcheckin
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Test southwestcheckin

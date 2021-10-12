@@ -9,6 +9,17 @@ jobs:
   Deploy_all_to_Docker_Hub:
     name: Deploy all to Docker Hub
     runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: none
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
     steps:
     - uses: actions/checkout@v2
     - name: Install Cosign
