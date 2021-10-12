@@ -15,7 +15,7 @@ jobs:
        uses: technote-space/create-pr-action@v2
        with:
          EXECUTE_COMMANDS: |
-           cd rclone && bash latest_version.sh
+           bash rclone/latest_version.sh
          COMMIT_MESSAGE: 'update rclone version'
          COMMIT_NAME: 'GitHub Actions'
          COMMIT_EMAIL: 'actions@github.com'
