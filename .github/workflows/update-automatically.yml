@@ -20,3 +20,7 @@ jobs:
          COMMIT_NAME: 'GitHub Actions'
          COMMIT_EMAIL: 'actions@github.com'
          PR_BRANCH_NAME: 'actions-rclone-version-update-${PR_ID}'
+         PR_TITLE: 'Update rclone version'
+         PR_BODY: 'A new version of rclone is available.'
+         PR_BRANCH_PREFIX: 'update-automatically'
+         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
