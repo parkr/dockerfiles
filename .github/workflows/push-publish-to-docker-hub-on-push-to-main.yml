@@ -42,91 +42,91 @@ jobs:
         args:
         - publish-airconnect
         - sign-airconnect
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish aws-cli
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-aws-cli
         - sign-aws-cli
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-checkup
         - sign-checkup
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish curl
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-curl
         - sign-curl
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-git
         - sign-git
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-graphql-schema-linter
         - sign-graphql-schema-linter
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-html-proofer
         - sign-html-proofer
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-monicahq
         - sign-monicahq
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish octodns
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-octodns
         - sign-octodns
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-puppet-lint
         - sign-puppet-lint
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-rclone
         - sign-rclone
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-silence-but-for-error
         - sign-silence-but-for-error
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
         args:
         - publish-southwestcheckin
         - sign-southwestcheckin
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm $COSIGN_KEY
     - name: Docker Hub Logout

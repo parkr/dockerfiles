@@ -43,7 +43,7 @@ jobs:
         - publish-airconnect
         - sign-airconnect
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish aws-cli to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -51,7 +51,7 @@ jobs:
         - publish-aws-cli
         - sign-aws-cli
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish checkup to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -59,7 +59,7 @@ jobs:
         - publish-checkup
         - sign-checkup
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish curl to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -67,7 +67,7 @@ jobs:
         - publish-curl
         - sign-curl
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish git to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -75,7 +75,7 @@ jobs:
         - publish-git
         - sign-git
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish graphql-schema-linter to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -83,7 +83,7 @@ jobs:
         - publish-graphql-schema-linter
         - sign-graphql-schema-linter
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish html-proofer to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -91,7 +91,7 @@ jobs:
         - publish-html-proofer
         - sign-html-proofer
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish monicahq to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -99,7 +99,7 @@ jobs:
         - publish-monicahq
         - sign-monicahq
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish octodns to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -107,7 +107,7 @@ jobs:
         - publish-octodns
         - sign-octodns
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish puppet-lint to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -115,7 +115,7 @@ jobs:
         - publish-puppet-lint
         - sign-puppet-lint
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish rclone to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -123,7 +123,7 @@ jobs:
         - publish-rclone
         - sign-rclone
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish silence-but-for-error to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -131,7 +131,7 @@ jobs:
         - publish-silence-but-for-error
         - sign-silence-but-for-error
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Publish southwestcheckin to GitHub Container Registry
       uses: parkr/actions/docker-make@main
       with:
@@ -139,7 +139,7 @@ jobs:
         - publish-southwestcheckin
         - sign-southwestcheckin
         - "-e NAMESPACE=ghcr.io/parkr"
-        cosign-password: "${{secrets.COSIGN_PASSWORD}}"
+        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm $COSIGN_KEY
     - name: GitHub Container Registry Logout

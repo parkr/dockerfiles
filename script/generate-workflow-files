@@ -68,7 +68,7 @@ publish_docker_hub_jobs = projects.each_with_object([]) do |project, jobs|
     "uses" => "parkr/actions/docker-make@main",
     "with" => {
       "args" => ["publish-#{project}", "sign-#{project}"],
-      "cosign-password" => '${{secrets.COSIGN_PASSWORD}}',
+      "cosign-password" => '${{secrets.COSIGN_KEY_PASSPHRASE}}',
     }
   }
 end
@@ -129,7 +129,7 @@ publish_ghcr_jobs = projects.each_with_object([]) do |project, jobs|
     "uses" => "parkr/actions/docker-make@main",
     "with" => {
       "args" => ["publish-#{project}", "sign-#{project}", "-e NAMESPACE=ghcr.io/parkr"],
-      "cosign-password" => '${{secrets.COSIGN_PASSWORD}}',
+      "cosign-password" => '${{secrets.COSIGN_KEY_PASSPHRASE}}',
     }
   }
 end
