@@ -2,6 +2,8 @@
 
 require "yaml"
 
+PUBLISH_BRANCHES = ["main", "github-actions", "setup-cosign"]
+
 projects = `git ls-files --directory -z */Dockerfile`.split("\0").each_with_object([]) do |file, projects|
   next if file.start_with?("homeassistant/")
   projects << File.dirname(file)
@@ -12,6 +14,18 @@ test_jobs = projects.each_with_object({}) do |project, jobs|
   jobs["Test_#{project}"] = {
     "name" => "Test #{project}",
     "runs-on" => "ubuntu-latest",
+    "permissions" => {
+      "actions" => "none",
+      "checks" => "none",
+      "contents" => "none",
+      "deployments" => "none",
+      "issues" => "none",
+      "packages" => "write",
+      "pull-requests" => "none",
+      "repository-projects" => "none",
+      "security-events" => "none",
+      "statuses" => "none",
+    },
     "steps" => [
       { "uses" => "actions/checkout@v2" },
       {
@@ -32,23 +46,54 @@ File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
   })
 end
 
+cosign_secret_download_jobs = [
+  {
+    "name"  => "Download cosign key",
+    "run"   => 'echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c',
+    "shell" => "bash",
+    "env"   => {"COSIGN_KEY" => '${{secrets.COSIGN_KEY}}'},
+  }
+]
+
+cosign_secret_delete_jobs = [
+  {
+    "name" => "Delete cosign key",
+    "run"  => "rm cosign.key",
+  }
+]
+
 publish_docker_hub_jobs = projects.each_with_object([]) do |project, jobs|
   jobs << {
     "name" => "Publish #{project}",
     "uses" => "parkr/actions/docker-make@main",
-    "with" => {"args" => "publish-#{project}"}
+    "with" => {
+      "args" => "publish-#{project} sign-#{project}",
+      "cosign-password" => '${{secrets.COSIGN_KEY_PASSPHRASE}}',
+    }
   }
 end
 
 # On push to main branch, deploy to Docker Hub.
 File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => ["main", "github-actions"]}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
     "name" => "Publish to Docker Hub on push to main",
     "jobs" => {
       "Deploy_all_to_Docker_Hub" => {
         "name" => "Deploy all to Docker Hub",
         "runs-on" => "ubuntu-latest",
+        "permissions" => {
+          "actions" => "none",
+          "checks" => "none",
+          "contents" => "none",
+          "deployments" => "none",
+          "issues" => "none",
+          "packages" => "none",
+          "pull-requests" => "none",
+          "repository-projects" => "none",
+          "security-events" => "none",
+          "statuses" => "none",
+        },
         "steps" => [
           { "uses" => "actions/checkout@v2" },
           {
@@ -61,7 +106,9 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
               "DOCKER_REGISTRY_URL" => "docker.io",
             },
           },
+          *cosign_secret_download_jobs,
           *publish_docker_hub_jobs,
+          *cosign_secret_delete_jobs,
           {
             "name" => "Docker Hub Logout",
             "uses" => "parkr/actions/docker-auth@main",
@@ -80,19 +127,34 @@ publish_ghcr_jobs = projects.each_with_object([]) do |project, jobs|
   jobs << {
     "name" => "Publish #{project} to GitHub Container Registry",
     "uses" => "parkr/actions/docker-make@main",
-    "with" => {"args" => "publish-#{project} -e NAMESPACE=ghcr.io/parkr"}
+    "with" => {
+      "args" => "publish-#{project} sign-#{project} -e NAMESPACE=ghcr.io/parkr",
+      "cosign-password" => '${{secrets.COSIGN_KEY_PASSPHRASE}}',
+    }
   }
 end
 
 # On push to main branch, deploy to Docker Hub.
 File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => ["main", "github-actions"]}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
     "name" => "Publish to GitHub Container Registry on push to main",
     "jobs" => {
       "Deploy_all_to_GitHub_Container_Registry" => {
         "name" => "Deploy all to GitHub Container Registry",
         "runs-on" => "ubuntu-latest",
+        "permissions" => {
+          "actions" => "none",
+          "checks" => "none",
+          "contents" => "none",
+          "deployments" => "none",
+          "issues" => "none",
+          "packages" => "write",
+          "pull-requests" => "none",
+          "repository-projects" => "none",
+          "security-events" => "none",
+          "statuses" => "none",
+        },
         "steps" => [
           { "uses" => "actions/checkout@v2" },
           {
@@ -105,7 +167,9 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
               "DOCKER_REGISTRY_URL" => "ghcr.io",
             },
           },
+          *cosign_secret_download_jobs,
           *publish_ghcr_jobs,
+          *cosign_secret_delete_jobs,
           {
             "name" => "GitHub Container Registry Logout",
             "uses" => "parkr/actions/docker-auth@main",

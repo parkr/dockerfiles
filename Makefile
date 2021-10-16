@@ -49,6 +49,20 @@ publish-%: test-%
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
 	docker push $(TAG)
 
+sign-%:
+	$(eval PROJECT_NAME := $(patsubst sign-%,%,$@))
+	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
+	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
+	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
+	cosign sign -key cosign.key $(TAG)
+
+verify-%:
+	$(eval PROJECT_NAME := $(patsubst verify-%,%,$@))
+	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
+	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
+	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
+	cosign verify -key cosign.pub $(TAG)
+
 published-%:
 	$(eval PROJECT_NAME := $(patsubst published-%,%,$@))
 	sh ./.github/actions/docker-make/docker_tag_exists.sh $(NAMESPACE)/$(PROJECT_NAME)
