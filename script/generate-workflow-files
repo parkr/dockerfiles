@@ -31,7 +31,7 @@ test_jobs = projects.each_with_object({}) do |project, jobs|
       {
         "name" => "Test #{project}",
         "uses" => "parkr/actions/docker-make@main",
-        "with" => {"args" => "test-#{project}"}
+        "with" => {"args" => ["test-#{project}"]}
       },
     ],
   }
@@ -99,7 +99,7 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
           {
             "name" => "Docker Hub Login",
             "uses" => "parkr/actions/docker-auth@main",
-            "with" => { "args" => "login" },
+            "with" => { "args" => ["login"] },
             "env" => {
               "DOCKER_USERNAME" => "${{ secrets.DOCKER_USERNAME }}",
               "DOCKER_PASSWORD" => "${{ secrets.DOCKER_PASSWORD }}",
@@ -112,7 +112,7 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
           {
             "name" => "Docker Hub Logout",
             "uses" => "parkr/actions/docker-auth@main",
-            "with" => { "args" => "logout" },
+            "with" => { "args" => ["logout"] },
             "env" => {
               "DOCKER_REGISTRY_URL" => "docker.io",
             },
@@ -160,7 +160,7 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
           {
             "name" => "GitHub Container Registry Login",
             "uses" => "parkr/actions/docker-auth@main",
-            "with" => { "args" => "login" },
+            "with" => { "args" => ["login"] },
             "env" => {
               "DOCKER_USERNAME" => "${{ secrets.GPR_USERNAME }}",
               "DOCKER_PASSWORD" => "${{ secrets.GPR_PASSWORD }}",
@@ -173,7 +173,7 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
           {
             "name" => "GitHub Container Registry Logout",
             "uses" => "parkr/actions/docker-auth@main",
-            "with" => { "args" => "logout" },
+            "with" => { "args" => ["logout"] },
             "env" => {
               "DOCKER_REGISTRY_URL" => "ghcr.io",
             },

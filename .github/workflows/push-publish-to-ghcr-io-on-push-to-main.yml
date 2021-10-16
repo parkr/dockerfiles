@@ -26,7 +26,8 @@ jobs:
     - name: GitHub Container Registry Login
       uses: parkr/actions/docker-auth@main
       with:
-        args: login
+        args:
+        - login
       env:
         DOCKER_USERNAME: "${{ secrets.GPR_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.GPR_PASSWORD }}"
@@ -145,6 +146,7 @@ jobs:
     - name: GitHub Container Registry Logout
       uses: parkr/actions/docker-auth@main
       with:
-        args: logout
+        args:
+        - logout
       env:
         DOCKER_REGISTRY_URL: ghcr.io

@@ -26,7 +26,8 @@ jobs:
     - name: Docker Hub Login
       uses: parkr/actions/docker-auth@main
       with:
-        args: login
+        args:
+        - login
       env:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
@@ -132,6 +133,7 @@ jobs:
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
-        args: logout
+        args:
+        - logout
       env:
         DOCKER_REGISTRY_URL: docker.io
