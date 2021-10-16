@@ -27,11 +27,35 @@ To create a new image, all you need to do is:
 
 1. Create the subdirectory for your project (it will map to `parkr/$dir` as the image name), with `Dockerfile`, `VERSION`, and `test.sh` files.
 2. Fill out the `VERSION` file for your desired version. It can be a Git SHA-1, a semver version, etc.
-3. Write the `Dockerfile` to accept a build argument `VERSION` and use that to fetch the program at the given version. When you want the default branch of a project, be sure to use `latest` in `VERSION`, and map that to the default branch in your `Dockerfile`. 
+3. Write the `Dockerfile` to accept a build argument `VERSION` and use that to fetch the program at the given version. When you want the default branch of a project, be sure to use `latest` in `VERSION`, and map that to the default branch in your `Dockerfile`.
 4. Write `test.sh` to exit 1 if the Docker image isn't working. This might be a Docker `HEALTHCHECK` that you verify is healthy upon starting the image, or maybe it's as simple as making sure the utility file is installed and executable.
 5. Add the entries to `.github/actions` files. Copying a pre-existing utility's actions/steps in the file will help. Let's keep these files alphabetical.
 6. Push to a feature branch.
 7. Verify tests pass, then merge.
+
+## Verifying an image
+
+We use [cosign](https://github.com/sigstore/cosign) to sign images. Here's our public key:
+
+```text
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAELbA3dMq2RK0jZMhtMEpH74UEAfUw
+6RXclfsLvG8Rsjs3p8eTmgaVedTc84I6c0oART8uozH1RcUwFNgRg/aNTQ==
+-----END PUBLIC KEY-----
+```
+
+To verify, write that to `cosign.pub` and:
+
+```sh
+$ docker pull <IMAGE>
+Pulling ...
+$ cosign verify -key cosign.pub <IMAGE>
+Verification for <IMAGE> --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - The signatures were verified against the specified public key
+  - Any certificates were verified against the Fulcio roots.
+```
 
 ## License
 
