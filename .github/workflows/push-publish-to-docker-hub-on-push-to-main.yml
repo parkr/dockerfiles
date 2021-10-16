@@ -102,7 +102,7 @@ jobs:
         args: publish-southwestcheckin sign-southwestcheckin
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
-      run: rm $COSIGN_KEY
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:

@@ -58,7 +58,7 @@ cosign_secret_download_jobs = [
 cosign_secret_delete_jobs = [
   {
     "name" => "Delete cosign key",
-    "run"  => "rm $COSIGN_KEY",
+    "run"  => "rm cosign.key",
   }
 ]
 
