@@ -49,7 +49,7 @@ end
 cosign_secret_download_jobs = [
   {
     "name"  => "Download cosign key",
-    "run"   => 'echo "$COSIGN_KEY" > cosign.key',
+    "run"   => 'echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c',
     "shell" => "bash",
     "env"   => {"COSIGN_KEY" => '${{secrets.COSIGN_KEY}}'},
   }

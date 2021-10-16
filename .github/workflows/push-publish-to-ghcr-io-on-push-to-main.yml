@@ -32,7 +32,7 @@ jobs:
         DOCKER_PASSWORD: "${{ secrets.GPR_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
     - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
