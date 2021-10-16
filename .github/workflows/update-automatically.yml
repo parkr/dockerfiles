@@ -1,26 +1,35 @@
-on:
- schedule:
-   - cron: 0 0 * * *
- push:
-   branches:
-     - update-automatically
-
+---
+'on':
+  schedule:
+  - cron: 0 0 * * *
+  push:
+    branches:
+    - update-automatically
 name: Automatic Version Updates
 jobs:
- release:
-   name: rclone
-   runs-on: ubuntu-latest
-   steps:
-     - name: Update rclone version
-       uses: technote-space/create-pr-action@v2
-       with:
-         EXECUTE_COMMANDS: |
-           bash rclone/latest_version.sh
-         COMMIT_MESSAGE: 'update rclone version'
-         COMMIT_NAME: 'GitHub Actions'
-         COMMIT_EMAIL: 'actions@github.com'
-         PR_BRANCH_NAME: 'rclone-version-update-${PR_ID}'
-         PR_TITLE: 'Update rclone version'
-         PR_BODY: 'A new version of rclone is available. cc @parkr'
-         PR_BRANCH_PREFIX: 'update-automatically/'
-         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  release:
+    name: Update releases
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update monicahq version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: bash monicahq/latest_version.sh
+        COMMIT_MESSAGE: Update monicahq version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-${PR_ID}
+        PR_TITLE: Update monicahq version
+        PR_BODY: A new version of monicahq is available. cc @parkr
+        PR_BRANCH_PREFIX: update-automatically/
+    - name: Update rclone version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: bash rclone/latest_version.sh
+        COMMIT_MESSAGE: Update rclone version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-${PR_ID}
+        PR_TITLE: Update rclone version
+        PR_BODY: A new version of rclone is available. cc @parkr
+        PR_BRANCH_PREFIX: update-automatically/
