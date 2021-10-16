@@ -46,6 +46,22 @@ File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
   })
 end
 
+cosign_secret_download_jobs = [
+  {
+    "name"  => "Download cosign key",
+    "run"   => 'echo "$COSIGN_KEY" > cosign.key',
+    "shell" => "bash",
+    "env"   => {"COSIGN_KEY" => '${{secrets.COSIGN_KEY}}'},
+  }
+]
+
+cosign_secret_delete_jobs = [
+  {
+    "name" => "Delete cosign key",
+    "run"  => "rm $COSIGN_KEY",
+  }
+]
+
 publish_docker_hub_jobs = projects.each_with_object([]) do |project, jobs|
   jobs << {
     "name" => "Publish #{project}",
@@ -87,7 +103,9 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
               "DOCKER_REGISTRY_URL" => "docker.io",
             },
           },
+          *cosign_secret_download_jobs,
           *publish_docker_hub_jobs,
+          *cosign_secret_delete_jobs,
           {
             "name" => "Docker Hub Logout",
             "uses" => "parkr/actions/docker-auth@main",
@@ -143,7 +161,9 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
               "DOCKER_REGISTRY_URL" => "ghcr.io",
             },
           },
+          *cosign_secret_download_jobs,
           *publish_ghcr_jobs,
+          *cosign_secret_delete_jobs,
           {
             "name" => "GitHub Container Registry Logout",
             "uses" => "parkr/actions/docker-auth@main",

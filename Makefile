@@ -54,7 +54,7 @@ sign-%:
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
-	cosign sign -key my_cosign.key $(TAG)
+	cosign sign -key cosign.key $(TAG)
 
 published-%:
 	$(eval PROJECT_NAME := $(patsubst published-%,%,$@))
