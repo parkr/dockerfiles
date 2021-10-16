@@ -21,8 +21,7 @@ jobs:
     - name: Test airconnect
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-airconnect
+        args: test-airconnect
   Test_aws-cli:
     name: Test aws-cli
     runs-on: ubuntu-latest
@@ -42,8 +41,7 @@ jobs:
     - name: Test aws-cli
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-aws-cli
+        args: test-aws-cli
   Test_checkup:
     name: Test checkup
     runs-on: ubuntu-latest
@@ -63,8 +61,7 @@ jobs:
     - name: Test checkup
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-checkup
+        args: test-checkup
   Test_curl:
     name: Test curl
     runs-on: ubuntu-latest
@@ -84,8 +81,7 @@ jobs:
     - name: Test curl
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-curl
+        args: test-curl
   Test_git:
     name: Test git
     runs-on: ubuntu-latest
@@ -105,8 +101,7 @@ jobs:
     - name: Test git
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-git
+        args: test-git
   Test_graphql-schema-linter:
     name: Test graphql-schema-linter
     runs-on: ubuntu-latest
@@ -126,8 +121,7 @@ jobs:
     - name: Test graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-graphql-schema-linter
+        args: test-graphql-schema-linter
   Test_html-proofer:
     name: Test html-proofer
     runs-on: ubuntu-latest
@@ -147,8 +141,7 @@ jobs:
     - name: Test html-proofer
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-html-proofer
+        args: test-html-proofer
   Test_monicahq:
     name: Test monicahq
     runs-on: ubuntu-latest
@@ -168,8 +161,7 @@ jobs:
     - name: Test monicahq
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-monicahq
+        args: test-monicahq
   Test_octodns:
     name: Test octodns
     runs-on: ubuntu-latest
@@ -189,8 +181,7 @@ jobs:
     - name: Test octodns
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-octodns
+        args: test-octodns
   Test_puppet-lint:
     name: Test puppet-lint
     runs-on: ubuntu-latest
@@ -210,8 +201,7 @@ jobs:
     - name: Test puppet-lint
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-puppet-lint
+        args: test-puppet-lint
   Test_rclone:
     name: Test rclone
     runs-on: ubuntu-latest
@@ -231,8 +221,7 @@ jobs:
     - name: Test rclone
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-rclone
+        args: test-rclone
   Test_silence-but-for-error:
     name: Test silence-but-for-error
     runs-on: ubuntu-latest
@@ -252,8 +241,7 @@ jobs:
     - name: Test silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-silence-but-for-error
+        args: test-silence-but-for-error
   Test_southwestcheckin:
     name: Test southwestcheckin
     runs-on: ubuntu-latest
@@ -273,5 +261,4 @@ jobs:
     - name: Test southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
-        args:
-        - test-southwestcheckin
+        args: test-southwestcheckin

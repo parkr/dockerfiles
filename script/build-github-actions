@@ -29,7 +29,7 @@ def generate_jobs(projects, name:, make_prefix:)
         {
           "name" => "#{name} #{project_name}",
           "uses" => "parkr/actions/docker-make@main",
-          "with" => {"args" => ["#{make_prefix}-#{project_name}"]},
+          "with" => {"args" => "#{make_prefix}-#{project_name}"},
         }
       ]
     }
