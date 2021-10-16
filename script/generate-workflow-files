@@ -2,20 +2,13 @@
 
 require "yaml"
 
+PUBLISH_BRANCHES = ["main", "github-actions", "setup-cosign"]
+
 projects = `git ls-files --directory -z */Dockerfile`.split("\0").each_with_object([]) do |file, projects|
   next if file.start_with?("homeassistant/")
   projects << File.dirname(file)
 end
 p projects
-
-cosign_install_steps = [
-  {
-    "name" => "Install Cosign",
-    "uses" => "sigstore/cosign-installer@main",
-    "with" => { "cosign-release" => "v1.2.1" },
-  },
-  { "run" => "cosign version" },
-]
 
 test_jobs = projects.each_with_object({}) do |project, jobs|
   jobs["Test_#{project}"] = {
@@ -57,14 +50,14 @@ publish_docker_hub_jobs = projects.each_with_object([]) do |project, jobs|
   jobs << {
     "name" => "Publish #{project}",
     "uses" => "parkr/actions/docker-make@main",
-    "with" => {"args" => "publish-#{project}"}
+    "with" => {"args" => "publish-#{project} sign-#{project}"}
   }
 end
 
 # On push to main branch, deploy to Docker Hub.
 File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => ["main", "github-actions"]}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
     "name" => "Publish to Docker Hub on push to main",
     "jobs" => {
       "Deploy_all_to_Docker_Hub" => {
@@ -84,7 +77,6 @@ File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "w
         },
         "steps" => [
           { "uses" => "actions/checkout@v2" },
-          *cosign_install_steps,
           {
             "name" => "Docker Hub Login",
             "uses" => "parkr/actions/docker-auth@main",
@@ -114,14 +106,14 @@ publish_ghcr_jobs = projects.each_with_object([]) do |project, jobs|
   jobs << {
     "name" => "Publish #{project} to GitHub Container Registry",
     "uses" => "parkr/actions/docker-make@main",
-    "with" => {"args" => "publish-#{project} -e NAMESPACE=ghcr.io/parkr"}
+    "with" => {"args" => "publish-#{project} sign-#{project} -e NAMESPACE=ghcr.io/parkr"}
   }
 end
 
 # On push to main branch, deploy to Docker Hub.
 File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => ["main", "github-actions"]}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
     "name" => "Publish to GitHub Container Registry on push to main",
     "jobs" => {
       "Deploy_all_to_GitHub_Container_Registry" => {
@@ -141,7 +133,6 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
         },
         "steps" => [
           { "uses" => "actions/checkout@v2" },
-          *cosign_install_steps,
           {
             "name" => "GitHub Container Registry Login",
             "uses" => "parkr/actions/docker-auth@main",

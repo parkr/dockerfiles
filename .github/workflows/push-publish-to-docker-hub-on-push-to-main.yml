@@ -4,6 +4,7 @@
     branches:
     - main
     - github-actions
+    - setup-cosign
 name: Publish to Docker Hub on push to main
 jobs:
   Deploy_all_to_Docker_Hub:
@@ -22,11 +23,6 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Install Cosign
-      uses: sigstore/cosign-installer@main
-      with:
-        cosign-release: v1.2.1
-    - run: cosign version
     - name: Docker Hub Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -38,55 +34,55 @@ jobs:
     - name: Publish airconnect
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-airconnect
+        args: publish-airconnect sign-airconnect
     - name: Publish aws-cli
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-aws-cli
+        args: publish-aws-cli sign-aws-cli
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-checkup
+        args: publish-checkup sign-checkup
     - name: Publish curl
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-curl
+        args: publish-curl sign-curl
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-git
+        args: publish-git sign-git
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-graphql-schema-linter
+        args: publish-graphql-schema-linter sign-graphql-schema-linter
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-html-proofer
+        args: publish-html-proofer sign-html-proofer
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-monicahq
+        args: publish-monicahq sign-monicahq
     - name: Publish octodns
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-octodns
+        args: publish-octodns sign-octodns
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-puppet-lint
+        args: publish-puppet-lint sign-puppet-lint
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-rclone
+        args: publish-rclone sign-rclone
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-silence-but-for-error
+        args: publish-silence-but-for-error sign-silence-but-for-error
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
-        args: publish-southwestcheckin
+        args: publish-southwestcheckin sign-southwestcheckin
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
