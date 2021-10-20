@@ -21,7 +21,7 @@ jobs:
         PR_BRANCH_NAME: version-update-${PR_ID}
         PR_TITLE: Update monicahq version
         PR_BODY: A new version of monicahq is available. cc @parkr
-        PR_BRANCH_PREFIX: update-automatically/
+        PR_BRANCH_PREFIX: update-automatically-
     - name: Update rclone version
       uses: technote-space/create-pr-action@v2
       with:
