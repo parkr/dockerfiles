@@ -1,10 +1,7 @@
 FROM ruby:alpine
 
-RUN echo 'gem: --no-document' >> /etc/gemrc
-
-# needed at runtime
-RUN apk add --no-cache \
-  libcurl
+RUN echo 'gem: --no-document' >> /etc/gemrc \
+  && apk add --no-cache libcurl # needed at runtime
 
 ARG VERSION
 RUN apk add --no-cache --virtual build-dependencies \
