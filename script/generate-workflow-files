@@ -184,21 +184,24 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
   })
 end
 
-automatically_update_jobs = projects.each_with_object([]) do |project, jobs|
+automatically_update_jobs = projects.each_with_object({}) do |project, jobs|
   next unless File.file?("#{project}/latest_version.sh")
-  jobs << {
-    "name" => "Update #{project} version",
-    "uses" => "technote-space/create-pr-action@v2",
-    "with" => {
-      "EXECUTE_COMMANDS" => "bash #{project}/latest_version.sh",
-      "COMMIT_MESSAGE"   => "Update #{project} version",
-      "COMMIT_NAME"      => "GitHub Actions",
-      "COMMIT_EMAIL"     => "actions@github.com",
-      "PR_BRANCH_NAME"   => "version-update-#{project}-${PR_ID}",
-      "PR_TITLE"         => "Update #{project} version",
-      "PR_BODY"          => "A new version of #{project} is available. cc @parkr",
-      "PR_BRANCH_PREFIX" => "update-automatically-",
-    }
+  jobs["Update_#{project}_version"] = {
+    "runs-on" => "ubuntu-latest",
+    "steps" => [{
+      "name" => "Update #{project} version",
+      "uses" => "technote-space/create-pr-action@v2",
+      "with" => {
+        "EXECUTE_COMMANDS" => "bash #{project}/latest_version.sh",
+        "COMMIT_MESSAGE"   => "Update #{project} version",
+        "COMMIT_NAME"      => "GitHub Actions",
+        "COMMIT_EMAIL"     => "actions@github.com",
+        "PR_BRANCH_NAME"   => "version-update-#{project}-${PR_ID}",
+        "PR_TITLE"         => "Update #{project} version",
+        "PR_BODY"          => "A new version of #{project} is available. cc @parkr",
+        "PR_BRANCH_PREFIX" => "update-automatically-",
+      }
+    }]
   }
 end
 
@@ -212,12 +215,6 @@ File.open(".github/workflows/update-automatically.yml", "wb") do |f|
       }
     },
     "name" => "Automatic Version Updates",
-    "jobs" => {
-      "release" => {
-        "name" => "Update releases",
-        "runs-on" => "ubuntu-latest",
-        "steps" => automatically_update_jobs,
-      }
-    }
+    "jobs" => automatically_update_jobs
   })
 end

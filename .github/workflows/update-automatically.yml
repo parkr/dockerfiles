@@ -7,8 +7,7 @@
     - update-automatically
 name: Automatic Version Updates
 jobs:
-  release:
-    name: Update releases
+  Update_monicahq_version:
     runs-on: ubuntu-latest
     steps:
     - name: Update monicahq version
@@ -22,6 +21,9 @@ jobs:
         PR_TITLE: Update monicahq version
         PR_BODY: A new version of monicahq is available. cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
+  Update_rclone_version:
+    runs-on: ubuntu-latest
+    steps:
     - name: Update rclone version
       uses: technote-space/create-pr-action@v2
       with:
