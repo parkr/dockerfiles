@@ -46,14 +46,14 @@ File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
   })
 end
 
-docker_login_job = proc { |registry|
+docker_login_job = proc { |env_prefix, registry|
   {
     "name" => "Docker Hub Login",
     "uses" => "parkr/actions/docker-auth@main",
     "with" => { "args" => "login" },
     "env" => {
-      "DOCKER_USERNAME" => "${{ secrets.DOCKER_USERNAME }}",
-      "DOCKER_PASSWORD" => "${{ secrets.DOCKER_PASSWORD }}",
+      "DOCKER_USERNAME" => "${{ secrets.#{env_prefix}_USERNAME }}",
+      "DOCKER_PASSWORD" => "${{ secrets.#{env_prefix}_PASSWORD }}",
       "DOCKER_REGISTRY_URL" => registry,
     },
   }
@@ -104,7 +104,7 @@ publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
     },
     "steps" => [
       { "uses" => "actions/checkout@v2" },
-      docker_login_job.call("docker.io"),
+      docker_login_job.call("DOCKER", "docker.io"),
       cosign_secret_download_jobs.(),
       {
         "name" => "Publish #{project}",
@@ -147,7 +147,7 @@ publish_ghcr_jobs = projects.each_with_object({}) do |project, jobs|
     },
     "steps" => [
       { "uses" => "actions/checkout@v2" },
-      docker_login_job.call("ghcr.io"),
+      docker_login_job.call("GPR", "ghcr.io"),
       cosign_secret_download_jobs.(),
       {
         "name" => "Publish #{project}",
