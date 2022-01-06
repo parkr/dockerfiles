@@ -48,7 +48,7 @@ end
 
 docker_login_job = proc { |env_prefix, registry|
   {
-    "name" => "Docker Hub Login",
+    "name" => "Docker Login",
     "uses" => "parkr/actions/docker-auth@main",
     "with" => { "args" => "login" },
     "env" => {
@@ -61,7 +61,7 @@ docker_login_job = proc { |env_prefix, registry|
 
 docker_logout_job = proc { |registry|
   {
-    "name" => "Docker Hub Logout",
+    "name" => "Docker Logout",
     "uses" => "parkr/actions/docker-auth@main",
     "with" => { "args" => "logout" },
     "env" => {

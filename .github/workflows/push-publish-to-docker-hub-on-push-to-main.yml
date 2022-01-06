@@ -22,7 +22,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -42,7 +42,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -64,7 +64,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -84,7 +84,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -106,7 +106,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -126,7 +126,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -148,7 +148,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -168,7 +168,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -190,7 +190,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -210,7 +210,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -232,7 +232,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -252,7 +252,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -274,7 +274,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -294,7 +294,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -316,7 +316,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -336,7 +336,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -358,7 +358,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -378,7 +378,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -400,7 +400,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -420,7 +420,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -442,7 +442,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -462,7 +462,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -484,7 +484,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -504,7 +504,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
@@ -526,7 +526,7 @@ jobs:
       statuses: none
     steps:
     - uses: actions/checkout@v2
-    - name: Docker Hub Login
+    - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
         args: login
@@ -546,7 +546,7 @@ jobs:
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
     - name: Delete cosign key
       run: rm cosign.key
-    - name: Docker Hub Logout
+    - name: Docker Logout
       uses: parkr/actions/docker-auth@main
       with:
         args: logout
