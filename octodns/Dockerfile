@@ -1,15 +1,7 @@
-FROM alpine:latest as cloner
-RUN apk add --no-cache git && rm -rf /var/cache/apk/*
-ARG VERSION
-ENV CHECKOUT_DIR /tmp/octodns
-RUN set -ex \
-    && [ -n "$VERSION" ] \
-    && git clone https://github.com/github/octodns $CHECKOUT_DIR \
-    && git --work-tree "$CHECKOUT_DIR" --git-dir="$CHECKOUT_DIR/.git" checkout -q "$VERSION"
-
 FROM python:3.10-slim as build
-COPY --from=cloner /tmp/octodns /usr/share/octodns
-RUN pip install --no-cache-dir /usr/share/octodns boto3
+RUN pip install --no-cache-dir boto3 \
+  git+https://github.com/octodns/octodns@237610d3a953059b112967d896c400148df0c466 \
+  git+https://github.com/octodns/octodns-cloudflare@e659d2da3e57a22eeed601c3b62458e61a0dd9b2
 
 FROM python:3.10-slim
 COPY --from=build /usr/local/lib/python*/site-packages /usr/local/lib/python3.10/site-packages
