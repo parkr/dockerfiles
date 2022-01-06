@@ -70,16 +70,20 @@ docker_logout_job = proc { |registry|
   }
 }
 
-cosign_secret_download_jobs = {
-  "name"  => "Download cosign key",
-  "run"   => 'echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c',
-  "shell" => "bash",
-  "env"   => {"COSIGN_KEY" => '${{secrets.COSIGN_KEY}}'},
+cosign_secret_download_jobs = proc {
+  {
+    "name"  => "Download cosign key",
+    "run"   => 'echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c',
+    "shell" => "bash",
+    "env"   => {"COSIGN_KEY" => '${{secrets.COSIGN_KEY}}'},
+  }
 }
 
-cosign_secret_delete_jobs = {
-  "name" => "Delete cosign key",
-  "run"  => "rm cosign.key",
+cosign_secret_delete_jobs = proc {
+  {
+    "name" => "Delete cosign key",
+    "run"  => "rm cosign.key",
+  }
 }
 
 publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
@@ -101,7 +105,7 @@ publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
     "steps" => [
       { "uses" => "actions/checkout@v2" },
       docker_login_job.call("docker.io"),
-      cosign_secret_download_jobs,
+      cosign_secret_download_jobs.(),
       {
         "name" => "Publish #{project}",
         "uses" => "parkr/actions/docker-make@main",
@@ -110,7 +114,7 @@ publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
           "cosign-password" => '${{secrets.COSIGN_KEY_PASSPHRASE}}',
         }
       },
-      cosign_secret_delete_jobs,
+      cosign_secret_delete_jobs.(),
       docker_logout_job.call("docker.io"),
     ],
   }
@@ -144,7 +148,7 @@ publish_ghcr_jobs = projects.each_with_object({}) do |project, jobs|
     "steps" => [
       { "uses" => "actions/checkout@v2" },
       docker_login_job.call("ghcr.io"),
-      cosign_secret_download_jobs,
+      cosign_secret_download_jobs.(),
       {
         "name" => "Publish #{project}",
         "uses" => "parkr/actions/docker-make@main",
@@ -153,7 +157,7 @@ publish_ghcr_jobs = projects.each_with_object({}) do |project, jobs|
           "cosign-password" => '${{secrets.COSIGN_KEY_PASSPHRASE}}',
         }
       },
-      cosign_secret_delete_jobs,
+      cosign_secret_delete_jobs.(),
       docker_logout_job.call("ghcr.io"),
     ],
   }

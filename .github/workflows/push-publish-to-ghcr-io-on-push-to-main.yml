@@ -30,8 +30,7 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - &1
-      name: Download cosign key
+    - name: Download cosign key
       run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
       shell: bash
       env:
@@ -41,8 +40,7 @@ jobs:
       with:
         args: publish-airconnect sign-airconnect -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - &2
-      name: Delete cosign key
+    - name: Delete cosign key
       run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
@@ -74,13 +72,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish aws-cli
       uses: parkr/actions/docker-make@main
       with:
         args: publish-aws-cli sign-aws-cli -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -111,13 +114,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
       with:
         args: publish-checkup sign-checkup -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -148,13 +156,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish curl
       uses: parkr/actions/docker-make@main
       with:
         args: publish-curl sign-curl -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -185,13 +198,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:
         args: publish-git sign-git -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -222,13 +240,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
         args: publish-graphql-schema-linter sign-graphql-schema-linter -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -259,13 +282,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:
         args: publish-html-proofer sign-html-proofer -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -296,13 +324,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
         args: publish-monicahq sign-monicahq -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -333,13 +366,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish octodns
       uses: parkr/actions/docker-make@main
       with:
         args: publish-octodns sign-octodns -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -370,13 +408,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
       with:
         args: publish-puppet-lint sign-puppet-lint -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -407,13 +450,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
       with:
         args: publish-rclone sign-rclone -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -444,13 +492,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
         args: publish-silence-but-for-error sign-silence-but-for-error -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
@@ -481,13 +534,18 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: ghcr.io
-    - *1
+    - name: Download cosign key
+      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+      shell: bash
+      env:
+        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
         args: publish-southwestcheckin sign-southwestcheckin -e NAMESPACE=ghcr.io/parkr
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - *2
+    - name: Delete cosign key
+      run: rm cosign.key
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
