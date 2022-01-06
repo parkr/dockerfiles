@@ -4,11 +4,10 @@
     branches:
     - main
     - github-actions
-    - setup-cosign
 name: Publish to Docker Hub on push to main
 jobs:
-  Deploy_all_to_Docker_Hub:
-    name: Deploy all to Docker Hub
+  Publish_airconnect_to_Docker_Hub:
+    name: Publish airconnect to Docker Hub
     runs-on: ubuntu-latest
     permissions:
       actions: none
@@ -16,7 +15,7 @@ jobs:
       contents: none
       deployments: none
       issues: none
-      packages: none
+      packages: write
       pull-requests: none
       repository-projects: none
       security-events: none
@@ -31,7 +30,8 @@ jobs:
         DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
         DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
         DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
+    - &1
+      name: Download cosign key
       run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
       shell: bash
       env:
@@ -41,68 +41,453 @@ jobs:
       with:
         args: publish-airconnect sign-airconnect
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - &2
+      name: Delete cosign key
+      run: rm cosign.key
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_aws-cli_to_Docker_Hub:
+    name: Publish aws-cli to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish aws-cli
       uses: parkr/actions/docker-make@main
       with:
         args: publish-aws-cli sign-aws-cli
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_checkup_to_Docker_Hub:
+    name: Publish checkup to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
       with:
         args: publish-checkup sign-checkup
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_curl_to_Docker_Hub:
+    name: Publish curl to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish curl
       uses: parkr/actions/docker-make@main
       with:
         args: publish-curl sign-curl
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_git_to_Docker_Hub:
+    name: Publish git to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:
         args: publish-git sign-git
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_graphql-schema-linter_to_Docker_Hub:
+    name: Publish graphql-schema-linter to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
         args: publish-graphql-schema-linter sign-graphql-schema-linter
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_html-proofer_to_Docker_Hub:
+    name: Publish html-proofer to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:
         args: publish-html-proofer sign-html-proofer
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_monicahq_to_Docker_Hub:
+    name: Publish monicahq to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
         args: publish-monicahq sign-monicahq
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_octodns_to_Docker_Hub:
+    name: Publish octodns to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish octodns
       uses: parkr/actions/docker-make@main
       with:
         args: publish-octodns sign-octodns
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_puppet-lint_to_Docker_Hub:
+    name: Publish puppet-lint to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
       with:
         args: publish-puppet-lint sign-puppet-lint
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_rclone_to_Docker_Hub:
+    name: Publish rclone to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
       with:
         args: publish-rclone sign-rclone
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_silence-but-for-error_to_Docker_Hub:
+    name: Publish silence-but-for-error to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
         args: publish-silence-but-for-error sign-silence-but-for-error
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+    - *2
+    - name: Docker Hub Logout
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: logout
+      env:
+        DOCKER_REGISTRY_URL: docker.io
+  Publish_southwestcheckin_to_Docker_Hub:
+    name: Publish southwestcheckin to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Hub Login
+      uses: parkr/actions/docker-auth@main
+      with:
+        args: login
+      env:
+        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+        DOCKER_REGISTRY_URL: docker.io
+    - *1
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
         args: publish-southwestcheckin sign-southwestcheckin
         cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
+    - *2
     - name: Docker Hub Logout
       uses: parkr/actions/docker-auth@main
       with:
