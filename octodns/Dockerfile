@@ -1,5 +1,9 @@
 FROM python:3.10-slim as build
-RUN apk add --no-cache git && rm -rf /var/cache/apk/*
+RUN set -ex \
+  && apt-get -y update \
+  && apt-get -y install --no-install-recommends git \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ARG VERSION
 RUN pip install --no-cache-dir boto3 \
   git+https://github.com/octodns/octodns@237610d3a953059b112967d896c400148df0c466 \
