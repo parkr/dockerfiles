@@ -4,7 +4,7 @@
     branches:
     - main
     - github-actions
-name: Publish to Docker Hub on push to main
+name: Publish to GitHub Container Registry on push to main
 jobs:
   Publish_airconnect_to_GitHub_Container_Registry:
     name: Publish airconnect to GitHub Container Registry

@@ -167,7 +167,7 @@ end
 File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
     "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
-    "name" => "Publish to Docker Hub on push to main",
+    "name" => "Publish to GitHub Container Registry on push to main",
     "jobs" => publish_ghcr_jobs,
   })
 end
