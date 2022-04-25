@@ -21,6 +21,20 @@ jobs:
         PR_TITLE: Update graphql-schema-linter version
         PR_BODY: A new version of graphql-schema-linter is available. cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
+  Update_html-proofer_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update html-proofer version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: make update-html-proofer
+        COMMIT_MESSAGE: Update html-proofer version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-html-proofer-${PR_ID}
+        PR_TITLE: Update html-proofer version
+        PR_BODY: A new version of html-proofer is available. cc @parkr
+        PR_BRANCH_PREFIX: update-automatically-
   Update_monicahq_version:
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +48,20 @@ jobs:
         PR_BRANCH_NAME: version-update-monicahq-${PR_ID}
         PR_TITLE: Update monicahq version
         PR_BODY: A new version of monicahq is available. cc @parkr
+        PR_BRANCH_PREFIX: update-automatically-
+  Update_puppet-lint_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update puppet-lint version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: make update-puppet-lint
+        COMMIT_MESSAGE: Update puppet-lint version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-puppet-lint-${PR_ID}
+        PR_TITLE: Update puppet-lint version
+        PR_BODY: A new version of puppet-lint is available. cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_rclone_version:
     runs-on: ubuntu-latest
