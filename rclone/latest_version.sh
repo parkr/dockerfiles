@@ -1,6 +1,8 @@
 #!/bin/bash
 
-set -ex
+if [ -n "$DEBUG" ]; then set -x; fi
+
+set -e
 
 current_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 version_file_path="${current_dir}/VERSION"

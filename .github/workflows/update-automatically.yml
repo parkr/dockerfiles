@@ -13,7 +13,7 @@ jobs:
     - name: Update monicahq version
       uses: technote-space/create-pr-action@v2
       with:
-        EXECUTE_COMMANDS: bash monicahq/latest_version.sh
+        EXECUTE_COMMANDS: make update-monicahq
         COMMIT_MESSAGE: Update monicahq version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
@@ -27,7 +27,7 @@ jobs:
     - name: Update rclone version
       uses: technote-space/create-pr-action@v2
       with:
-        EXECUTE_COMMANDS: bash rclone/latest_version.sh
+        EXECUTE_COMMANDS: make update-rclone
         COMMIT_MESSAGE: Update rclone version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com

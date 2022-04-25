@@ -2,6 +2,7 @@ PROJECTS := $(sort $(dir $(wildcard **/Dockerfile)))
 NAMESPACE := parkr
 TAG_PREFIX :=
 HADOLINT_CFG := $(shell pwd)/.hadolint.yaml
+UPDATABLE_PROJECTS := $(sort $(patsubst %/latest_version.sh,update-%,$(wildcard **/latest_version.sh)))
 
 default:
 	@echo "Hello there, weary traveler."
@@ -70,3 +71,10 @@ published-%:
 buildaction-%:
 	$(eval PROJECT_NAME := $(patsubst buildaction-%,%,$@))
 	docker build -t $(PROJECT_NAME):latest ./.github/actions/$(PROJECT_NAME)
+
+update: $(UPDATABLE_PROJECTS)
+	echo $(UPDATABLE_PROJECTS)
+
+update-%:
+	$(eval PROJECT_NAME := $(patsubst update-%,%,$@))
+	bash $(PROJECT_NAME)/latest_version.sh
