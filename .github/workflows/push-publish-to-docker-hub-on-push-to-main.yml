@@ -342,48 +342,6 @@ jobs:
         args: logout
       env:
         DOCKER_REGISTRY_URL: docker.io
-  Publish_octodns_to_Docker_Hub:
-    name: Publish octodns to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v2
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Publish octodns
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-octodns sign-octodns
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
   Publish_puppet-lint_to_Docker_Hub:
     name: Publish puppet-lint to Docker Hub
     runs-on: ubuntu-latest
