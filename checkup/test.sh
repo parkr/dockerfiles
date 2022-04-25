@@ -22,4 +22,4 @@ set -x
 
 # Can't use -v in Actions, so let's build a temporary image.
 echo -e "FROM $TAG\nCOPY test-config.json /config.json\n" | docker build -t $TEMP_IMAGE_TAG -f - "$root"
-docker run --rm $TEMP_IMAGE_TAG --v -c /config.json
+docker run --rm $TEMP_IMAGE_TAG -c /config.json
