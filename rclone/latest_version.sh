@@ -9,6 +9,6 @@ version_file_path="${current_dir}/VERSION"
 echo "$version_file_path"
 
 # 'rclone vx.y.z'
-curl https://downloads.rclone.org/version.txt | awk '{print $2}' > "$version_file_path"
+curl --silent https://downloads.rclone.org/version.txt | awk '{print $2}' > "$version_file_path"
 
 cat "$version_file_path"
