@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [ -n "$DEBUG" ]; then set -x; fi
+
 set -e
 
 trap "rm -f output" EXIT
