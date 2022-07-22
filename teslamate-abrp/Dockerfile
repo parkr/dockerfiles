@@ -1,3 +1,4 @@
+ARG VERSION
 FROM python:3.10-alpine as cloner
 
 RUN set -ex \
