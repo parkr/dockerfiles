@@ -1,4 +1,3 @@
-ARG VERSION
 FROM python:3.10-alpine as cloner
 
 RUN set -ex \
@@ -6,6 +5,7 @@ RUN set -ex \
 ENV CHECKOUT_DIR /usr/src/teslamate-abrp
 RUN git clone https://github.com/fetzu/teslamate-abrp ${CHECKOUT_DIR}
 WORKDIR $CHECKOUT_DIR
+ARG VERSION
 RUN set -ex \
     && git checkout -q "$VERSION" \
     && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = "$VERSION" ] \
