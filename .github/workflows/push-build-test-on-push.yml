@@ -242,3 +242,23 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-southwestcheckin
+  Test_teslamate-abrp:
+    name: Test teslamate-abrp
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test teslamate-abrp
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-teslamate-abrp
