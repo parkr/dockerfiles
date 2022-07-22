@@ -12,6 +12,7 @@ RUN set -ex \
 
 FROM python:3.10-alpine
 
+WORKDIR /usr/src/teslamate-abrp
 COPY --from=cloner LICENSE ./
 COPY --from=cloner requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
