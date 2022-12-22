@@ -13,5 +13,5 @@ test -z "$1" && {
 }
 
 set -x
-docker run --rm --entrypoint=/bin/sh "$TAG" -c "which airupnp-x86-64"
-docker run --rm --entrypoint=/bin/sh "$TAG" -c "which airupnp-x86-64-static"
+docker run --rm --entrypoint=/bin/sh "$TAG" -c "which airupnp-linux-x86_64"
+docker run --rm --entrypoint=/bin/sh "$TAG" -c "which airupnp-linux-x86_64-static"
