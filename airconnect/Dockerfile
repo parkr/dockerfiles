@@ -14,7 +14,7 @@ RUN curl -o $AIRCONNECT_BINARY \
 FROM debian:buster-slim
 RUN set -ex \
   && apt-get update -y \
-  && apt-get install -y --no-install-recommends libssl-dev libssl1.0.0 strace \
+  && apt-get install -y --no-install-recommends libssl-dev libssl1.1 strace \
   && rm -rf /var/lib/apt/lists/*
 COPY healthcheck.sh /usr/local/bin/healthcheck.sh
 HEALTHCHECK --interval=10s --timeout=30s --start-period=1s --retries=3 \
