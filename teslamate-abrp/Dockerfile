@@ -8,7 +8,7 @@ WORKDIR $CHECKOUT_DIR
 ARG VERSION
 RUN set -ex \
     && git checkout -q "$VERSION" \
-    && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = "$VERSION" ] \
+    && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git describe --tags)" = "$VERSION" ] \
     && ls
 
 FROM python:3.11.3-alpine
