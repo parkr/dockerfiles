@@ -10,4 +10,6 @@ echo "$version_file_path"
 
 curl --silent --fail https://api.github.com/repos/fetzu/teslamate-abrp/releases/latest | jq -r .tag_name > "$version_file_path"
 
+[ -s "$version_file_path" ] || ( echo "empty latest version"; exit 1 )
+
 cat "$version_file_path"
