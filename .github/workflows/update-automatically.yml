@@ -21,6 +21,20 @@ jobs:
         PR_TITLE: Update airconnect version
         PR_BODY: A new version of airconnect is available. cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
+  Update_checkup_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update checkup version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: make update-checkup
+        COMMIT_MESSAGE: Update checkup version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-checkup-${PR_ID}
+        PR_TITLE: Update checkup version
+        PR_BODY: A new version of checkup is available. cc @parkr
+        PR_BRANCH_PREFIX: update-automatically-
   Update_graphql-schema-linter_version:
     runs-on: ubuntu-latest
     steps:
