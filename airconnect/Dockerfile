@@ -12,6 +12,8 @@ RUN curl -o $AIRCONNECT_BINARY \
 	&& chmod 755 $AIRCONNECT_BINARY_STATIC
 
 FROM debian:buster-slim
+ENV AIRCONNECT_BINARY /usr/local/bin/airupnp-linux-x86_64
+ENV AIRCONNECT_BINARY_STATIC $AIRCONNECT_BINARY-static
 RUN set -ex \
   && apt-get update -y \
   && apt-get install -y --no-install-recommends libssl-dev libssl1.1 strace \
