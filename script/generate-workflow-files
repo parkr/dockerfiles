@@ -40,7 +40,7 @@ end
 # On Push, test.
 File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => PUBLISH_BRANCHES, "pull_request" => PUBLISH_BRANCHES},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}, "pull_request" => {"branches" => PUBLISH_BRANCHES}},
     "name" => "Build & test on push",
     "jobs" => test_jobs,
   })
