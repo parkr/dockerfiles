@@ -5,7 +5,7 @@
   push:
     branches:
     - update-automatically
-  workflow_dispatch: 
+  workflow_dispatch: {}
 name: Automatic Version Updates
 jobs:
   Update_airconnect_version:
