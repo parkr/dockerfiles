@@ -1,11 +1,13 @@
 ---
 'on':
   push:
-    branches: &1
+    branches:
     - main
     - github-actions
   pull_request:
-    branches: *1
+    branches:
+    - main
+    - github-actions
 name: Build & test on push
 jobs:
   Test_airconnect:
