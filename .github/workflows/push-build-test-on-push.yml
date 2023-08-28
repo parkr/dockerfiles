@@ -1,9 +1,13 @@
 ---
 'on':
   push:
-    branches: [main]
+    branches:
+    - main
+    - github-actions
   pull_request:
-    branches: [main]
+    branches:
+    - main
+    - github-actions
 name: Build & test on push
 jobs:
   Test_airconnect:
@@ -146,6 +150,26 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-html-proofer
+  Test_httpprinter:
+    name: Test httpprinter
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v3
+    - name: Test httpprinter
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-httpprinter
   Test_monicahq:
     name: Test monicahq
     runs-on: ubuntu-latest

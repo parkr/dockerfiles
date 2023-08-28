@@ -40,7 +40,7 @@ end
 # On Push, test.
 File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => "push",
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES.clone.dup}, "pull_request" => {"branches" => PUBLISH_BRANCHES.clone.dup}},
     "name" => "Build & test on push",
     "jobs" => test_jobs,
   })
@@ -200,7 +200,8 @@ File.open(".github/workflows/update-automatically.yml", "wb") do |f|
       "schedule" => [{"cron" => "0 0 * * *"}],
       "push" => {
         "branches" => ["update-automatically"]
-      }
+      },
+      "workflow_dispatch" => {},
     },
     "name" => "Automatic Version Updates",
     "jobs" => automatically_update_jobs
