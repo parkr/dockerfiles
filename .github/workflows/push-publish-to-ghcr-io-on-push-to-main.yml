@@ -21,7 +21,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -63,7 +63,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -105,7 +105,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -147,7 +147,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -189,7 +189,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -231,7 +231,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -273,7 +273,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -315,7 +315,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -357,7 +357,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -399,7 +399,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -441,7 +441,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -483,7 +483,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -525,7 +525,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
@@ -567,7 +567,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Docker Login
       uses: parkr/actions/docker-auth@main
       with:
