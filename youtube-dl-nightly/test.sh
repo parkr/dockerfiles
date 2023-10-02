@@ -14,5 +14,5 @@ test -z "$1" && {
 
 set -x
 docker run --rm -v "$(pwd)":/youtube-dl "$TAG" "https://www.youtube.com/watch?v=hceNBCnOx44"
-ls *.mp4
-rm *.mp4
+ls "$(pwd)"/*.mp4
+rm "$(pwd)"/*.mp4
