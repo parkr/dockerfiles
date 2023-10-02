@@ -120,3 +120,17 @@ jobs:
         PR_TITLE: Update teslamate-abrp version
         PR_BODY: A new version of teslamate-abrp is available. cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
+  Update_youtube-dl-nightly_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update youtube-dl-nightly version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: make update-youtube-dl-nightly
+        COMMIT_MESSAGE: Update youtube-dl-nightly version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-youtube-dl-nightly-${PR_ID}
+        PR_TITLE: Update youtube-dl-nightly version
+        PR_BODY: A new version of youtube-dl-nightly is available. cc @parkr
+        PR_BRANCH_PREFIX: update-automatically-
