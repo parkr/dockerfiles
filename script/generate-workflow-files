@@ -4,6 +4,10 @@ require "yaml"
 
 PUBLISH_BRANCHES = ["main", "github-actions"]
 
+def changelog_url(project)
+  File.read(File.expand_path("../#{project}/CHANGELOG_URL.md", __dir__)).strip
+end
+
 projects = `git ls-files --directory -z */Dockerfile`.split("\0").each_with_object([]) do |file, projects|
   next if file.start_with?("homeassistant/")
   projects << File.dirname(file)
@@ -186,7 +190,7 @@ automatically_update_jobs = projects.each_with_object({}) do |project, jobs|
         "COMMIT_EMAIL"     => "actions@github.com",
         "PR_BRANCH_NAME"   => "version-update-#{project}-${PR_ID}",
         "PR_TITLE"         => "Update #{project} version",
-        "PR_BODY"          => "A new version of #{project} is available. cc @parkr",
+        "PR_BODY"          => "A new version of #{project} is available (#{changelog_url(project)}). cc @parkr",
         "PR_BRANCH_PREFIX" => "update-automatically-",
       }
     }]

@@ -20,7 +20,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-airconnect-${PR_ID}
         PR_TITLE: Update airconnect version
-        PR_BODY: A new version of airconnect is available. cc @parkr
+        PR_BODY: A new version of airconnect is available (https://github.com/philippe44/AirConnect/blob/master/CHANGELOG).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_checkup_version:
     runs-on: ubuntu-latest
@@ -34,7 +35,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-checkup-${PR_ID}
         PR_TITLE: Update checkup version
-        PR_BODY: A new version of checkup is available. cc @parkr
+        PR_BODY: A new version of checkup is available (https://github.com/sourcegraph/checkup).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_graphql-schema-linter_version:
     runs-on: ubuntu-latest
@@ -48,7 +50,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-graphql-schema-linter-${PR_ID}
         PR_TITLE: Update graphql-schema-linter version
-        PR_BODY: A new version of graphql-schema-linter is available. cc @parkr
+        PR_BODY: A new version of graphql-schema-linter is available (https://github.com/cjoudrey/graphql-schema-linter/blob/master/CHANGELOG.md).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_html-proofer_version:
     runs-on: ubuntu-latest
@@ -62,7 +65,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-html-proofer-${PR_ID}
         PR_TITLE: Update html-proofer version
-        PR_BODY: A new version of html-proofer is available. cc @parkr
+        PR_BODY: A new version of html-proofer is available (https://github.com/gjtorikian/html-proofer/blob/main/CHANGELOG.md).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_monicahq_version:
     runs-on: ubuntu-latest
@@ -76,7 +80,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-monicahq-${PR_ID}
         PR_TITLE: Update monicahq version
-        PR_BODY: A new version of monicahq is available. cc @parkr
+        PR_BODY: A new version of monicahq is available (https://www.monicahq.com/changelog).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_puppet-lint_version:
     runs-on: ubuntu-latest
@@ -90,7 +95,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-puppet-lint-${PR_ID}
         PR_TITLE: Update puppet-lint version
-        PR_BODY: A new version of puppet-lint is available. cc @parkr
+        PR_BODY: A new version of puppet-lint is available (https://github.com/puppetlabs/puppet-lint/blob/main/CHANGELOG.md).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_rclone_version:
     runs-on: ubuntu-latest
@@ -104,7 +110,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-rclone-${PR_ID}
         PR_TITLE: Update rclone version
-        PR_BODY: A new version of rclone is available. cc @parkr
+        PR_BODY: A new version of rclone is available (https://rclone.org/changelog/).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_teslamate-abrp_version:
     runs-on: ubuntu-latest
@@ -118,7 +125,8 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-teslamate-abrp-${PR_ID}
         PR_TITLE: Update teslamate-abrp version
-        PR_BODY: A new version of teslamate-abrp is available. cc @parkr
+        PR_BODY: A new version of teslamate-abrp is available (https://github.com/fetzu/teslamate-abrp).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_youtube-dl-nightly_version:
     runs-on: ubuntu-latest
@@ -132,5 +140,6 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-youtube-dl-nightly-${PR_ID}
         PR_TITLE: Update youtube-dl-nightly version
-        PR_BODY: A new version of youtube-dl-nightly is available. cc @parkr
+        PR_BODY: A new version of youtube-dl-nightly is available (https://github.com/ytdl-org/ytdl-nightly/releases).
+          cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
