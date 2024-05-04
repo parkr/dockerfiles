@@ -7,13 +7,10 @@ set -e
 trap "rm -f output" EXIT
 current_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 
-payload='{"uuid":"B007FF6D-C2DC-41B0-9B7D-680D5761CE8A","contacts":1,"version":"1.0.0"}'
-curl -X POST \
+curl \
   --silent \
-  -H "Content-Type: application/json" \
-  -d "$payload" \
-  https://version.monicahq.com/ping > output
-(jq -r .latest_version output > "${current_dir}/VERSION") || {
+  https://hub.docker.com/v2/repositories/library/monica/tags/ > output
+(jq -r .results[].name output | grep \\-apache | head -n 1 | cut -d- -f1 > "${current_dir}/VERSION") || {
     cat output
     echo "FAILURE"
     exit 1
