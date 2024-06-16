@@ -30,26 +30,6 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-airconnect
-  Test_aws-cli:
-    name: Test aws-cli
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v4
-    - name: Test aws-cli
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-aws-cli
   Test_checkup:
     name: Test checkup
     runs-on: ubuntu-latest

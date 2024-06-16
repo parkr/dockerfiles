@@ -48,48 +48,6 @@ jobs:
         args: logout
       env:
         DOCKER_REGISTRY_URL: ghcr.io
-  Publish_aws-cli_to_GitHub_Container_Registry:
-    name: Publish aws-cli to GitHub Container Registry
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v4
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.GPR_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.GPR_PASSWORD }}"
-        DOCKER_REGISTRY_URL: ghcr.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Publish aws-cli
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-aws-cli sign-aws-cli -e NAMESPACE=ghcr.io/parkr
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: ghcr.io
   Publish_checkup_to_GitHub_Container_Registry:
     name: Publish checkup to GitHub Container Registry
     runs-on: ubuntu-latest
