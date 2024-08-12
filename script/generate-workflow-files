@@ -110,7 +110,7 @@ publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
       { "uses" => "actions/checkout@v4" },
       docker_login_job.call("DOCKER", "docker.io"),
       cosign_secret_download_jobs.(),
-      { "name" => "Setup Docker Buildx", "run" => "docker buildx create --use" },
+      { "name" => "Setup Docker Buildx", "run" => "docker buildx --version && docker buildx create --use" },
       {
         "name" => "Publish #{project}",
         "uses" => "parkr/actions/docker-make@main",
