@@ -35,10 +35,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish airconnect
       uses: parkr/actions/docker-make@main
       with:
@@ -81,10 +81,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
       with:
@@ -127,10 +127,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish curl
       uses: parkr/actions/docker-make@main
       with:
@@ -173,10 +173,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:
@@ -219,10 +219,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
@@ -265,10 +265,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:
@@ -311,10 +311,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish httpprinter
       uses: parkr/actions/docker-make@main
       with:
@@ -357,10 +357,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
@@ -403,10 +403,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
       with:
@@ -449,10 +449,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
       with:
@@ -495,10 +495,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
@@ -541,10 +541,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
@@ -587,10 +587,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish teslamate-abrp
       uses: parkr/actions/docker-make@main
       with:
@@ -633,10 +633,10 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name my_custom_context
-        --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx use
-        --global --default my_custom_context && docker buildx ls
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
     - name: Publish youtube-dl-nightly
       uses: parkr/actions/docker-make@main
       with:
