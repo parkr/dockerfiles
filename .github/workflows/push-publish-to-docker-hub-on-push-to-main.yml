@@ -35,6 +35,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish airconnect
       uses: parkr/actions/docker-make@main
       with:
@@ -77,6 +79,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
       with:
@@ -119,6 +123,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish curl
       uses: parkr/actions/docker-make@main
       with:
@@ -161,6 +167,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish git
       uses: parkr/actions/docker-make@main
       with:
@@ -203,6 +211,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
@@ -245,6 +255,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
       with:
@@ -287,6 +299,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish httpprinter
       uses: parkr/actions/docker-make@main
       with:
@@ -329,6 +343,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
       with:
@@ -371,6 +387,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
       with:
@@ -413,6 +431,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
       with:
@@ -455,6 +475,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
@@ -497,6 +519,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
@@ -539,6 +563,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish teslamate-abrp
       uses: parkr/actions/docker-make@main
       with:
@@ -581,6 +607,8 @@ jobs:
       shell: bash
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+    - name: Setup Docker Buildx
+      run: docker buildx create --use
     - name: Publish youtube-dl-nightly
       uses: parkr/actions/docker-make@main
       with:

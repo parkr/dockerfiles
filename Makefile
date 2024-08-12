@@ -34,7 +34,10 @@ build-%: lint-%
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
-	docker build -t $(TAG) --build-arg VERSION=$(VERSION) $(PROJECT_NAME)
+	docker build \
+		-t $(TAG) \
+		--build-arg VERSION=$(VERSION) \
+		$(PROJECT_NAME)
 
 test-%: build-%
 	$(eval PROJECT_NAME := $(patsubst test-%,%,$@))
@@ -48,7 +51,12 @@ publish-%: test-%
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
-	docker push $(TAG)
+	docker buildx build \
+		--platform linux/arm64,linux/amd64 \
+		--push \
+		-t $(TAG) \
+		--build-arg VERSION=$(VERSION) \
+		$(PROJECT_NAME)
 
 sign-%:
 	$(eval PROJECT_NAME := $(patsubst sign-%,%,$@))
