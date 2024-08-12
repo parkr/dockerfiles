@@ -97,13 +97,13 @@ setup_buildx_job = proc {
       "docker buildx version",
       [
         "docker buildx create",
-        "--name default",
-        "--append default",
+        "--name my_custom_context",
         "--bootstrap",
         "--use",
         "--platform linux/arm64,linux/amd64",
+        "my_custom_context",
       ].join(" "),
-      # "docker buildx rm default",
+      "docker buildx use --global --default my_custom_context",
       "docker buildx ls",
     ].join(" && ")
   }
