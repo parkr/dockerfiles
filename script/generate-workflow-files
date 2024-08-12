@@ -112,7 +112,12 @@ publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
       cosign_secret_download_jobs.(),
       { 
         "name" => "Setup Docker Buildx", 
-        "run" => "docker buildx version && docker buildx create --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls"
+        "run" => [
+          "docker buildx version",
+          "docker buildx rm default",
+          "docker buildx create --bootstrap --use --platform linux/arm64,linux/amd64",
+          "docker buildx ls",
+        ].join(" && ")
       },
       {
         "name" => "Publish #{project}",
