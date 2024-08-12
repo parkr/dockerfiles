@@ -1,0 +1,1 @@
+https://github.com/puppetlabs/puppet-lint/blob/main/CHANGELOG.md

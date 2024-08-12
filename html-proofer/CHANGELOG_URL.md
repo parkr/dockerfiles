@@ -1,0 +1,1 @@
+https://github.com/gjtorikian/html-proofer/blob/main/CHANGELOG.md

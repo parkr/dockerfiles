@@ -1,0 +1,1 @@
+https://github.com/cjoudrey/graphql-schema-linter/blob/master/CHANGELOG.md

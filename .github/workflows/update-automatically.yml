@@ -80,7 +80,7 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-monicahq-${PR_ID}
         PR_TITLE: Update monicahq version
-        PR_BODY: A new version of monicahq is available (https://www.monicahq.com/changelog).
+        PR_BODY: A new version of monicahq is available (https://github.com/monicahq/monica/releases).
           cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_puppet-lint_version:
@@ -125,7 +125,7 @@ jobs:
         COMMIT_EMAIL: actions@github.com
         PR_BRANCH_NAME: version-update-teslamate-abrp-${PR_ID}
         PR_TITLE: Update teslamate-abrp version
-        PR_BODY: A new version of teslamate-abrp is available (https://github.com/fetzu/teslamate-abrp).
+        PR_BODY: A new version of teslamate-abrp is available (https://github.com/fetzu/teslamate-abrp/releases).
           cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
   Update_youtube-dl-nightly_version:
