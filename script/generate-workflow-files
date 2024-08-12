@@ -101,7 +101,6 @@ setup_buildx_job = proc {
         "--bootstrap",
         "--use",
         "--platform linux/arm64,linux/amd64",
-        "my_custom_context",
       ].join(" "),
       "docker buildx use --global --default my_custom_context",
       "docker buildx ls",
