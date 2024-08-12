@@ -95,7 +95,14 @@ setup_buildx_job = proc {
     "name" => "Setup Docker Buildx", 
     "run" => [
       "docker buildx version",
-      "docker buildx create --name armtoo --append default --bootstrap --use --platform linux/arm64,linux/amd64",
+      [
+        "docker buildx create",
+        "--name default",
+        "--append default",
+        "--bootstrap",
+        "--use",
+        "--platform linux/arm64,linux/amd64",
+      ].join(" "),
       # "docker buildx rm default",
       "docker buildx ls",
     ].join(" && ")

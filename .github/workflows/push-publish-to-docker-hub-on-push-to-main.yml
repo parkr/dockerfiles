@@ -36,7 +36,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish airconnect
       uses: parkr/actions/docker-make@main
@@ -81,7 +81,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish checkup
       uses: parkr/actions/docker-make@main
@@ -126,7 +126,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish curl
       uses: parkr/actions/docker-make@main
@@ -171,7 +171,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish git
       uses: parkr/actions/docker-make@main
@@ -216,7 +216,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish graphql-schema-linter
       uses: parkr/actions/docker-make@main
@@ -261,7 +261,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish html-proofer
       uses: parkr/actions/docker-make@main
@@ -306,7 +306,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish httpprinter
       uses: parkr/actions/docker-make@main
@@ -351,7 +351,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish monicahq
       uses: parkr/actions/docker-make@main
@@ -396,7 +396,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish puppet-lint
       uses: parkr/actions/docker-make@main
@@ -441,7 +441,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish rclone
       uses: parkr/actions/docker-make@main
@@ -486,7 +486,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish silence-but-for-error
       uses: parkr/actions/docker-make@main
@@ -531,7 +531,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish southwestcheckin
       uses: parkr/actions/docker-make@main
@@ -576,7 +576,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish teslamate-abrp
       uses: parkr/actions/docker-make@main
@@ -621,7 +621,7 @@ jobs:
       env:
         COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
     - name: Setup Docker Buildx
-      run: docker buildx version && docker buildx create --name armtoo --append default
+      run: docker buildx version && docker buildx create --name default --append default
         --bootstrap --use --platform linux/arm64,linux/amd64 && docker buildx ls
     - name: Publish youtube-dl-nightly
       uses: parkr/actions/docker-make@main
