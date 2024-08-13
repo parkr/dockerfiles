@@ -93,22 +93,8 @@ cosign_secret_delete_jobs = proc {
 setup_buildx_job = proc {
   { 
     "name" => "Set up Docker Buildx",
-    "uses" => "docker/setup-buildx-action@v3",
-    "with" => {
-      "platforms" => "linux/amd64,linux/arm64"
-    },
-    # "run" => [
-    #   "docker buildx version",
-    #   [
-    #     "docker buildx create",
-    #     "--name my_custom_context",
-    #     "--bootstrap",
-    #     "--use",
-    #     "--platform linux/arm64,linux/amd64",
-    #   ].join(" "),
-    #   "docker buildx use --global --default my_custom_context",
-    #   "docker buildx ls",
-    # ].join(" && ")
+    "uses" => "parkr/actions/docker-make@main",
+    "with" => { "args" => "docker-buildx-create", }
   }
 }
 
