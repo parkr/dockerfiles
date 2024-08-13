@@ -17,6 +17,13 @@ default:
 	@echo "Leave off the trailing /; that's an artifact of make."
 	@echo "Example: 'make build-curl'."
 
+docker-buildx-info:
+	docker buildx version
+	docker buildx ls
+
+docker-buildx-create: docker-buildx-info
+	docker buildx create --use --bootstrap --platform linux/arm64,linux/amd64
+
 dive-%: build-%
 	$(eval PROJECT_NAME := $(patsubst dive-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
@@ -46,7 +53,7 @@ test-%: build-%
 	$(eval TAG := $(REPO):$(TAG_PREFIX)$(VERSION))
 	bash $(PROJECT_NAME)/test.sh $(TAG)
 
-publish-%: test-%
+publish-%: test-% docker-buildx-info
 	$(eval PROJECT_NAME := $(patsubst publish-%,%,$@))
 	$(eval VERSION := $(shell cat $(PROJECT_NAME)/VERSION))
 	$(eval REPO := $(NAMESPACE)/$(PROJECT_NAME))
