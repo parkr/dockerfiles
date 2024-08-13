@@ -13,4 +13,4 @@ test -z "$1" && {
 }
 
 set -x
-docker run --rm -v "$(pwd)":/youtube-dl "$TAG" "https://www.youtube.com/watch?v=hceNBCnOx44"
+docker run --rm -v "$(pwd)":/youtube-dl "$TAG" "https://soundcloud.com/royalty-free-music-track/this-8-bit-game-music-royalty"
