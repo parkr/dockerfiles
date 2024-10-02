@@ -1,4 +1,4 @@
-FROM python:3.12.6-alpine as cloner
+FROM python:3.12.7-alpine as cloner
 
 RUN set -ex \
     && apk add --no-cache git
@@ -11,7 +11,7 @@ RUN set -ex \
     && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git describe --tags)" = "$VERSION" ] \
     && ls
 
-FROM python:3.12.6-alpine
+FROM python:3.12.7-alpine
 
 WORKDIR /usr/src/teslamate-abrp
 COPY --from=cloner /usr/src/teslamate-abrp/LICENSE ./
