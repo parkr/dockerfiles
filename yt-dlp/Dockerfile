@@ -7,4 +7,5 @@ RUN SUFFIX="$(bash yt-dlp-artifact-suffix.sh)" \
     -o /usr/local/bin/yt-dlp \
     "https://github.com/yt-dlp/yt-dlp/releases/download/${VERSION}/yt-dlp_linux${SUFFIX}" \
   && chmod 755 /usr/local/bin/yt-dlp
+RUN apk update && apk upgrade && apk add --no-cache ffmpeg
 ENTRYPOINT [ "/usr/local/bin/yt-dlp" ]
