@@ -143,3 +143,18 @@ jobs:
         PR_BODY: A new version of youtube-dl-nightly is available (https://github.com/ytdl-org/ytdl-nightly/releases).
           cc @parkr
         PR_BRANCH_PREFIX: update-automatically-
+  Update_yt-dlp_version:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Update yt-dlp version
+      uses: technote-space/create-pr-action@v2
+      with:
+        EXECUTE_COMMANDS: make update-yt-dlp
+        COMMIT_MESSAGE: Update yt-dlp version
+        COMMIT_NAME: GitHub Actions
+        COMMIT_EMAIL: actions@github.com
+        PR_BRANCH_NAME: version-update-yt-dlp-${PR_ID}
+        PR_TITLE: Update yt-dlp version
+        PR_BODY: A new version of yt-dlp is available (https://github.com/yt-dlp/yt-dlp/releases).
+          cc @parkr
+        PR_BRANCH_PREFIX: update-automatically-
