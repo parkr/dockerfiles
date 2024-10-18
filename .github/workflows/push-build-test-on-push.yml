@@ -290,3 +290,23 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-youtube-dl-nightly
+  Test_yt-dlp:
+    name: Test yt-dlp
+    runs-on: ubuntu-latest
+    permissions:
+      actions: none
+      checks: none
+      contents: none
+      deployments: none
+      issues: none
+      packages: write
+      pull-requests: none
+      repository-projects: none
+      security-events: none
+      statuses: none
+    steps:
+    - uses: actions/checkout@v4
+    - name: Test yt-dlp
+      uses: parkr/actions/docker-make@main
+      with:
+        args: test-yt-dlp
