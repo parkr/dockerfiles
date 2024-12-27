@@ -8,6 +8,7 @@
     branches:
     - main
     - github-actions
+  workflow_dispatch: 
 name: Build & test on push
 jobs:
   Test_airconnect:
