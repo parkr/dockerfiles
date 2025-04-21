@@ -14,4 +14,4 @@ test -z "$1" && {
 
 set -x
 
-docker run --rm "$TAG" python -u teslamate_mqtt2abrp.py -h
+docker run --rm "$TAG" python -u teslamate_mqtt2abrp.py --help
