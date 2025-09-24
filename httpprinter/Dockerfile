@@ -4,7 +4,7 @@ COPY go.* /app/
 COPY *.go /app/
 RUN set -ex \
   && ls go.mod main.go \
-  && CGO_ENABLED=0 go install github.com/parkr/dockerfiles/httpprinter
+  && CGO_ENABLED=0 go build -o /go/bin/httpprinter github.com/parkr/dockerfiles/httpprinter
 
 FROM debian:stable-slim
 COPY --from=builder /go/bin/httpprinter /bin/httpprinter
