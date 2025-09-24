@@ -1,6 +1,6 @@
 FROM golang:latest as builder
 RUN set -ex \
-  && CGO_ENABLED=0 go install github.com/parkr/silence-but-for-error/cmd/silence-but-for-error@latest
+  && CGO_ENABLED=0 go install github.com/parkr/silence-but-for-error/cmd/silence-but-for-error@fd05b6bae4710665391104ddfa70dd9c284653db
 
 FROM debian:stable-slim
 COPY --from=builder /go/bin/silence-but-for-error /bin/silence-but-for-error
