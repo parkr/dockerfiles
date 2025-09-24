@@ -9,7 +9,7 @@ RUN set -ex \
     && git checkout -q $VERSION \
     && [ "$(git --work-tree=$CHECKOUT_DIR --git-dir=$CHECKOUT_DIR/.git rev-parse HEAD)" = $VERSION ] \
     && go version \
-    && GOOS=linux go install -v -ldflags "-w -s" github.com/sourcegraph/checkup/...
+    && GOOS=linux go build -o /go/bin/checkup -v -ldflags "-w -s" "github.com/sourcegraph/checkup/cmd/checkup"
 
 FROM alpine:latest
 COPY --from=builder /go/bin/checkup /bin/checkup
