@@ -26,7 +26,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test airconnect
       uses: parkr/actions/docker-make@main
       with:
@@ -46,7 +46,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test checkup
       uses: parkr/actions/docker-make@main
       with:
@@ -66,7 +66,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test curl
       uses: parkr/actions/docker-make@main
       with:
@@ -86,7 +86,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test git
       uses: parkr/actions/docker-make@main
       with:
@@ -106,7 +106,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test graphql-schema-linter
       uses: parkr/actions/docker-make@main
       with:
@@ -126,7 +126,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test html-proofer
       uses: parkr/actions/docker-make@main
       with:
@@ -146,7 +146,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test httpprinter
       uses: parkr/actions/docker-make@main
       with:
@@ -166,7 +166,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test monicahq
       uses: parkr/actions/docker-make@main
       with:
@@ -186,7 +186,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test puppet-lint
       uses: parkr/actions/docker-make@main
       with:
@@ -206,7 +206,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test rclone
       uses: parkr/actions/docker-make@main
       with:
@@ -226,7 +226,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test silence-but-for-error
       uses: parkr/actions/docker-make@main
       with:
@@ -246,7 +246,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test southwestcheckin
       uses: parkr/actions/docker-make@main
       with:
@@ -266,7 +266,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test teslamate-abrp
       uses: parkr/actions/docker-make@main
       with:
@@ -286,7 +286,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test youtube-dl-nightly
       uses: parkr/actions/docker-make@main
       with:
@@ -306,7 +306,7 @@ jobs:
       security-events: none
       statuses: none
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Test yt-dlp
       uses: parkr/actions/docker-make@main
       with:
