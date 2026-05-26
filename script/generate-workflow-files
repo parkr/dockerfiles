@@ -192,6 +192,9 @@ automatically_update_check_jobs = updatable_projects.each_with_object({}) do |pr
   check_job_id = "Check_#{project.tr("-", "_")}_for_update"
   jobs[check_job_id] = {
     "runs-on" => "ubuntu-latest",
+    "permissions" => {
+      "contents" => "read",
+    },
     "outputs" => {
       "has_update" => "${{ steps.check.outputs.has_update }}"
     },
@@ -220,6 +223,10 @@ automatically_update_version_jobs = updatable_projects.each_with_object({}) do |
     "needs" => [check_job_id],
     "if" => "${{ needs.#{check_job_id}.outputs.has_update == 'true' }}",
     "runs-on" => "ubuntu-latest",
+    "permissions" => {
+      "contents" => "write",
+      "pull-requests" => "write",
+    },
     "steps" => [{
       "name" => "Update #{project} version",
       "uses" => "technote-space/create-pr-action@v2",
