@@ -1,0 +1,44 @@
+#!/bin/bash
+
+if [ -n "$DEBUG" ]; then set -x; fi
+
+set -euo pipefail
+
+json_output=0
+if [ "${1:-}" = "--json" ]; then
+  json_output=1
+  shift
+fi
+
+if [ "$#" -ne 0 ]; then
+  echo "usage: $0 [--json]" >&2
+  exit 1
+fi
+
+current_dir="$( cd "$(dirname "$0")" ; pwd -P )"
+cd "${current_dir}/.."
+
+outdated_apps=()
+for version_script in */latest_version.sh; do
+  app="${version_script%/latest_version.sh}"
+  if make "update-${app}" >/dev/null; then
+    if ! git diff --quiet -- "${app}/VERSION"; then
+      outdated_apps+=("${app}")
+      git checkout -- "${app}/VERSION"
+    fi
+  else
+    echo "warning: failed to check ${app}" >&2
+    git checkout -- "${app}/VERSION" 2>/dev/null || true
+  fi
+done
+
+if [ "${json_output}" -eq 1 ]; then
+  if [ "${#outdated_apps[@]}" -eq 0 ]; then
+    echo "{}"
+  else
+    printf "%s\n" "${outdated_apps[@]}" |
+      jq --compact-output --raw-input --slurp '{"include": (split("\n")[:-1] | map({"app": .}))}'
+  fi
+else
+  printf "%s\n" "${outdated_apps[@]}"
+fi
