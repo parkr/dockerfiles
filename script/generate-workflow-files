@@ -189,7 +189,7 @@ end
 updatable_projects = projects.select { |project| File.file?("#{project}/latest_version.sh") }
 
 automatically_update_check_jobs = updatable_projects.each_with_object({}) do |project, jobs|
-  check_job_id = "Check_#{project.tr("-", "_")}_for_update"
+  check_job_id = "check_#{project.tr("-", "_")}"
   jobs[check_job_id] = {
     "runs-on" => "ubuntu-latest",
     "permissions" => {
@@ -218,7 +218,7 @@ automatically_update_check_jobs = updatable_projects.each_with_object({}) do |pr
 end
 
 automatically_update_version_jobs = updatable_projects.each_with_object({}) do |project, jobs|
-  check_job_id = "Check_#{project.tr("-", "_")}_for_update"
+  check_job_id = "check_#{project.tr("-", "_")}"
   jobs["Update_#{project}_version"] = {
     "needs" => [check_job_id],
     "if" => "${{ needs.#{check_job_id}.outputs.has_update == 'true' }}",
@@ -235,7 +235,8 @@ automatically_update_version_jobs = updatable_projects.each_with_object({}) do |
         "COMMIT_MESSAGE"   => "Update #{project} version",
         "COMMIT_NAME"      => "GitHub Actions",
         "COMMIT_EMAIL"     => "actions@github.com",
-        "PR_BRANCH_NAME"   => "update-automatically-#{project}",
+        "PR_BRANCH_NAME"   => project,
+        "PR_BRANCH_PREFIX" => "update-automatically-",
         "PR_TITLE"         => "Update #{project} version",
         "PR_BODY"          => "A new version of #{project} is available (#{changelog_url(project)}). cc @parkr",
       }
