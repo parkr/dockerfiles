@@ -186,9 +186,39 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
   })
 end
 
-automatically_update_jobs = projects.each_with_object({}) do |project, jobs|
-  next unless File.file?("#{project}/latest_version.sh")
+updatable_projects = projects.select { |project| File.file?("#{project}/latest_version.sh") }
+
+automatically_update_check_jobs = updatable_projects.each_with_object({}) do |project, jobs|
+  check_job_id = "Check_#{project.tr("-", "_")}_for_update"
+  jobs[check_job_id] = {
+    "runs-on" => "ubuntu-latest",
+    "outputs" => {
+      "has_update" => "${{ steps.check.outputs.has_update }}"
+    },
+    "steps" => [
+      { "uses" => "actions/checkout@v4" },
+      {
+        "name" => "Check #{project} for version updates",
+        "id" => "check",
+        "run" => [
+          "make update-#{project}",
+          "if git diff --quiet -- #{project}/VERSION; then",
+          "  echo \"has_update=false\" >> \"$GITHUB_OUTPUT\"",
+          "else",
+          "  echo \"has_update=true\" >> \"$GITHUB_OUTPUT\"",
+          "fi",
+          "git checkout -- #{project}/VERSION",
+        ].join("\n"),
+      }
+    ],
+  }
+end
+
+automatically_update_version_jobs = updatable_projects.each_with_object({}) do |project, jobs|
+  check_job_id = "Check_#{project.tr("-", "_")}_for_update"
   jobs["Update_#{project}_version"] = {
+    "needs" => [check_job_id],
+    "if" => "${{ needs.#{check_job_id}.outputs.has_update == 'true' }}",
     "runs-on" => "ubuntu-latest",
     "steps" => [{
       "name" => "Update #{project} version",
@@ -198,14 +228,15 @@ automatically_update_jobs = projects.each_with_object({}) do |project, jobs|
         "COMMIT_MESSAGE"   => "Update #{project} version",
         "COMMIT_NAME"      => "GitHub Actions",
         "COMMIT_EMAIL"     => "actions@github.com",
-        "PR_BRANCH_NAME"   => "version-update-#{project}-${PR_ID}",
+        "PR_BRANCH_NAME"   => "update-automatically-#{project}",
         "PR_TITLE"         => "Update #{project} version",
         "PR_BODY"          => "A new version of #{project} is available (#{changelog_url(project)}). cc @parkr",
-        "PR_BRANCH_PREFIX" => "update-automatically-",
       }
     }]
   }
 end
+
+automatically_update_jobs = automatically_update_check_jobs.merge(automatically_update_version_jobs)
 
 # On a schedule, automatically update versions where supported.
 File.open(".github/workflows/update-automatically.yml", "wb") do |f|
@@ -213,7 +244,7 @@ File.open(".github/workflows/update-automatically.yml", "wb") do |f|
     "on" => {
       "schedule" => [{"cron" => "0 0 * * *"}],
       "push" => {
-        "branches" => ["update-automatically"]
+        "branches" => ["update-automatically", "update-automatically-*"]
       },
       "workflow_dispatch" => {},
     },

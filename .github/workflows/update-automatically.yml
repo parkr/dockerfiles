@@ -5,10 +5,174 @@
   push:
     branches:
     - update-automatically
+    - update-automatically-*
   workflow_dispatch: {}
 name: Automatic Version Updates
 jobs:
+  Check_airconnect_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check airconnect for version updates
+      id: check
+      run: |-
+        make update-airconnect
+        if git diff --quiet -- airconnect/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- airconnect/VERSION
+  Check_checkup_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check checkup for version updates
+      id: check
+      run: |-
+        make update-checkup
+        if git diff --quiet -- checkup/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- checkup/VERSION
+  Check_graphql_schema_linter_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check graphql-schema-linter for version updates
+      id: check
+      run: |-
+        make update-graphql-schema-linter
+        if git diff --quiet -- graphql-schema-linter/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- graphql-schema-linter/VERSION
+  Check_html_proofer_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check html-proofer for version updates
+      id: check
+      run: |-
+        make update-html-proofer
+        if git diff --quiet -- html-proofer/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- html-proofer/VERSION
+  Check_monicahq_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check monicahq for version updates
+      id: check
+      run: |-
+        make update-monicahq
+        if git diff --quiet -- monicahq/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- monicahq/VERSION
+  Check_puppet_lint_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check puppet-lint for version updates
+      id: check
+      run: |-
+        make update-puppet-lint
+        if git diff --quiet -- puppet-lint/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- puppet-lint/VERSION
+  Check_rclone_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check rclone for version updates
+      id: check
+      run: |-
+        make update-rclone
+        if git diff --quiet -- rclone/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- rclone/VERSION
+  Check_teslamate_abrp_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check teslamate-abrp for version updates
+      id: check
+      run: |-
+        make update-teslamate-abrp
+        if git diff --quiet -- teslamate-abrp/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- teslamate-abrp/VERSION
+  Check_youtube_dl_nightly_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check youtube-dl-nightly for version updates
+      id: check
+      run: |-
+        make update-youtube-dl-nightly
+        if git diff --quiet -- youtube-dl-nightly/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- youtube-dl-nightly/VERSION
+  Check_yt_dlp_for_update:
+    runs-on: ubuntu-latest
+    outputs:
+      has_update: "${{ steps.check.outputs.has_update }}"
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check yt-dlp for version updates
+      id: check
+      run: |-
+        make update-yt-dlp
+        if git diff --quiet -- yt-dlp/VERSION; then
+          echo "has_update=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "has_update=true" >> "$GITHUB_OUTPUT"
+        fi
+        git checkout -- yt-dlp/VERSION
   Update_airconnect_version:
+    needs:
+    - Check_airconnect_for_update
+    if: "${{ needs.Check_airconnect_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update airconnect version
@@ -18,12 +182,14 @@ jobs:
         COMMIT_MESSAGE: Update airconnect version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-airconnect-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-airconnect
         PR_TITLE: Update airconnect version
         PR_BODY: A new version of airconnect is available (https://github.com/philippe44/AirConnect/blob/master/CHANGELOG).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_checkup_version:
+    needs:
+    - Check_checkup_for_update
+    if: "${{ needs.Check_checkup_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update checkup version
@@ -33,12 +199,15 @@ jobs:
         COMMIT_MESSAGE: Update checkup version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-checkup-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-checkup
         PR_TITLE: Update checkup version
         PR_BODY: A new version of checkup is available (https://github.com/sourcegraph/checkup).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_graphql-schema-linter_version:
+    needs:
+    - Check_graphql_schema_linter_for_update
+    if: "${{ needs.Check_graphql_schema_linter_for_update.outputs.has_update == 'true'
+      }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update graphql-schema-linter version
@@ -48,12 +217,14 @@ jobs:
         COMMIT_MESSAGE: Update graphql-schema-linter version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-graphql-schema-linter-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-graphql-schema-linter
         PR_TITLE: Update graphql-schema-linter version
         PR_BODY: A new version of graphql-schema-linter is available (https://github.com/cjoudrey/graphql-schema-linter/blob/master/CHANGELOG.md).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_html-proofer_version:
+    needs:
+    - Check_html_proofer_for_update
+    if: "${{ needs.Check_html_proofer_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update html-proofer version
@@ -63,12 +234,14 @@ jobs:
         COMMIT_MESSAGE: Update html-proofer version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-html-proofer-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-html-proofer
         PR_TITLE: Update html-proofer version
         PR_BODY: A new version of html-proofer is available (https://github.com/gjtorikian/html-proofer/blob/main/CHANGELOG.md).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_monicahq_version:
+    needs:
+    - Check_monicahq_for_update
+    if: "${{ needs.Check_monicahq_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update monicahq version
@@ -78,12 +251,14 @@ jobs:
         COMMIT_MESSAGE: Update monicahq version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-monicahq-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-monicahq
         PR_TITLE: Update monicahq version
         PR_BODY: A new version of monicahq is available (https://github.com/monicahq/monica/releases).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_puppet-lint_version:
+    needs:
+    - Check_puppet_lint_for_update
+    if: "${{ needs.Check_puppet_lint_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update puppet-lint version
@@ -93,12 +268,14 @@ jobs:
         COMMIT_MESSAGE: Update puppet-lint version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-puppet-lint-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-puppet-lint
         PR_TITLE: Update puppet-lint version
         PR_BODY: A new version of puppet-lint is available (https://github.com/puppetlabs/puppet-lint/blob/main/CHANGELOG.md).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_rclone_version:
+    needs:
+    - Check_rclone_for_update
+    if: "${{ needs.Check_rclone_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update rclone version
@@ -108,12 +285,14 @@ jobs:
         COMMIT_MESSAGE: Update rclone version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-rclone-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-rclone
         PR_TITLE: Update rclone version
         PR_BODY: A new version of rclone is available (https://rclone.org/changelog/).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_teslamate-abrp_version:
+    needs:
+    - Check_teslamate_abrp_for_update
+    if: "${{ needs.Check_teslamate_abrp_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update teslamate-abrp version
@@ -123,12 +302,15 @@ jobs:
         COMMIT_MESSAGE: Update teslamate-abrp version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-teslamate-abrp-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-teslamate-abrp
         PR_TITLE: Update teslamate-abrp version
         PR_BODY: A new version of teslamate-abrp is available (https://github.com/fetzu/teslamate-abrp/releases).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_youtube-dl-nightly_version:
+    needs:
+    - Check_youtube_dl_nightly_for_update
+    if: "${{ needs.Check_youtube_dl_nightly_for_update.outputs.has_update == 'true'
+      }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update youtube-dl-nightly version
@@ -138,12 +320,14 @@ jobs:
         COMMIT_MESSAGE: Update youtube-dl-nightly version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-youtube-dl-nightly-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-youtube-dl-nightly
         PR_TITLE: Update youtube-dl-nightly version
         PR_BODY: A new version of youtube-dl-nightly is available (https://github.com/ytdl-org/ytdl-nightly/releases).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
   Update_yt-dlp_version:
+    needs:
+    - Check_yt_dlp_for_update
+    if: "${{ needs.Check_yt_dlp_for_update.outputs.has_update == 'true' }}"
     runs-on: ubuntu-latest
     steps:
     - name: Update yt-dlp version
@@ -153,8 +337,7 @@ jobs:
         COMMIT_MESSAGE: Update yt-dlp version
         COMMIT_NAME: GitHub Actions
         COMMIT_EMAIL: actions@github.com
-        PR_BRANCH_NAME: version-update-yt-dlp-${PR_ID}
+        PR_BRANCH_NAME: update-automatically-yt-dlp
         PR_TITLE: Update yt-dlp version
         PR_BODY: A new version of yt-dlp is available (https://github.com/yt-dlp/yt-dlp/releases).
           cc @parkr
-        PR_BRANCH_PREFIX: update-automatically-
