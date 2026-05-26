@@ -196,7 +196,7 @@ automatically_update_jobs = {
       "apps" => "${{ steps.outdated_apps.outputs.apps }}"
     },
     "steps" => [
-      { "uses" => "actions/checkout@v4" },
+      { "uses" => "actions/checkout@v5" },
       {
         "name" => "Find outdated apps",
         "id" => "outdated_apps",

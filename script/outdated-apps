@@ -27,7 +27,7 @@ for version_script in */latest_version.sh; do
       git checkout -- "${app}/VERSION"
     fi
   else
-    echo "warning: failed to check ${app}" >&2
+    echo "::warning::failed to check ${app}" >&2
     git checkout -- "${app}/VERSION" 2>/dev/null || true
   fi
 done
