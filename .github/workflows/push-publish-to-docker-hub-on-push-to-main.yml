@@ -1,14 +1,26 @@
----
+name: Publish to Docker Hub on push to main
 'on':
   push:
     branches:
-    - main
-    - github-actions
+      - main
+      - github-actions
   workflow_dispatch: {}
-name: Publish to Docker Hub on push to main
+
 jobs:
-  Publish_checkup_to_Docker_Hub:
-    name: Publish checkup to Docker Hub
+  Detect_projects:
+    runs-on: ubuntu-latest
+    outputs:
+      projects: ${{ steps.set-matrix.outputs.projects }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: set-matrix
+        run: |
+          PROJECTS=$(find * -maxdepth 1 -type d -exec test -f {}/VERSION \; -exec test -f {}/Dockerfile \; -print | grep -v 'homeassistant' | jq -R -s -c 'split("\n")[:-1]')
+          echo "projects=${PROJECTS}" >> "$GITHUB_OUTPUT"
+
+  Publish:
+    needs: Detect_projects
+    name: Publish ${{ matrix.project }} to Docker Hub
     runs-on: ubuntu-latest
     permissions:
       actions: none
@@ -21,587 +33,39 @@ jobs:
       repository-projects: none
       security-events: none
       statuses: none
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON(needs.Detect_projects.outputs.projects) }}
     steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish checkup
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-checkup sign-checkup
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_curl_to_Docker_Hub:
-    name: Publish curl to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish curl
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-curl sign-curl
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_git_to_Docker_Hub:
-    name: Publish git to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish git
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-git sign-git
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_graphql-schema-linter_to_Docker_Hub:
-    name: Publish graphql-schema-linter to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish graphql-schema-linter
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-graphql-schema-linter sign-graphql-schema-linter
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_html-proofer_to_Docker_Hub:
-    name: Publish html-proofer to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish html-proofer
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-html-proofer sign-html-proofer
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_httpprinter_to_Docker_Hub:
-    name: Publish httpprinter to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish httpprinter
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-httpprinter sign-httpprinter
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_puppet-lint_to_Docker_Hub:
-    name: Publish puppet-lint to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish puppet-lint
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-puppet-lint sign-puppet-lint
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_rclone_to_Docker_Hub:
-    name: Publish rclone to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish rclone
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-rclone sign-rclone
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_silence-but-for-error_to_Docker_Hub:
-    name: Publish silence-but-for-error to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish silence-but-for-error
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-silence-but-for-error sign-silence-but-for-error
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_southwestcheckin_to_Docker_Hub:
-    name: Publish southwestcheckin to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish southwestcheckin
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-southwestcheckin sign-southwestcheckin
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_teslamate-abrp_to_Docker_Hub:
-    name: Publish teslamate-abrp to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish teslamate-abrp
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-teslamate-abrp sign-teslamate-abrp
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_youtube-dl-nightly_to_Docker_Hub:
-    name: Publish youtube-dl-nightly to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish youtube-dl-nightly
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-youtube-dl-nightly sign-youtube-dl-nightly
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
-  Publish_yt-dlp_to_Docker_Hub:
-    name: Publish yt-dlp to Docker Hub
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Docker Login
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: login
-      env:
-        DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
-        DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
-        DOCKER_REGISTRY_URL: docker.io
-    - name: Download cosign key
-      run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
-      shell: bash
-      env:
-        COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
-    - name: Set up Docker Buildx
-      uses: parkr/actions/docker-make@main
-      with:
-        args: docker-buildx-create
-    - name: Publish yt-dlp
-      uses: parkr/actions/docker-make@main
-      with:
-        args: publish-yt-dlp sign-yt-dlp
-        cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
-    - name: Delete cosign key
-      run: rm cosign.key
-    - name: Docker Logout
-      uses: parkr/actions/docker-auth@main
-      with:
-        args: logout
-      env:
-        DOCKER_REGISTRY_URL: docker.io
+      - uses: actions/checkout@v6
+      - name: Docker Login
+        uses: parkr/actions/docker-auth@main
+        with:
+          args: login
+        env:
+          DOCKER_USERNAME: "${{ secrets.DOCKER_USERNAME }}"
+          DOCKER_PASSWORD: "${{ secrets.DOCKER_PASSWORD }}"
+          DOCKER_REGISTRY_URL: docker.io
+      - name: Download cosign key
+        run: echo "$COSIGN_KEY" > cosign.key && cat cosign.key | wc -c
+        shell: bash
+        env:
+          COSIGN_KEY: "${{secrets.COSIGN_KEY}}"
+      - name: Set up Docker Buildx
+        uses: parkr/actions/docker-make@main
+        with:
+          args: docker-buildx-create
+      - name: Publish ${{ matrix.project }}
+        uses: parkr/actions/docker-make@main
+        with:
+          args: publish-${{ matrix.project }} sign-${{ matrix.project }}
+          cosign-password: "${{secrets.COSIGN_KEY_PASSPHRASE}}"
+      - name: Delete cosign key
+        run: rm cosign.key
+      - name: Docker Logout
+        uses: parkr/actions/docker-auth@main
+        with:
+          args: logout
+        env:
+          DOCKER_REGISTRY_URL: docker.io
