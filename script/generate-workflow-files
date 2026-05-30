@@ -45,7 +45,7 @@ end
 # On Push, test.
 File.open(".github/workflows/push-build-test-on-push.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => PUBLISH_BRANCHES.clone.dup}, "pull_request" => {"branches" => PUBLISH_BRANCHES.clone.dup}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES.clone.dup}, "pull_request" => {"branches" => PUBLISH_BRANCHES.clone.dup}, "workflow_dispatch" => {}},
     "name" => "Build & test on push",
     "jobs" => test_jobs,
   })
@@ -137,7 +137,7 @@ end
 # On push to main branch, deploy to Docker Hub.
 File.open(".github/workflows/push-publish-to-docker-hub-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}, "workflow_dispatch" => {}},
     "name" => "Publish to Docker Hub on push to main",
     "jobs" => publish_docker_hub_jobs,
   })
@@ -181,7 +181,7 @@ end
 # On push to main branch, deploy to Docker Hub.
 File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb") do |f|
   f.puts YAML.dump({
-    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}},
+    "on" => {"push" => {"branches" => PUBLISH_BRANCHES}, "workflow_dispatch" => {}},
     "name" => "Publish to GitHub Container Registry on push to main",
     "jobs" => publish_ghcr_jobs,
   })

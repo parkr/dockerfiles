@@ -4,6 +4,7 @@
     branches:
     - main
     - github-actions
+  workflow_dispatch: {}
 name: Publish to GitHub Container Registry on push to main
 jobs:
   Publish_checkup_to_GitHub_Container_Registry:

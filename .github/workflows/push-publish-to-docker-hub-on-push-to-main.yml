@@ -4,6 +4,7 @@
     branches:
     - main
     - github-actions
+  workflow_dispatch: {}
 name: Publish to Docker Hub on push to main
 jobs:
   Publish_checkup_to_Docker_Hub:
