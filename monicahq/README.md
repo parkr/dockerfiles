@@ -1,4 +1,4 @@
-## monicahq
+## monicahq (RETIRED)
 
 MonicaHQ.com is an open source personal CRM. 
 

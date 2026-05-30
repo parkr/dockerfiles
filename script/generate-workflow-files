@@ -11,6 +11,7 @@ end
 projects = `git ls-files --directory -z */Dockerfile`.split("\0").each_with_object([]) do |file, projects|
   next if file.start_with?("homeassistant/")
   next if file.start_with?("airconnect/")
+  next if file.start_with?("monicahq/")
   projects << File.dirname(file)
 end
 p projects
