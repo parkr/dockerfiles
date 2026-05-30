@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# retire: disable and "retire" a dockerfile in this repo
+set -e
+set -u
+set -o pipefail
+
+main() {
+  local app
+  app="$1"
+  if [ -z "$app" ]; then
+    echo "usage: $0 <app_to_retire>" >> /dev/stderr
+    exit 1
+  fi
+
+  TODO...
+}
+
+main "$@"

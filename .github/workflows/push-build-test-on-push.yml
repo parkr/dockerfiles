@@ -8,29 +8,8 @@
     branches:
     - main
     - github-actions
-  workflow_dispatch: 
 name: Build & test on push
 jobs:
-  Test_airconnect:
-    name: Test airconnect
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Test airconnect
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-airconnect
   Test_checkup:
     name: Test checkup
     runs-on: ubuntu-latest

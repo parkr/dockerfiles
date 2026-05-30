@@ -1,4 +1,4 @@
-## airconnect
+## airconnect (RETIRED)
 
 This bundles the airupnp for linux AMD64 into a docker container.
 
