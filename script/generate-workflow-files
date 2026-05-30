@@ -31,7 +31,7 @@ test_jobs = projects.each_with_object({}) do |project, jobs|
       "statuses" => "none",
     },
     "steps" => [
-      { "uses" => "actions/checkout@v4" },
+      { "uses" => "actions/checkout@v6" },
       {
         "name" => "Test #{project}",
         "uses" => "parkr/actions/docker-make@main",
@@ -115,7 +115,7 @@ publish_docker_hub_jobs = projects.each_with_object({}) do |project, jobs|
       "statuses" => "none",
     },
     "steps" => [
-      { "uses" => "actions/checkout@v4" },
+      { "uses" => "actions/checkout@v6" },
       docker_login_job.call("DOCKER", "docker.io"),
       cosign_secret_download_jobs.(),
       setup_buildx_job.(),
@@ -159,7 +159,7 @@ publish_ghcr_jobs = projects.each_with_object({}) do |project, jobs|
       "statuses" => "none",
     },
     "steps" => [
-      { "uses" => "actions/checkout@v4" },
+      { "uses" => "actions/checkout@v6" },
       docker_login_job.call("GPR", "ghcr.io"),
       cosign_secret_download_jobs.(),
       setup_buildx_job.(),
@@ -186,26 +186,52 @@ File.open(".github/workflows/push-publish-to-ghcr-io-on-push-to-main.yml", "wb")
   })
 end
 
-automatically_update_jobs = projects.each_with_object({}) do |project, jobs|
-  next unless File.file?("#{project}/latest_version.sh")
-  jobs["Update_#{project}_version"] = {
+automatically_update_jobs = {
+  "Find_outdated_apps" => {
     "runs-on" => "ubuntu-latest",
+    "permissions" => {
+      "contents" => "read",
+    },
+    "outputs" => {
+      "apps" => "${{ steps.outdated_apps.outputs.apps }}"
+    },
+    "steps" => [
+      { "uses" => "actions/checkout@v6" },
+      {
+        "name" => "Find outdated apps",
+        "id" => "outdated_apps",
+        "run" => 'echo "apps=$(script/outdated-apps --json)" >> "$GITHUB_OUTPUT"',
+      }
+    ],
+  },
+  "Update_outdated_apps" => {
+    "needs" => ["Find_outdated_apps"],
+    "if" => "${{ needs.Find_outdated_apps.outputs.apps != '{}' }}",
+    "runs-on" => "ubuntu-latest",
+    "permissions" => {
+      "contents" => "write",
+      "pull-requests" => "write",
+    },
+    "strategy" => {
+      "fail-fast" => false,
+      "matrix" => "${{ fromJSON(needs.Find_outdated_apps.outputs.apps).include }}",
+    },
     "steps" => [{
-      "name" => "Update #{project} version",
+      "name" => "Update ${{ matrix.app }} version",
       "uses" => "technote-space/create-pr-action@v2",
       "with" => {
-        "EXECUTE_COMMANDS" => "make update-#{project}",
-        "COMMIT_MESSAGE"   => "Update #{project} version",
+        "EXECUTE_COMMANDS" => "make update-${{ matrix.app }}",
+        "COMMIT_MESSAGE"   => "Update ${{ matrix.app }} version",
         "COMMIT_NAME"      => "GitHub Actions",
         "COMMIT_EMAIL"     => "actions@github.com",
-        "PR_BRANCH_NAME"   => "version-update-#{project}-${PR_ID}",
-        "PR_TITLE"         => "Update #{project} version",
-        "PR_BODY"          => "A new version of #{project} is available (#{changelog_url(project)}). cc @parkr",
+        "PR_BRANCH_NAME"   => "${{ matrix.app }}",
         "PR_BRANCH_PREFIX" => "update-automatically-",
+        "PR_TITLE"         => "Update ${{ matrix.app }} version",
+        "PR_BODY"          => "A new version of ${{ matrix.app }} is available. cc @parkr",
       }
     }]
-  }
-end
+  },
+}
 
 # On a schedule, automatically update versions where supported.
 File.open(".github/workflows/update-automatically.yml", "wb") do |f|
@@ -213,7 +239,7 @@ File.open(".github/workflows/update-automatically.yml", "wb") do |f|
     "on" => {
       "schedule" => [{"cron" => "0 0 * * *"}],
       "push" => {
-        "branches" => ["update-automatically"]
+        "branches" => ["update-automatically", "update-automatically-*"]
       },
       "workflow_dispatch" => {},
     },
