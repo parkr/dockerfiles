@@ -131,26 +131,6 @@ jobs:
       uses: parkr/actions/docker-make@main
       with:
         args: test-httpprinter
-  Test_monicahq:
-    name: Test monicahq
-    runs-on: ubuntu-latest
-    permissions:
-      actions: none
-      checks: none
-      contents: none
-      deployments: none
-      issues: none
-      packages: write
-      pull-requests: none
-      repository-projects: none
-      security-events: none
-      statuses: none
-    steps:
-    - uses: actions/checkout@v6
-    - name: Test monicahq
-      uses: parkr/actions/docker-make@main
-      with:
-        args: test-monicahq
   Test_puppet-lint:
     name: Test puppet-lint
     runs-on: ubuntu-latest
