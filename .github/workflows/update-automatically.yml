@@ -30,7 +30,7 @@ jobs:
       pull-requests: write
     strategy:
       fail-fast: false
-      matrix: "${{ fromJSON(needs.Find_outdated_apps.outputs.apps).include }}"
+      matrix: ${{ fromJSON(needs.Find_outdated_apps.outputs.apps) }}
     steps:
     - name: Update ${{ matrix.app }} version
       uses: technote-space/create-pr-action@v2
