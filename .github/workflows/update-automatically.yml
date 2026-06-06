@@ -3,9 +3,8 @@
   schedule:
   - cron: 0 0 * * *
   push:
-    branches:
-    - update-automatically
-    - update-automatically-*
+    paths:
+    - .github/workflows/update-automatically.yml
   workflow_dispatch: {}
 name: Automatic Version Updates
 jobs:
