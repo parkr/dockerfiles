@@ -15,7 +15,7 @@ jobs:
     outputs:
       apps: "${{ steps.outdated_apps.outputs.apps }}"
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Find outdated apps
       id: outdated_apps
       run: echo "apps=$(script/outdated-apps --json)" >> "$GITHUB_OUTPUT"

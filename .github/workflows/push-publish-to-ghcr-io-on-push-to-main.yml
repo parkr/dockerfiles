@@ -12,7 +12,7 @@ jobs:
     outputs:
       projects: ${{ steps.set-matrix.outputs.projects }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id: set-matrix
         run: |
           PROJECTS=$(find * -maxdepth 1 -type d -exec test -f {}/VERSION \; -exec test -f {}/Dockerfile \; -print | grep -v 'homeassistant' | jq -R -s -c 'split("\n")[:-1]')
@@ -38,7 +38,7 @@ jobs:
       matrix:
         project: ${{ fromJSON(needs.Detect_projects.outputs.projects) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Docker Login
         uses: parkr/actions/docker-auth@main
         with:
