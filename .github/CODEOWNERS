@@ -1,0 +1,6 @@
+# CODEOWNERS
+#
+# These owners will be automatically requested for review on all pull
+# requests. See https://docs.github.com/articles/about-code-owners
+
+* @parkr
