@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v7
       - id: set-matrix
         run: |
-          PROJECTS=$(find * -maxdepth 1 -type d -exec test -f {}/VERSION \; -exec test -f {}/Dockerfile \; -print | grep -v 'homeassistant' | jq -R -s -c 'split("\n")[:-1]')
+          PROJECTS=$(find * -maxdepth 1 -type d -exec test -f {}/VERSION \; -exec test -f {}/Dockerfile \; -print | jq -R -s -c 'split("\n")[:-1]')
           echo "projects=${PROJECTS}" >> "$GITHUB_OUTPUT"
 
   Test:
