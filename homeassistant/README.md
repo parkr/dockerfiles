@@ -1,3 +1,3 @@
-# homeassistant (deprecated)
+# homeassistant
 
-This is no longer built & tested.
+> **Deprecated:** This image is retired and no longer built or published.
