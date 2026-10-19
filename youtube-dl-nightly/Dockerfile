@@ -1,7 +1,7 @@
 FROM parkr/curl:latest
 WORKDIR /youtube-dl
 RUN set -ex \
-    && apk add --no-cache python3 \
+    && apk add --no-cache python3 ffmpeg \
     && rm -rf /var/cache/apk/* /etc/apk/* /lib/apk/* /usr/share/apk/*
 ARG VERSION
 RUN curl -sLf \
